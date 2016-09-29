@@ -1,0 +1,114 @@
+﻿@model UPPHercegovina.WebApplication.Models.Product
+
+@{
+    ViewBag.Title = "Izmjeni / proizvod";
+}
+
+<h2>Izmjena proizvoda</h2>
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    
+    @Html.HiddenFor(model => model.PictureUrl)
+    <div class="form-horizontal">
+        <h4>Proizvod</h4>
+        <hr />
+        <div class="container col-md-8">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Proizvod</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Porijeklo</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PlaceOfOrigin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PlaceOfOrigin, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Opis</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @ViewBag.FM
+                <label class="control-label col-md-2">Slika</label>
+                <div class="col-md-10">
+                    <input type="file" title="search image" class="form-control" id="file" name="file" onchange="show(this)" />
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @* <label class="control-label col-md-2">Vrsta</label>*@
+                @Html.LabelFor(model => model.ProductTypeId, "Vrsta", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ProductTypeId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Status</label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Status)
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Izmjeni proizvod" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="form-group">
+                <img id="user_img" src="@Url.Content(Model.PictureUrl)" title="Proizvod" height="200" width="170" style="border:hidden" />
+            </div>
+
+        </div>
+
+        </div>
+
+    //dio za sliku
+
+}
+
+<div>
+    @Html.ActionLink("Nazad na listu", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

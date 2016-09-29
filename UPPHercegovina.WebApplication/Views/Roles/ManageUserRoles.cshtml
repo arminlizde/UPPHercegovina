@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Upravljanje rolama";
+}
+
+<h2>Upravljanje rolama</h2>
+@Html.ActionLink("Upravljanej rolama", "ManageUserRoles") | 
+<hr />
+
+<h2>Dodaj rolu za korisnika</h2>
+<div class="container">
+
+    @using (Html.BeginForm("AllUsers", "UserManagment"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+
+            <div class="col-md-12">
+                @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Unesite korisničko ime / email" })
+                <br />
+                @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "--- Odaberi rolu ---", new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <input type="submit" class="btn btn-default" value="Dodaj rolu" />
+    }
+
+    <hr />
+    @ViewBag.ResultMessage
+
+    <h3>Role za korisnika</h3>
+    @using (Html.BeginForm("GetRoles", "Roles"))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+
+            <div class="col-md-12">
+                @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Unesite korisničko ime / email" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-default" value="Role za korisnika" />
+        </div>
+    }
+
+    @if (ViewBag.RolesForThisUser != null)
+    {
+        <div style="background-color:#d8d8d6;">
+            <h3>Roles for this user </h3>
+            <ol>
+                @foreach (string r in ViewBag.RolesForThisUser)
+                {
+                    <li>@r</li>
+                }
+            </ol>
+        </div>
+    }
+
+    <hr />
+    <h3>Ukloni rolu</h3>
+
+    @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+
+            <div class="col-md-12">
+                @Html.TextBox("UserName", null, new {@class = "form-control", @placeholder="Unesite korisničko ime/email" })
+                <br />
+                @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "--- Odaberi rolu ---", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-default" value="Ukloni rolu korisniku" />
+    }
+</div>

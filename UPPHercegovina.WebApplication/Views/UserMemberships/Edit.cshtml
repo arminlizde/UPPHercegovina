@@ -1,0 +1,106 @@
+﻿@model UPPHercegovina.WebApplication.Models.UserMembershipEditViewModel
+
+@{
+    ViewBag.Title = "Izmjena/Članovi-Članarine";
+}
+
+<h2>Izmjena</h2>
+
+@using (Html.BeginForm("Edit", "UserMemberships", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Članovi-Članarine</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="container col-md-8">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Membership, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MembershipName, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Membership, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserFirstLastName, new { htmlAttributes = new {@readonly="readonly" ,@class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateOfPayment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DateOfPayment, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DateOfPayment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @ViewBag.FM
+                <label class="control-label col-md-2">Slika</label>
+                <div class="col-md-10">
+                    <input type="file" title="search image" placeholder="dodaj sliku" class="form-control" id="file" name="file" onchange="show(this)" />
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Approved)
+                        @Html.ValidationMessageFor(model => model.Approved, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Status)
+                        @Html.ValidationMessageFor(model => model.Approved, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Izmjeni" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                <img id="user_img" src="@Url.Content(Model.PictureUrl)" title="Uplatnica" height="200" width="165" style="border:hidden" />
+            </div>
+        </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Nazad na listu", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

@@ -1,0 +1,40 @@
+﻿@model UPPHercegovina.WebApplication.Models.Township
+
+@{
+    ViewBag.Title = "Obriši /Općinaa";
+}
+
+<h2>Izbriši općinu</h2>
+
+<h3>Da li ste sigurni da želite obrisati?</h3>
+<div>
+    <h4>Općina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <label>Naziv općine</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            <label>Entitet</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad na listu", "Index")
+        </div>
+    }
+</div>
