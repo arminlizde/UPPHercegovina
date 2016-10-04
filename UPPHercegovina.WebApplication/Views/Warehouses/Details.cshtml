@@ -1,0 +1,58 @@
+﻿@model UPPHercegovina.WebApplication.Models.Warehouse1
+
+@{
+    ViewBag.Title = "Detalji";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <h4>Skladišta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StoringId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StoringId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TownshipId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TownshipId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Izmjeni", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Nazad na listu", "Index")
+</p>
