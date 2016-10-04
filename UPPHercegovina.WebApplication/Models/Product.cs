@@ -16,7 +16,7 @@ namespace UPPHercegovina.WebApplication.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage="Obavezno ime produkta")]
-        [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Brojevi i znakovi nisu dozvoljeni!")]
+        [RegularExpression(@"^[a-zA-ZšćčđžŠČĆŽĐ\s]*$", ErrorMessage = "Brojevi i znakovi nisu dozvoljeni!")]
         [Display(Name = "Proizvod")]
         [DataMember(Name = "Name")]      
         public string Name { get; set; }

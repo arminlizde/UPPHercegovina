@@ -44,5 +44,4 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "Membership")]
         public virtual Membership Membership { get; set; }
     }
-
 }

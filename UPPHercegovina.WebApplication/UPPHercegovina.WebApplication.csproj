@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -144,12 +153,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
@@ -196,13 +199,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembershipsController.cs" />
+    <Compile Include="Controllers\PersonProductsController.cs" />
     <Compile Include="Controllers\PostCategoriesController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProductTypesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\StoringsController.cs" />
     <Compile Include="Controllers\TownshipsController.cs" />
     <Compile Include="Controllers\UserManagmentController.cs" />
     <Compile Include="Controllers\UserMembershipsController.cs" />
+    <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="CustomFilters\AuthLogAttribute.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -224,6 +230,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\PersonProduct.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostCategory.cs" />
     <Compile Include="Models\PostViewModel.cs" />
@@ -231,9 +238,12 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\Storing.cs" />
+    <Compile Include="Models\TempForGit.cs" />
     <Compile Include="Models\Township.cs" />
     <Compile Include="Models\UserMembership.cs" />
     <Compile Include="Models\MembershipViewModels.cs" />
+    <Compile Include="Models\Warehouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -447,6 +457,21 @@
     <Content Include="Views\PostCategories\Edit.cshtml" />
     <Content Include="Views\PostCategories\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
+    <Content Include="Views\Storings\Create.cshtml" />
+    <Content Include="Views\Storings\Delete.cshtml" />
+    <Content Include="Views\Storings\Details.cshtml" />
+    <Content Include="Views\Storings\Edit.cshtml" />
+    <Content Include="Views\Storings\Index.cshtml" />
+    <Content Include="Views\PersonProducts\Create.cshtml" />
+    <Content Include="Views\PersonProducts\Delete.cshtml" />
+    <Content Include="Views\PersonProducts\Details.cshtml" />
+    <Content Include="Views\PersonProducts\Edit.cshtml" />
+    <Content Include="Views\PersonProducts\Index.cshtml" />
+    <Content Include="Views\Warehouses\Create.cshtml" />
+    <Content Include="Views\Warehouses\Delete.cshtml" />
+    <Content Include="Views\Warehouses\Details.cshtml" />
+    <Content Include="Views\Warehouses\Edit.cshtml" />
+    <Content Include="Views\Warehouses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
