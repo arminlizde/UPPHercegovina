@@ -8,10 +8,11 @@ using System.Web.Mvc;
 using UPPHercegovina.WebApplication.Helpers;
 using UPPHercegovina.WebApplication.Models;
 using UPPHercegovina.WebApplication.Extensions;
+using UPPHercegovina.WebApplication.CustomFilters;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-
+    [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class PostsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -35,6 +36,10 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TextWithHtml = post.Text;
+
+            post.RelatedPost = post.GetRelatedPosts();
+
             return View(post);
         }
 
@@ -80,6 +85,15 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return pictureHelper.Save();
         }
+        private bool SavePictureToServer(HttpPostedFileBase file, Post post)
+        {
+            post.PictureUrl = string.Format("/Images/PostImg/Post-{0}-{1}-{2}-{3}.jpg", post.Title, post.CategoryId,
+                    DateTime.Now.ToString("dd-M-yyyy"), Extensions.Extensions.GetRndNumber());
+
+            PictureHelper pictureHelper = new PictureHelper(file, post.PictureUrl);
+
+            return pictureHelper.Save();
+        }
 
         public ActionResult Edit(int? id)
         {
@@ -95,7 +109,6 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             ViewBag.AuthorName = context.Users.Find(post.Author).GetDisplayName();
 
-
             var postTypesList = context.PostCategories.
                     OrderByDescending(p => p.Id == post.CategoryId).ThenBy(p => p.Title).ToList();
 
@@ -110,10 +123,21 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Recommended,Status")] Post post)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Recommended,Status")] Post post,
+            FormCollection form, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    if (!SavePictureToServer(file, post))
+                    {
+                        ViewBag.message = "Please choose only Image file";
+                        return RedirectToAction("Index");
+                    }
+                }
+
                 context.Entry(post).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");

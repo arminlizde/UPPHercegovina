@@ -1,9 +1,49 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Post>
+
+@{
+    ViewBag.Title = "Dobrodošli na web stranicu UPPHercegovina";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div>
+    <br />
+    <br />
+    <h4>Posljednje obavijesti</h4>
+    <hr />
 
-<a href="Contact">Kontaktiraj nas</a>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12 blogShort">
+            <h3>@Html.DisplayFor(modelItem => item.Title_short)</h3>
+            
+            <div class="container">
+                <div>
+                    <img src="@Html.DisplayFor(modelItem => item.PictureUrl)" title="Proizvod" style="max-height:150px;" height="150" width="150" class="pull-left img-responsive thumb margin10 img-thumbnail" />
+                </div>
+                <div style="margin-left:160px;">
+                    <div>
+                        <i class="fa fa-user"> @Html.DisplayFor(modelItem => item.AuthorName)</i>  |
+                        <i class="fa fa-calendar-times-o"> @Html.DisplayFor(modelItem => item.PostDate)</i>
+                        <br /> <br />
+                    </div>
+                    <div>
+                        <p>
+                           @* @Html.DisplayFor(modelItem => item.Text500string)*@
+                            @Html.Raw(HttpUtility.HtmlDecode(item.Text500string))
+                    </div>
+                </div>
+
+            </div>
+            @Html.ActionLink("Više informacija ...", "Details", "Posts" ,new { id = item.Id }, new { @class = "btn btn-blog pull-right marginBottom10" })
+           
+            <br />
+            <hr />
+        </div>
+    }
+</div>
+
+<div>
+     <a href="~/Views/Posts/Create.cshtml">Kreiraj novu obavijest</a> <br/>
+     <a href="~/Views/Posts/Index.cshtml">Pregled obavijesti</a> <br/>
+     <a href="Contact">Kontaktiraj nas</a>
+</div>

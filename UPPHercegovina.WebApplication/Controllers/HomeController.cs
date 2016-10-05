@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext context = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-            ViewData["Apa"] = "Ucim da radim sa viewdata";
-            ViewBag.test = "Ucim da radim sa viewvag";
-
-            TempData["TempModel"] = "Ucim da radim sa TempModelom";
-            Session["SessionModel"] = "ucim koristenje sesije";
              return RedirectToAction("About");
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Udruženje poljoprivrednih proizvođača Hercegovina.";
 
-            return View();
+            return View(context.Posts.ToList());
         }
 
         public ActionResult Contact()
@@ -31,5 +31,6 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return View();
         }
+
     }
 }

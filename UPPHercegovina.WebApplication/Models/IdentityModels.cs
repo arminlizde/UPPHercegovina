@@ -7,7 +7,6 @@ using System; //za datetime
 
 namespace UPPHercegovina.WebApplication.Models
 {
-
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
@@ -23,7 +22,6 @@ namespace UPPHercegovina.WebApplication.Models
         public string GetDisplayName()
         {
             var displayName = String.Format("{0} {1}", this.FirstName, this.LastName);
-
             return !String.IsNullOrWhiteSpace(displayName) ? displayName : this.Email;
         }
 
@@ -54,19 +52,27 @@ namespace UPPHercegovina.WebApplication.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.Township> PlaceOfResidences { get; set; }
+        public DbSet<Township> PlaceOfResidences { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.ProductType> ProductTypes { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.Membership> Memberships { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.UserMembership> UserMemberships { get; set; }
+        public DbSet<UserMembership> UserMemberships { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.Post> Posts { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
-        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.PostCategory> PostCategories { get; set; }
+        public DbSet<PostCategory> PostCategories { get; set; }
+
+        public DbSet<Storing> Storings { get; set; }
+
+        public DbSet<PersonProduct> PersonProducts { get; set; }
+
+        public DbSet<Warehouse> Warehouses { get; set; }
+
+        public DbSet<Warehouse1> Warehouses1 { get; set; }
 
     }
 }

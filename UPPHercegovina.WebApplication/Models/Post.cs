@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Web;
+using System.Web.Mvc;
 
 namespace UPPHercegovina.WebApplication.Models
 {
@@ -14,11 +14,28 @@ namespace UPPHercegovina.WebApplication.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name="Naslov")]
+        [Display(Name = "Naslov")]
         [DataMember(Name = "Title")]
         public string Title { get; set; }
 
+        public string Title_short
+        {
+            get
+            {
+                return Title.Length > 50 ? Title.Substring(0, 45) + "..." : Title;
+            }
+        }
+
+        public string Title_link
+        {
+            get
+            {
+                return Title.Length > 15 ? Title.Substring(0, 14) + "..." : Title;
+            }
+        }
+
         [Required]
+        [AllowHtml]
         [Display(Name = "Text")]
         [DataMember(Name = "Text")]
         public string Text { get; set; }
@@ -33,7 +50,7 @@ namespace UPPHercegovina.WebApplication.Models
         public DateTime PostDate { get; set; }
 
         [Display(Name = "Slika")]
-        [DataMember(Name = "PictureUrl")]        
+        [DataMember(Name = "PictureUrl")]
         public string PictureUrl { get; set; }
 
         [Display(Name = "Preporučeno")]
@@ -46,5 +63,44 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name = "CategoryId")]
         public int CategoryId { get; set; }
+
+        public string Text500string
+        {
+            get
+            {
+                return Text.Length > 500 ? Text.Substring(0, 499) + "..." : Text;
+            }
+        }
+
+        public MvcHtmlString TextNotIncluded
+        {
+            get { return MvcHtmlString.Create("which is <strong>not</strong> included in the Quote"); }
+        }
+
+        public string AuthorName
+        {
+            get
+            {
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    return context.Users.Find(Author).GetDisplayName();
+                }
+            }
+        }
+
+        public List<Post> GetRelatedPosts()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Posts.OrderByDescending(p => p.PostDate)
+                    .Where(p => p.CategoryId == CategoryId)
+                    .Where(p => p.Id != Id)
+                    .Take(5)
+                    .ToList();
+            }
+        }
+
+        public List<Post> RelatedPost { get; set; }
+
     }
 }

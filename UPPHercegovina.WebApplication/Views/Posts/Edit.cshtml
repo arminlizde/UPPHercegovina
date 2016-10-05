@@ -1,26 +1,24 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Post
 
 @{
-    ViewBag.Title = "Izmjeni / objavu";
+    ViewBag.Title = "Izmjeni / obavijesti";
 }
 
-<h2>Objava</h2>
+<h2>Obavijesti</h2>
 
 @using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
 
-
-    <p>@Html.Raw(Model.Text)</p>
-
-
     <div class="form-horizontal">
-        <h4>Post</h4>
+        <h4>Obavijest</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Author)
+        @Html.HiddenFor(model => model.PictureUrl)
+
         <div class="container col-md-8">
 
             <div class="form-group">
@@ -97,5 +95,21 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Nazad na listu", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

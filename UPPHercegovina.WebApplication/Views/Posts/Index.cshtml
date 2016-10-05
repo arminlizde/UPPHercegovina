@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PostListViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Uređivanje obavijesti";
 }
 
-<h2>Index</h2>
+<h2>Obavijesti</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj novu obavijest", "Create")
 </p>
 <table class="table">
     <tr>
@@ -30,21 +30,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.DisplayFor(modelItem => item.Title_short)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TextFragment)
+            @Html.Raw(HttpUtility.HtmlDecode(item.TextFragment))
+
+
+           @* @Html.DisplayFor(modelItem => item.TextFragment)*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Author)
+            @Html.DisplayFor(modelItem => item.AuthorName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PostDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Obriši", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

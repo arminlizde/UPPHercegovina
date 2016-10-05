@@ -23,7 +23,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("O nama", "About", "Home")</li>*@
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                              Općine <span class="caret"></span>
@@ -36,7 +35,7 @@
                                 @Html.ActionLink("Dodaj novu", "Create", "Townships")
                             </li>
                         </ul>
-                    </li>               @* Opcine *@
+                    </li>               @* Općine *@
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             Proizvodi <span class="caret"></span>
@@ -84,6 +83,18 @@
                             <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
                         </ul>
                     </li>               @* Role *@
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            Skladišta <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Skladišta", "Index", "Warehouses")</li>
+                            <li>@Html.ActionLink("Dodaj novo", "Create", "Warehouses")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Vrste skladištenja", "Index", "Storings")</li>
+                            <li>@Html.ActionLink("Dodaj novu vrstu", "Create", "Storings")</li>
+                        </ul>
+                    </li>               @* Skladišta*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

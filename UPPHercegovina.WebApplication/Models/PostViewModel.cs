@@ -75,6 +75,19 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "PostDate")]                
         public DateTime PostDate { get; set; }
 
+        [DataMember(Name = "User")]
+        public ApplicationUser User { get; set; }
+
+        public string Title_short
+        {
+            get
+            {
+                return Title.Length > 50 ? Title.Substring(0, 45) + "..." : Title;
+            }
+        }
+
+        public string AuthorName { get { return GetAuthorName(Author); } }
+
         public static string GetAuthorName(string Id)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
