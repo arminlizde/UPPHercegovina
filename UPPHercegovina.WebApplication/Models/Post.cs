@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web.Mvc;
 
+
 namespace UPPHercegovina.WebApplication.Models
 {
     [DataContractAttribute(Name = "Post")]
