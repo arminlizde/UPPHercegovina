@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
 }
 
 <h2>Index</h2>
@@ -27,19 +28,28 @@
             @Html.DisplayNameFor(model => model.Bruto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Coordinates)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ExparationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StoringId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quality)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.WarehouseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FieldId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Damaged)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CircaValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Urgently)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
         </th>
         <th></th>
     </tr>
@@ -62,19 +72,28 @@
             @Html.DisplayFor(modelItem => item.Bruto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Coordinates)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.ExparationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StoringId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quality)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.WarehouseId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FieldId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Damaged)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CircaValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Urgently)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

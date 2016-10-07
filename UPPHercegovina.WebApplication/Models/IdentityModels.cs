@@ -74,5 +74,6 @@ namespace UPPHercegovina.WebApplication.Models
 
         public DbSet<Warehouse1> Warehouses1 { get; set; }
 
+        public System.Data.Entity.DbSet<UPPHercegovina.WebApplication.Models.Field> Fields { get; set; }
     }
 }

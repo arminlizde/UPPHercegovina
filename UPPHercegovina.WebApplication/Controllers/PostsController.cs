@@ -12,11 +12,11 @@ using UPPHercegovina.WebApplication.CustomFilters;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-    [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class PostsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Index()
         {
             var postlist = context.Posts.OrderBy(p => p.PostDate).ThenBy(p => p.Author).ToList();
@@ -39,10 +39,23 @@ namespace UPPHercegovina.WebApplication.Controllers
             ViewBag.TextWithHtml = post.Text;
 
             post.RelatedPost = post.GetRelatedPosts();
+            post.LastPost = post.GetLastPosts();
+            post.RecommendedPost = post.GetRecommendedPosts();
+
+            SetGoogleMap();
 
             return View(post);
         }
 
+        private void SetGoogleMap()
+        {
+            var user = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            //This works only if we allow only registered users to visit 
+            ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+            ViewBag.Markers = context.Warehouses1.ToList();
+        }
+
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(context.PostCategories
@@ -51,6 +64,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View();
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -95,6 +109,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return pictureHelper.Save();
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +136,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(post);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -145,6 +161,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(post);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

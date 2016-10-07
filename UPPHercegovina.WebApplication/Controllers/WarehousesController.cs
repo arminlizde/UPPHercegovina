@@ -91,7 +91,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,StoringId,Location,TownshipId,Status")] WarehouseViewModel warehouseviewmodel,
+        public ActionResult Create([Bind(Include = "Id,Name,Description,StoringId,TownshipId,GeographicPosition,Status")] WarehouseViewModel warehouseviewmodel,
             FormCollection form)
         {
             var warehouse = Mapper.MapTo<Warehouse1, WarehouseViewModel>(warehouseviewmodel);
@@ -131,7 +131,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,StoringId,TownshipId,Location,Status")] Warehouse1 warehouse)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,StoringId,TownshipId,GeographicPosition,Status")] Warehouse1 warehouse)
         {
             if (ModelState.IsValid)
             {

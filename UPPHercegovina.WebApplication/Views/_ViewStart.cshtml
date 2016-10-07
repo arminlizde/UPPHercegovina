@@ -1,3 +1,28 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if (this.User.IsInRole("Super-Administrator") || this.User.IsInRole("Administrator"))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    if(this.User.IsInRole("Korisnik") || !this.User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+        
+    }
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    @*//string CurrentName = Convert.ToString(HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"]);
+    //dynamic Layout;
+    //switch (CurrentName)
+    //{
+    //    case "User":
+    //        Layout = "~/Views/Shared/_Layout.cshtml";
+    //        break;
+    //    default:
+    //        //Admin layout  
+    //        Layout = "~/Views/Shared/_AdminLayoutPage.cshtml";
+    //        break;
+    //}
+    //|| !this.User.Identity.IsAuthenticated*@
