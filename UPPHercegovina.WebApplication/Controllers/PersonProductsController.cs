@@ -14,19 +14,74 @@ namespace UPPHercegovina.WebApplication.Controllers
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
-        public ActionResult Index()
+        public ActionResult Index(FormCollection form)
         {
-            return View(context.PersonProducts.ToList());
+            int SearchIndex = 0;
+
+            if (form.Count > 0)
+            {
+                var selectListValue = form.GetValue("States");
+                SearchIndex = Convert.ToInt32(selectListValue.AttemptedValue);
+            }
+
+            List<SelectListItem> StateList = new List<SelectListItem>();
+            var item1 = new SelectListItem() { Text = "Aktivni", Value = "1" };
+            var item2 = new SelectListItem() { Text = "Prihvaćeni (U obradi)", Value = "2" };
+            var item3 = new SelectListItem() { Text = "Odbijeni", Value = "3" };
+            StateList.Add(item1);
+            StateList.Add(item2);
+            StateList.Add(item3);
+
+            ViewBag.States = new SelectList(StateList, "Value", "Text");
+
+            #region SwitchCase
+            switch (SearchIndex)
+            {
+                case 1:
+                    return View(context.PersonProducts
+                        .Where(p => p.Status == true)
+                        .Where(p => p.Accepted == false)
+                        .Where(p => p.UserId == context.Users
+                          .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                        .Include(p => p.Field)
+                        .Include(p => p.Product).ToList());
+                case 2:
+                    return View(context.PersonProducts
+                       .Where(p => p.Status == true)
+                       .Where(p => p.Accepted == true)
+                       .Where(p => p.UserId == context.Users
+                         .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                       .Include(p => p.Field)
+                       .Include(p => p.Product).ToList());
+                case 3:
+                    return View(context.PersonProducts
+                       .Where(p => p.Status == false)
+                       .Where(p => p.Accepted == false)
+                       .Where(p => p.UserId == context.Users
+                         .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                       .Include(p => p.Field)
+                       .Include(p => p.Product).ToList());
+                default: return View(new List<PersonProduct>());
+            }
+            #endregion
+
         }
 
-        // GET: PersonProducts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonProduct personProduct = context.PersonProducts.Find(id);
+
+            PersonProduct personProduct = context.PersonProducts
+                .Where(p => p.Id == id)
+                .Include(p => p.Field)
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Warehouse1)
+                .FirstOrDefault();
+
             if (personProduct == null)
             {
                 return HttpNotFound();
@@ -88,9 +143,6 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(personProduct);
         }
 
-        // POST: PersonProducts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Urgently")] PersonProduct personProduct)
@@ -113,14 +165,22 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(personProduct);
         }
 
-        // GET: PersonProducts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonProduct personProduct = context.PersonProducts.Find(id);
+
+
+            PersonProduct personProduct = context.PersonProducts
+                .Where(p => p.Id == id)
+                .Include(p => p.Field)
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Warehouse1)
+                .FirstOrDefault();
+
             if (personProduct == null)
             {
                 return HttpNotFound();

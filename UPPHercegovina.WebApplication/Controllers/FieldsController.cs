@@ -14,10 +14,12 @@ namespace UPPHercegovina.WebApplication.Controllers
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
-        // GET: Fields
         public ActionResult Index()
         {
-            return View(context.Fields.ToList());
+            return View(context.Fields.Where(f => f.OwnerId == context.Users
+                                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                                .Include(f => f.Owner)
+                                .ToList());
         }
 
         // GET: Fields/Details/5
@@ -35,9 +37,18 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(field);
         }
 
+        private void SetGoogleMap()
+        {
+            var user = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            //This works only if we allow only registered users to visit 
+            ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+            ViewBag.Markers = context.Warehouses1.ToList();
+        }
+
         // GET: Fields/Create
         public ActionResult Create()
         {
+            SetGoogleMap();
             return View();
         }
 

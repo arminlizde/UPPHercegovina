@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
 
         <dt>
@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductId)
+            @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
         <dt>
@@ -60,14 +60,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StoringId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StoringId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Quality)
         </dt>
 
@@ -76,11 +68,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WarehouseId)
+            @Html.DisplayNameFor(model => model.Warehouse1Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WarehouseId)
+            @Html.DisplayFor(model => model.Warehouse1.Name)
         </dd>
 
         <dt>
@@ -88,7 +80,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FieldId)
+            @Html.DisplayFor(model => model.Field.Name)
         </dd>
 
         <dt>

@@ -1,15 +1,15 @@
 ﻿@model UPPHercegovina.WebApplication.Models.PersonProduct
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Obriši proizvod";
     Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Obriši proizvod</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Sigurno želite obrisati ovaj proizvod?</h3>
 <div>
-    <h4>PersonProduct</h4>
+    <h4>Proizvodi</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,7 +17,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
 
         <dt>
@@ -25,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductId)
+            @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
         <dt>
@@ -61,14 +61,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StoringId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StoringId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Quality)
         </dt>
 
@@ -77,11 +69,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WarehouseId)
+            @Html.DisplayNameFor(model => model.Warehouse1Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WarehouseId)
+            @Html.DisplayFor(model => model.Warehouse1.Name)
         </dd>
 
         <dt>
@@ -89,7 +81,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FieldId)
+            @Html.DisplayFor(model => model.Field.Name)
         </dd>
 
         <dt>
@@ -130,8 +122,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad na listu", "Index")
         </div>
     }
 </div>

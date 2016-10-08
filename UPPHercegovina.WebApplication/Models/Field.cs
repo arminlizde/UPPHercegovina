@@ -31,5 +31,8 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name = "OwnerId")]
         public string OwnerId { get; set; }
+
+        [DataMember(Name = "Owner")]
+        public virtual ApplicationUser Owner { get; set; }
     }
 }
