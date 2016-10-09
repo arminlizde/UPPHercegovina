@@ -59,7 +59,7 @@ namespace UPPHercegovina.WebApplication.Models
 
         [Display(Name = "Skladište")]
         [DataMember(Name = "Warehouse1Id")]
-        public int Warehouse1Id { get; set; }
+        public int? Warehouse1Id { get; set; }
 
         [Display(Name = "Zemljište")]
         [DataMember(Name = "FieldId")]

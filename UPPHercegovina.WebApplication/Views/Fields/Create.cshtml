@@ -59,7 +59,7 @@
                 <div id="map" style="height:100%;"></div>
                 <script>
                     var map;
-                    var x = false;
+  
                             function initMap() {
                                 map = new google.maps.Map(document.getElementById('map'), {
                                     center: { lng: @ViewBag.Location.GeographicPosition.Longitude, lat: @ViewBag.Location.GeographicPosition.Latitude },
@@ -67,25 +67,12 @@
                                 });
 
                                 google.maps.event.addListener(map, 'click', function (event) {
-                                    if(x!=true)
-                                        displayCoordinates(event.latLng);
-                                    if(x==true)
-                                        clearMarkers();
 
-                                    console.log("X: ", x)
+                                        displayCoordinates(event.latLng);
+
                                    
                                 });
-                          
-                                function clearMarkers(){
-                                    setMapOnAll(null);
-                                }
-
-                                function setMapOnAll(map) {
-                                    for (var i = 0; i < markers.length; i++) {
-                                        markers[i].setMap(map);
-                                    }
-                                }
-
+                                
                                function displayCoordinates(pnt) {
 
                                     var lat = pnt.lat();

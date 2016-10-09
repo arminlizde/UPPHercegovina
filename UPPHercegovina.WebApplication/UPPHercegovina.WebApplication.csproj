@@ -243,6 +243,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\Quality.cs" />
     <Compile Include="Models\Storing.cs" />
     <Compile Include="Models\Township.cs" />
     <Compile Include="Models\UserMembership.cs" />
@@ -492,6 +493,9 @@
     <Content Include="Views\PersonProducts\Details.cshtml" />
     <Content Include="Views\PersonProducts\Edit.cshtml" />
     <Content Include="Views\PersonProducts\Index.cshtml" />
+    <Content Include="Views\PersonProducts\Processing.cshtml" />
+    <Content Include="Views\PersonProducts\AcceptProcess.cshtml" />
+    <Content Include="Views\PersonProducts\RejectProcess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

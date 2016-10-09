@@ -1,0 +1,79 @@
+﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PersonProduct>
+
+@{
+    ViewBag.Title = "Transakcije proizvoda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Transakcije proizvoda</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Warehouse1Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HarvestDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Neto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Bruto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CircaValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Damaged)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Urgently)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FullName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warehouse1.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HarvestOnlyDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Neto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bruto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CircaValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Damaged)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Urgently)
+        </td>
+        <td>
+            @Html.ActionLink("Prihvati", "AcceptProcess", new { id=item.Id }) |
+            @Html.ActionLink("Odbi", "RejectProcess", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
