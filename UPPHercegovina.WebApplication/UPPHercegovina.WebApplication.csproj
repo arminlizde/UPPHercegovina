@@ -196,7 +196,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembershipsController.cs" />
     <Compile Include="Controllers\PersonProductsController.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GoogleMapsKey.cs" />
     <Compile Include="Helpers\ApplicationUserHelper.cs" />
     <Compile Include="Helpers\DirectoryHelper.cs" />
     <Compile Include="Helpers\EmailClient.cs" />
@@ -227,7 +230,8 @@
     <Compile Include="Abstractions\Sorter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Class1.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\GeographicPosition.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Membership.cs" />
@@ -240,7 +244,6 @@
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Storing.cs" />
-    <Compile Include="Models\TempForGit.cs" />
     <Compile Include="Models\Township.cs" />
     <Compile Include="Models\UserMembership.cs" />
     <Compile Include="Models\MembershipViewModels.cs" />
@@ -380,6 +383,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Maps\googleMaps.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -472,17 +476,23 @@
     <Content Include="Views\Storings\Details.cshtml" />
     <Content Include="Views\Storings\Edit.cshtml" />
     <Content Include="Views\Storings\Index.cshtml" />
-    <Content Include="Views\PersonProducts\Create.cshtml" />
-    <Content Include="Views\PersonProducts\Delete.cshtml" />
-    <Content Include="Views\PersonProducts\Details.cshtml" />
-    <Content Include="Views\PersonProducts\Edit.cshtml" />
-    <Content Include="Views\PersonProducts\Index.cshtml" />
     <Content Include="Views\Warehouses\Create.cshtml" />
     <Content Include="Views\Warehouses\Delete.cshtml" />
     <Content Include="Views\Warehouses\Details.cshtml" />
     <Content Include="Views\Warehouses\Edit.cshtml" />
     <Content Include="Views\Warehouses\Index.cshtml" />
-
+    <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
+    <Content Include="Views\Fields\Create.cshtml" />
+    <Content Include="Views\Fields\Delete.cshtml" />
+    <Content Include="Views\Fields\Details.cshtml" />
+    <Content Include="Views\Fields\Edit.cshtml" />
+    <Content Include="Views\Fields\Index.cshtml" />
+    <Content Include="Views\PersonProducts\Create.cshtml" />
+    <Content Include="Views\PersonProducts\Delete.cshtml" />
+    <Content Include="Views\PersonProducts\Details.cshtml" />
+    <Content Include="Views\PersonProducts\Edit.cshtml" />
+    <Content Include="Views\PersonProducts\Index.cshtml" />
+    <Content Include="Views\Posts\hazatest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

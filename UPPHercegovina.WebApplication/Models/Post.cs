@@ -101,7 +101,36 @@ namespace UPPHercegovina.WebApplication.Models
             }
         }
 
+        public List<Post> GetRecommendedPosts()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Posts.OrderByDescending(p => p.PostDate)
+                    .Where(p => p.Recommended == true)
+                    .Where(p => p.Id != Id)
+                    .Take(5)
+                    .ToList();
+            }
+        }
+
+        public List<Post> GetLastPosts()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Posts.OrderByDescending(p => p.PostDate)
+                    .Where(p => p.Id != Id)
+                    .Take(5)
+                    .ToList();
+            }
+        }
+
         public List<Post> RelatedPost { get; set; }
+
+        public List<Post> RecommendedPost { get; set; }
+
+        public List<Post> LastPost { get; set; }
+
+
 
     }
 }

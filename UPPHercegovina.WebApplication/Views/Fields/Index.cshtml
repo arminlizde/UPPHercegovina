@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Field>
+
+@{
+    ViewBag.Title = "Zemljišta";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<h2>Zemljišta</h2>
+
+<p>
+    @Html.ActionLink("Dodaj novo zemljište", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoLong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeoLat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoLong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GeoLat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner.FullName)
+        </td>
+        <td>
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Obriši", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

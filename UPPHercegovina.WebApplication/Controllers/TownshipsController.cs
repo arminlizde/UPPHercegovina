@@ -42,7 +42,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Entity")] Township township)
+        public ActionResult Create([Bind(Include = "Id,Name,Entity,GeographicPosition")] Township township)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Entity")] Township township)
+        public ActionResult Edit([Bind(Include = "Id,Name,Entity,GeographicPosition")] Township township)
         {
             if (ModelState.IsValid)
             {

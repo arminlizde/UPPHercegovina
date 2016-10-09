@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
 }
 
 <h2>Details</h2>
@@ -15,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
 
         <dt>
@@ -23,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductId)
+            @Html.DisplayFor(model => model.Product.Name)
         </dd>
 
         <dt>
@@ -51,27 +52,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Coordinates)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coordinates)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.ExparationDate)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ExparationDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StoringId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StoringId)
         </dd>
 
         <dt>
@@ -83,11 +68,51 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WarehouseId)
+            @Html.DisplayNameFor(model => model.Warehouse1Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WarehouseId)
+            @Html.DisplayFor(model => model.Warehouse1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FieldId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Damaged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Damaged)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CircaValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CircaValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Urgently)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Urgently)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
         </dd>
 
     </dl>
