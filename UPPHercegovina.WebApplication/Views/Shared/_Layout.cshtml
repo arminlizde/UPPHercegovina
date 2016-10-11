@@ -82,6 +82,9 @@
                             <hr />
                             <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
                             <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Proizvodi korisnika", "Processing", "Processes")</li>
+                            <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
                         </ul>
                     </li>               @* Role *@
                     <li role="presentation" class="dropdown">
@@ -96,7 +99,16 @@
                             <li>@Html.ActionLink("Dodaj novu vrstu", "Create", "Storings")</li>
                         </ul>
                     </li>               @* Skladišta*@
+
+                    @*Ovo treba da proradi*@
+                    <li>
+                            <a id="txtActiveProducts">
+                                <i class="fa fa-shopping-cart"></i>
+                                0
+                            </a>
+                    </li>
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

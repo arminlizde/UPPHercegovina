@@ -80,5 +80,12 @@ namespace UPPHercegovina.WebApplication.Models
 
         public DbSet<Quality> Qualities { get; set; }
 
+        public DbSet<ReservedProduct> ReservedProducts { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
+
+        public DbSet<BuyerRequest> BuyerRequests { get; set; }
+
+
     }
 }
