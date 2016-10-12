@@ -1,21 +1,32 @@
 ﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PersonProduct>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Proizvodi u ponudi";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Proizvodi u ponudi</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj novi proizvod u ponudu", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "PersonProducts"))
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.DropDownList("States", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+    <input type="submit" value="Pretraga" />
+}
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductId)
+            @Html.DisplayNameFor(model => model.Product.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HarvestDate)
@@ -27,19 +38,16 @@
             @Html.DisplayNameFor(model => model.Bruto)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Coordinates)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ExparationDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StoringId)
+            @Html.DisplayNameFor(model => model.Field.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quality)
+            @Html.DisplayNameFor(model => model.CircaValue)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WarehouseId)
+            @Html.DisplayNameFor(model => model.Value)
         </th>
         <th></th>
     </tr>
@@ -47,13 +55,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.Product.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HarvestDate)
+            @Html.DisplayFor(modelItem => item.HarvestOnlyDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Neto)
@@ -62,24 +67,21 @@
             @Html.DisplayFor(modelItem => item.Bruto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Coordinates)
+            @Html.DisplayFor(modelItem => item.ExparationOnlyDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ExparationDate)
+            @Html.DisplayFor(modelItem => item.Field.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StoringId)
+            @Html.DisplayFor(modelItem => item.CircaValue)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Quality)
+            @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WarehouseId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Obriši", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

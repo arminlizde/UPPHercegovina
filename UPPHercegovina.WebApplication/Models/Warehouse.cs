@@ -49,9 +49,6 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "StoringId")]
         public int? StoringId { get; set; }
 
-        [DataMember(Name = "Location")]
-        public string Location { get; set; }
-
         [DataMember(Name = "Storing")]
         public virtual Storing Storing { get; set; }
 
@@ -64,6 +61,9 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name ="Status")]
         public bool Status { get; set; }
+
+        [DataMember(Name = "GeographicPosition")]
+        public GeographicPosition GeographicPosition { get; set; }
     }
 
     [DataContractAttribute(Name = "Warehouse")]
@@ -85,9 +85,6 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "Description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "Location")]
-        public string Location { get; set; }
-
         [DataMember(Name = "Storing")]
         public Storing Storing { get; set; }
 
@@ -97,6 +94,9 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name = "Township")]
         public Township Township { get; set; }
+
+        [DataMember(Name = "GeographicPosition")]
+        public GeographicPosition GeographicPosition { get; set; }
 
         [Display(Name = "Status")]
         [DataMember(Name = "Status")]

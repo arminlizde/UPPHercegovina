@@ -5,7 +5,10 @@ using System.Web;
 
 namespace UPPHercegovina.WebApplication.Models
 {
-    public class TempForGit
+    public class Quality
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

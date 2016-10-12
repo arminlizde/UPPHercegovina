@@ -1,0 +1,61 @@
+﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.UserMembershipIndexModel>
+
+@{
+    ViewBag.Title = "Članstvo";
+}
+
+<h2>Članstvo</h2>
+
+<p>
+    @Html.ActionLink("Dodaj novo", "Create")
+</p>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Članska", "Index", new { sortOrder = ViewBag.MembershipSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Korisnik", "Index", new { sortOrder = ViewBag.UserSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Datum", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Potvrđeno", "Index", new { sortOrder = ViewBag.ApprovedSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSortParm })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MembershipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserFirstLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Izmjeni", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Obriši", "Delete", new { id = item.Id)
+            </td>
+        </tr>
+    }
+
+</table>

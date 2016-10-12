@@ -19,6 +19,8 @@ namespace UPPHercegovina.WebApplication.Models
         public DateTime RegistrationDate { get; set; }
         public bool Status { get; set; }
 
+        public string FullName { get { return FirstName + " " + LastName; } }
+
         public string GetDisplayName()
         {
             var displayName = String.Format("{0} {1}", this.FirstName, this.LastName);
@@ -73,6 +75,17 @@ namespace UPPHercegovina.WebApplication.Models
         public DbSet<Warehouse> Warehouses { get; set; }
 
         public DbSet<Warehouse1> Warehouses1 { get; set; }
+
+        public DbSet<Field> Fields { get; set; }
+
+        public DbSet<Quality> Qualities { get; set; }
+
+        public DbSet<ReservedProduct> ReservedProducts { get; set; }
+
+        public DbSet<Transaction> Transactions { get; set; }
+
+        public DbSet<BuyerRequest> BuyerRequests { get; set; }
+
 
     }
 }

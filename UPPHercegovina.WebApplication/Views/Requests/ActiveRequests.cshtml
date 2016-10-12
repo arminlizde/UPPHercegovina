@@ -1,0 +1,54 @@
+﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.BuyerRequest>
+
+@{
+    ViewBag.Title = "Aktivni zahtjevi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Aktivni zahtjevi</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accepted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buyer.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Accepted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCount)
+        </td>
+        <td>
+            @Html.ActionLink("Odobri", "Details", new { id=item.Id }) |
+            @Html.ActionLink("---", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

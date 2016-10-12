@@ -6,28 +6,89 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
     public class PersonProductsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext context = new ApplicationDbContext();
 
-        // GET: PersonProducts
-        public ActionResult Index()
+        public ActionResult Index(FormCollection form)
         {
-            return View(db.PersonProducts.ToList());
+            int SearchIndex = 1;
+
+            if (form.Count > 0)
+            {
+                var selectListValue = form.GetValue("States");
+                SearchIndex = Convert.ToInt32(selectListValue.AttemptedValue);
+            }
+
+            List<SelectListItem> StateList = new List<SelectListItem>();
+            var item1 = new SelectListItem() { Text = "Aktivni", Value = "1" };
+            var item2 = new SelectListItem() { Text = "Prihvaćeni (U obradi)", Value = "2" };
+            var item3 = new SelectListItem() { Text = "Odbijeni", Value = "3" };
+            StateList.Add(item1);
+            StateList.Add(item2);
+            StateList.Add(item3);
+
+            ViewBag.States = new SelectList(StateList, "Value", "Text");
+
+            #region SwitchCase
+            switch (SearchIndex)
+            {
+                case 1:
+                    StateList.Remove(item1);
+                    StateList.Insert(0, item1);
+                    return View(context.PersonProducts
+                        .Where(p => p.Status == true)
+                        .Where(p => p.Accepted == false)
+                        .Where(p => p.UserId == context.Users
+                          .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                        .Include(p => p.Field)
+                        .Include(p => p.Product).ToList());
+                case 2:
+                    StateList.Remove(item2);
+                    StateList.Insert(0, item2);
+                    return View(context.PersonProducts
+                       .Where(p => p.Status == true)
+                       .Where(p => p.Accepted == true)
+                       .Where(p => p.UserId == context.Users
+                         .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                       .Include(p => p.Field)
+                       .Include(p => p.Product).ToList());
+                case 3:
+                    StateList.Remove(item3);
+                    StateList.Insert(0, item3);
+                    return View(context.PersonProducts
+                       .Where(p => p.Status == false)
+                       .Where(p => p.Accepted == false)
+                       .Where(p => p.UserId == context.Users
+                         .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                       .Include(p => p.Field)
+                       .Include(p => p.Product).ToList());
+                default: return View(new List<PersonProduct>());
+            }
+            #endregion
+
         }
 
-        // GET: PersonProducts/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonProduct personProduct = db.PersonProducts.Find(id);
+
+            PersonProduct personProduct = context.PersonProducts
+                .Where(p => p.Id == id)
+                .Include(p => p.Field)
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Warehouse1)
+                .FirstOrDefault();
+
             if (personProduct == null)
             {
                 return HttpNotFound();
@@ -35,37 +96,54 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(personProduct);
         }
 
-        // GET: PersonProducts/Create
         public ActionResult Create()
         {
+            ViewBag.ProductId = new SelectList(context.Products.OrderBy(p => p.Name), "Id", "Name");
+            ViewBag.FieldId = new SelectList(context.Fields.Where(f => f.OwnerId == context.Users
+                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id), "Id", "Name");
+
             return View();
         }
 
-        // POST: PersonProducts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,ProductId,HarvestDate,Neto,Bruto,Coordinates,ExparationDate,StoringId,Quality,WarehouseId")] PersonProduct personProduct)
+        public ActionResult Create([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Urgently")] PersonProduct personProduct)
         {
+            //for some reason I need to populate my selectlists again
+            ViewBag.ProductId = new SelectList(context.Products.OrderBy(p => p.Name), "Id", "Name");
+            ViewBag.FieldId = new SelectList(context.Fields, "Id", "Name");
+
+            personProduct.UserId = context.Users
+                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id;
+            personProduct.Status = true;
+            personProduct.Accepted = false;
+            //personProduct.Warehouse1Id = null;
+            // personProduct.ProductId = 42;
             if (ModelState.IsValid)
             {
-                db.PersonProducts.Add(personProduct);
-                db.SaveChanges();
+                context.PersonProducts.Add(personProduct);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(personProduct);
         }
 
-        // GET: PersonProducts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonProduct personProduct = db.PersonProducts.Find(id);
+            PersonProduct personProduct = context.PersonProducts.Find(id);
+
+            ViewBag.ProductId = new SelectList(context.Products
+                .OrderBy(p => p.Id == personProduct.ProductId)
+                .OrderBy(p => p.Name), "Id", "Name");
+
+            ViewBag.FieldId = new SelectList(context.Fields.Where(f => f.OwnerId == context.Users
+                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id), "Id", "Name");
+
             if (personProduct == null)
             {
                 return HttpNotFound();
@@ -73,30 +151,44 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(personProduct);
         }
 
-        // POST: PersonProducts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,ProductId,HarvestDate,Neto,Bruto,Coordinates,ExparationDate,StoringId,Quality,WarehouseId")] PersonProduct personProduct)
+        public ActionResult Edit([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Value,Urgently")] PersonProduct personProduct)
         {
+
+            //for some reason I need to populate my selectlists again
+            ViewBag.ProductId = new SelectList(context.Products
+               .OrderBy(p => p.Id == personProduct.ProductId)
+               .OrderBy(p => p.Name), "Id", "Name");
+
+            ViewBag.FieldId = new SelectList(context.Fields.Where(f => f.OwnerId == context.Users
+                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id), "Id", "Name");
+
             if (ModelState.IsValid)
             {
-                db.Entry(personProduct).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(personProduct).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(personProduct);
         }
 
-        // GET: PersonProducts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PersonProduct personProduct = db.PersonProducts.Find(id);
+
+
+            PersonProduct personProduct = context.PersonProducts
+                .Where(p => p.Id == id)
+                .Include(p => p.Field)
+                .Include(p => p.User)
+                .Include(p => p.Product)
+                .Include(p => p.Warehouse1)
+                .FirstOrDefault();
+
             if (personProduct == null)
             {
                 return HttpNotFound();
@@ -109,17 +201,17 @@ namespace UPPHercegovina.WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PersonProduct personProduct = db.PersonProducts.Find(id);
-            db.PersonProducts.Remove(personProduct);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            PersonProduct personProduct = context.PersonProducts.Find(id);
+            context.PersonProducts.Remove(personProduct);
+            context.SaveChanges();
+            return RedirectToAction("Processing");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }

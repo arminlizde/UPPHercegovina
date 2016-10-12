@@ -8,14 +8,15 @@ using System.Web.Mvc;
 using UPPHercegovina.WebApplication.Helpers;
 using UPPHercegovina.WebApplication.Models;
 using UPPHercegovina.WebApplication.Extensions;
+using UPPHercegovina.WebApplication.CustomFilters;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-
     public class PostsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Index()
         {
             var postlist = context.Posts.OrderBy(p => p.PostDate).ThenBy(p => p.Author).ToList();
@@ -35,9 +36,26 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TextWithHtml = post.Text;
+
+            post.RelatedPost = post.GetRelatedPosts();
+            post.LastPost = post.GetLastPosts();
+            post.RecommendedPost = post.GetRecommendedPosts();
+
+            SetGoogleMap();
+
             return View(post);
         }
 
+        private void SetGoogleMap()
+        {
+            var user = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            //This works only if we allow only registered users to visit 
+            ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+            ViewBag.Markers = context.Warehouses1.ToList();
+        }
+
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Create()
         {
             ViewBag.CategoryId = new SelectList(context.PostCategories
@@ -46,6 +64,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View();
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
@@ -80,7 +99,17 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return pictureHelper.Save();
         }
+        private bool SavePictureToServer(HttpPostedFileBase file, Post post)
+        {
+            post.PictureUrl = string.Format("/Images/PostImg/Post-{0}-{1}-{2}-{3}.jpg", post.Title, post.CategoryId,
+                    DateTime.Now.ToString("dd-M-yyyy"), Extensions.Extensions.GetRndNumber());
 
+            PictureHelper pictureHelper = new PictureHelper(file, post.PictureUrl);
+
+            return pictureHelper.Save();
+        }
+
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,7 +124,6 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             ViewBag.AuthorName = context.Users.Find(post.Author).GetDisplayName();
 
-
             var postTypesList = context.PostCategories.
                     OrderByDescending(p => p.Id == post.CategoryId).ThenBy(p => p.Title).ToList();
 
@@ -108,12 +136,24 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(post);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Recommended,Status")] Post post)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Recommended,Status")] Post post,
+            FormCollection form, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    if (!SavePictureToServer(file, post))
+                    {
+                        ViewBag.message = "Please choose only Image file";
+                        return RedirectToAction("Index");
+                    }
+                }
+
                 context.Entry(post).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,6 +161,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(post);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

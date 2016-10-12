@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @* CKEDITOR *@
@@ -81,6 +82,12 @@
                             <hr />
                             <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
                             <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Proizvodi u obradi", "Processing", "Processes")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Zahtjevi kupaca", "ActiveRequests", "Requests")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Transakcije", "Index", "Transactions")</li>
                         </ul>
                     </li>               @* Role *@
                     <li role="presentation" class="dropdown">
@@ -95,7 +102,18 @@
                             <li>@Html.ActionLink("Dodaj novu vrstu", "Create", "Storings")</li>
                         </ul>
                     </li>               @* Skladišta*@
+
+                    <li>
+                    @*Ovo treba da proradi*@
+                    @* Ovdje treba prikazivati broj proizvoda koej je korisnik dodao i treba
+                    ih administrator prihvatit  *@
+                            <a id="txtActiveProducts">
+                                <i class="fa fa-shopping-cart"></i>
+                                0
+                            </a>
+                    </li>
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
