@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Transaction>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Transakcije";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Transakcije</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -42,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.BuyerRequestId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.User.FullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Details)
@@ -60,9 +57,8 @@
             @Html.DisplayFor(modelItem => item.Accepted)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Odobri", "Details", new { id=item.Id })
         </td>
     </tr>
 }

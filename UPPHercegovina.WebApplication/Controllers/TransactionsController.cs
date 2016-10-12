@@ -12,12 +12,14 @@ namespace UPPHercegovina.WebApplication.Controllers
 {
     public class TransactionsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext context = new ApplicationDbContext();
 
-        // GET: Transactions
         public ActionResult Index()
         {
-            return View(db.Transactions.ToList());
+            return View(context.Transactions
+                .Where(t => t.Status == true)
+                .Where(t => t.Accepted == false)
+                .Include(t => t.User).ToList());
         }
 
         // GET: Transactions/Details/5
@@ -27,7 +29,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = context.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -35,27 +37,25 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(transaction);
         }
 
-        // GET: Transactions/Create
-        public ActionResult Create()
+        public ActionResult FinishTransaction(int? id, bool status)
         {
-            return View();
-        }
-
-        // POST: Transactions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BuyerRequestId,UserId,Details,Price,Date,Status,Accepted")] Transaction transaction)
-        {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Transactions.Add(transaction);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            return View(transaction);
+            var transaction = context.BuyerRequests.Find(id);
+
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+
+            transaction.Accepted = status;
+            context.Entry(transaction).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Transactions/Edit/5
@@ -65,7 +65,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            Transaction transaction = context.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -82,44 +82,18 @@ namespace UPPHercegovina.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(transaction).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(transaction).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(transaction);
-        }
-
-        // GET: Transactions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transaction);
-        }
-
-        // POST: Transactions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Transaction transaction = db.Transactions.Find(id);
-            db.Transactions.Remove(transaction);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }

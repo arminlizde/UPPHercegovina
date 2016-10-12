@@ -31,5 +31,7 @@ namespace UPPHercegovina.WebApplication.Models
         [Display(Name = "Prihvaćeno")]
         public bool Accepted { get; set; }
 
+        public virtual ApplicationUser User { get; set; }
+
     }
 }
