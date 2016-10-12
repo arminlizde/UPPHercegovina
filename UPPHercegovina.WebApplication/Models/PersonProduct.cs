@@ -75,6 +75,12 @@ namespace UPPHercegovina.WebApplication.Models
         [DataType(DataType.Currency)]
         public decimal CircaValue { get; set; }
 
+        [Display(Name = "Vrijednost")]
+        [DataMember(Name = "Value")]
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Currency)]
+        public decimal Value { get; set; }
+
         [Display(Name = "Hitno")]
         [DataMember(Name = "Urgently")]
         public bool Urgently { get; set; }

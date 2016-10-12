@@ -37,5 +37,26 @@ namespace UPPHercegovina.WebApplication.Models
                     return context.ReservedProducts.Where(rp => rp.BuyerRequestId == Id).Count();
                 }
             } }
+
+        [Display(Name = "Ukupna cijena")]
+        public decimal ValueSum { get
+            {
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    var products = context.ReservedProducts
+                        .Where(rp => rp.BuyerRequestId == Id).Select(rp => rp.PersonProduct)
+                        .ToList();
+
+                    decimal sum = 0;
+
+                    foreach (var item in products)
+                    {
+                        sum += item.Value;
+                    }
+
+                    return sum;
+                }
+
+            } }
     }
 }

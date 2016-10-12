@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -36,6 +37,40 @@ namespace UPPHercegovina.WebApplication.Controllers
                 return HttpNotFound();
             }
             return View(request);
+        }
+
+        public ActionResult ProcessRequest(int? id, bool status)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var request = context.BuyerRequests.Find(id);
+
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+
+            if(status)
+            {
+                var transaction = new Transaction();
+                transaction.Status = true;
+                transaction.Accepted = false;
+                transaction.BuyerRequestId = Convert.ToInt32(id);
+                transaction.Price = request.ValueSum;
+                transaction.UserId = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id;
+                transaction.Date = DateTime.Now;
+
+                context.Transactions.Add(transaction);
+                context.SaveChanges();
+            }
+
+            request.Accepted = status;
+            context.Entry(request).State = EntityState.Modified;
+            context.SaveChanges();
+
+            return RedirectToAction("ActiveRequests");          
         }
     }
 }

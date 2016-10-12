@@ -102,8 +102,8 @@
 
 </table>
 <p>
-    @Html.ActionLink("Odobri", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Odbi", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Odobri", "ProcessRequest", new { id = Model.Id, status = true }) |
+    @Html.ActionLink("Odbi", "ProcessRequest", new { id = Model.Id, status = false }) |
 
     @Html.ActionLink("Nazad na listu", "ActiveRequests")
 </p>

@@ -49,7 +49,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AcceptProcess([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,UserId,Warehouse1Id,ExparationDate,FieldId,Quality,Damaged,CircaValue,Urgently")] PersonProduct personProduct)
+        public ActionResult AcceptProcess([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,UserId,Warehouse1Id,ExparationDate,FieldId,Quality,Damaged,CircaValue,Urgently,Value")] PersonProduct personProduct)
         {
 
             ViewBag.QualityId = new SelectList(context.Qualities, "Name", "Name");

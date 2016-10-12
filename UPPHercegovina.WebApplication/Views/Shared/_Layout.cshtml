@@ -83,8 +83,11 @@
                             <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
                             <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
                             <hr />
-                            <li>@Html.ActionLink("Proizvodi korisnika", "Processing", "Processes")</li>
-                            <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
+                            <li>@Html.ActionLink("Proizvodi u obradi", "Processing", "Processes")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Zahtjevi kupaca", "ActiveRequests", "Requests")</li>
+                            <hr />
+                            <li>@Html.ActionLink("Transakcije", "Index", "Transactions")</li>
                         </ul>
                     </li>               @* Role *@
                     <li role="presentation" class="dropdown">
@@ -100,8 +103,10 @@
                         </ul>
                     </li>               @* Skladišta*@
 
-                    @*Ovo treba da proradi*@
                     <li>
+                    @*Ovo treba da proradi*@
+                    @* Ovdje treba prikazivati broj proizvoda koej je korisnik dodao i treba
+                    ih administrator prihvatit  *@
                             <a id="txtActiveProducts">
                                 <i class="fa fa-shopping-cart"></i>
                                 0
