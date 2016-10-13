@@ -12,11 +12,11 @@ using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-    [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class UserMembershipsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Index(string sortOrder)
         {
             ViewBag.StatusSortParm = sortOrder == "status" ? "status_desc" : "status";
@@ -31,7 +31,21 @@ namespace UPPHercegovina.WebApplication.Controllers
             
             return View(modellist);
         }
-      
+
+        [AuthLog(Roles = "Korisnik")]
+        public ActionResult Memberships()
+        {
+            var x = context.UserMemberships
+                .Where(um => um.UserId == context.Users
+                    .Where(u => u.Email == User.Identity.Name)
+                .FirstOrDefault().Id)
+                .Include(um => um.Membership)
+                .ToList();
+
+            return View(x);
+        }
+
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -48,6 +62,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(userMembership);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Create()
         {
             var userSelectList = ApplicationUserHelper.GetUserSelectList();
@@ -59,6 +74,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View();
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,MembershipId,UserId,DateOfPayment,PictureUrl,Approved, Status")] UserMembershipViewModel userMembership,
@@ -105,6 +121,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return pictureHelper.Save();
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,6 +148,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(usermembershipEditModel);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,MembershipId,UserId,DateOfPayment,ExpDate,PictureUrl,Approved, Status")] UserMembershipEditViewModel userMembership,
@@ -156,6 +174,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(userMembership);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -170,6 +189,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(userMembership);
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -180,6 +200,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        [AuthLog(Roles = "Super-Administrator, Administrator")]
         public ActionResult Stats(FormCollection form)
         {
             int searchIndex = 0;

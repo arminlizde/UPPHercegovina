@@ -188,6 +188,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\IMarkRepository.cs" />
+    <Compile Include="Abstractions\IPersonProductMarkRepository.cs" />
     <Compile Include="Abstractions\IUserMembership.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -200,14 +202,19 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\MembershipsController.cs" />
+    <Compile Include="Controllers\PartnershipsController.cs" />
     <Compile Include="Controllers\PersonProductsController.cs" />
     <Compile Include="Controllers\PostCategoriesController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProcessesController.cs" />
     <Compile Include="Controllers\ProductTypesController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\StoringsController.cs" />
     <Compile Include="Controllers\TownshipsController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserManagmentController.cs" />
     <Compile Include="Controllers\UserMembershipsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
@@ -230,10 +237,12 @@
     <Compile Include="Abstractions\Sorter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BuyerRequest.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\GeographicPosition.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Models\PersonProduct.cs" />
     <Compile Include="Models\Post.cs" />
@@ -244,12 +253,17 @@
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Quality.cs" />
+    <Compile Include="Models\ReservedProduct.cs" />
     <Compile Include="Models\Storing.cs" />
     <Compile Include="Models\Township.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\PersonProductMark.cs" />
     <Compile Include="Models\UserMembership.cs" />
     <Compile Include="Models\MembershipViewModels.cs" />
     <Compile Include="Models\Warehouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MarkRepository.cs" />
+    <Compile Include="Repositories\PersonProductMarkRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -493,9 +507,21 @@
     <Content Include="Views\PersonProducts\Details.cshtml" />
     <Content Include="Views\PersonProducts\Edit.cshtml" />
     <Content Include="Views\PersonProducts\Index.cshtml" />
-    <Content Include="Views\PersonProducts\Processing.cshtml" />
-    <Content Include="Views\PersonProducts\AcceptProcess.cshtml" />
-    <Content Include="Views\PersonProducts\RejectProcess.cshtml" />
+    <Content Include="Views\Processes\AcceptProcess.cshtml" />
+    <Content Include="Views\Processes\Processing.cshtml" />
+    <Content Include="Views\Processes\RejectProcess.cshtml" />
+    <Content Include="Views\Requests\ActiveRequests.cshtml" />
+    <Content Include="Views\Requests\Details.cshtml" />
+    <Content Include="Views\Transactions\Details.cshtml" />
+    <Content Include="Views\Transactions\Edit.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\Marks\Create.cshtml" />
+    <Content Include="Views\Marks\Delete.cshtml" />
+    <Content Include="Views\Marks\Details.cshtml" />
+    <Content Include="Views\Marks\Edit.cshtml" />
+    <Content Include="Views\Marks\Index.cshtml" />
+    <Content Include="Views\UserMemberships\Memberships.cshtml" />
+    <Content Include="Views\Partnerships\TransactionHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

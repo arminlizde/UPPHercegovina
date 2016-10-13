@@ -13,7 +13,7 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name="Članska")]
+        [Display(Name = "Članska")]
         [DataMember(Name = "MembershipId")]
         public int MembershipId { get; set; }
 
@@ -22,7 +22,7 @@ namespace UPPHercegovina.WebApplication.Models
         public string UserId { get; set; }
 
         [Required]
-        [Display(Name="Datum uplate")]
+        [Display(Name = "Datum uplate")]
         [DataMember(Name = "DateOfPayment")]
         public DateTime DateOfPayment { get; set; }
 
@@ -43,5 +43,15 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name = "Membership")]
         public virtual Membership Membership { get; set; }
+
+        [Display(Name = "Preostalo dana")]
+        public int DaysLeft
+        {
+            get
+            {
+                var days = (int)(DateOfPayment.AddYears(1) - DateTime.Now).TotalDays;
+                return days > 0 ? days : 0;
+            }
+        }
     }
 }

@@ -86,6 +86,9 @@ namespace UPPHercegovina.WebApplication.Models
 
         public DbSet<BuyerRequest> BuyerRequests { get; set; }
 
+        public DbSet<Mark> Marks { get; set; }
+
+        public DbSet<PersonProductMark> PersonProductMarks { get; set; }
 
     }
 }

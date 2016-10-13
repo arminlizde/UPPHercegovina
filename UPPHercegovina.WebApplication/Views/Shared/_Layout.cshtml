@@ -23,97 +23,122 @@
                 @Html.ActionLink("UPPHercegovina", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                             Općine <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                @Html.ActionLink("Općine", "Index", "Townships")
-                            </li>
-                            <li>
-                                @Html.ActionLink("Dodaj novu", "Create", "Townships")
-                            </li>
-                        </ul>
-                    </li>               @* Općine *@
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Proizvodi <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
+@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav">
+        @if (User.IsInRole("Administrator") || User.IsInRole("Super-Administrator"))
+        {
+            <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Općine <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        @Html.ActionLink("Općine", "Index", "Townships")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Dodaj novu", "Create", "Townships")
+                    </li>
+                </ul>
+            </li>               @* Općine *@
+        }
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Proizvodi <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                @if (User.IsInRole("Administrator") || User.IsInRole("Super-Administrator"))
+                        {
                             <li>@Html.ActionLink("Proizvodi", "Index", "Products")</li>
-                            <li>@Html.ActionLink("Dodaj novi", "Create", "Products")</li>                                                       
+                            <li>@Html.ActionLink("Dodaj novi", "Create", "Products")</li>
                             <hr />
                             <li>@Html.ActionLink("Vrste proizvoda", "Index", "ProductTypes")</li>
                             <li>@Html.ActionLink("Dodaj novu vrstu", "Index", "ProductTypes")</li>
-                        </ul>
-                    </li>               @* Proizvodi *@
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Korisnici <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Korisnici", "AllUsers", "UserManagment")</li>
-                            <li>@Html.ActionLink("Novi korisnik ???", "AllUsers", "UserManagment")</li>
-                        </ul>
-                    </li>               @* Korisnici *@
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Članske <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Članske", "Index", "Memberships")</li>
-                            <li>@Html.ActionLink("Dodaj novu", "Create", "Memberships")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Članstvo", "Index", "UserMemberships")</li>
-                            @*<li>@Html.ActionLink("Potvrdi", "Create", "UserMemberships")</li>*@
-                            <li>@Html.ActionLink("Statistika", "Stats", "UserMemberships")</li>
+                        }
+                        else if (User.IsInRole("Korisnik"))
+                        {
+                            <li>@Html.ActionLink("Proizvodi", "Index", "PersonProducts")</li>
+                            <li>@Html.ActionLink("Dodaj novi", "Create", "PersonProducts")</li>
+                        }
+            </ul>
+        </li>               @* Proizvodi *@
 
-                        </ul>
-                    </li>               @* Članske *@
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Menadžment <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Role", "Index", "Roles")</li>
-                            <li>@Html.ActionLink("Manage", "ManageUserRoles", "Roles")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
-                            <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Proizvodi u obradi", "Processing", "Processes")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Zahtjevi kupaca", "ActiveRequests", "Requests")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Transakcije", "Index", "Transactions")</li>
-                        </ul>
-                    </li>               @* Role *@
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Skladišta <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Skladišta", "Index", "Warehouses")</li>
-                            <li>@Html.ActionLink("Dodaj novo", "Create", "Warehouses")</li>
-                            <hr />
-                            <li>@Html.ActionLink("Vrste skladištenja", "Index", "Storings")</li>
-                            <li>@Html.ActionLink("Dodaj novu vrstu", "Create", "Storings")</li>
-                        </ul>
-                    </li>               @* Skladišta*@
+        @if (User.IsInRole("Administrator") || User.IsInRole("Super-Administrator"))
+        {
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        Korisnici <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Korisnici", "AllUsers", "UserManagment")</li>
+                        <li>@Html.ActionLink("Novi korisnik ???", "AllUsers", "UserManagment")</li>
+                    </ul>
+                </li>
+                @* Korisnici *@
+        }
 
-                    <li>
-                    @*Ovo treba da proradi*@
-                    @* Ovdje treba prikazivati broj proizvoda koej je korisnik dodao i treba
-                    ih administrator prihvatit  *@
-                            <a id="txtActiveProducts">
-                                <i class="fa fa-shopping-cart"></i>
-                                0
-                            </a>
-                    </li>
-                </ul>
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Članske <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                @if (User.IsInRole("Administrator") || User.IsInRole("Super-Administrator"))
+                {
+                    <li>@Html.ActionLink("Članske", "Index", "Memberships")</li>
+                    <li>@Html.ActionLink("Dodaj novu", "Create", "Memberships")</li>
+                    <hr />
+                    <li>@Html.ActionLink("Članstvo", "Index", "UserMemberships")</li>
+                    <li>@Html.ActionLink("Statistika", "Stats", "UserMemberships")</li>
+                }
+                else if (User.IsInRole("Korisnik"))
+                {
+                    <li>@Html.ActionLink("Članstvo", "Memberships", "UserMemberships")</li>
 
+                }
+            </ul>
+        </li>               @* Članske *@
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Menadžment <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Role", "Index", "Roles")</li>
+                <li>@Html.ActionLink("Manage", "ManageUserRoles", "Roles")</li>
+                <hr />
+                <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
+                <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
+                <hr />
+                <li>@Html.ActionLink("Proizvodi u obradi", "Processing", "Processes")</li>
+                <hr />
+                <li>@Html.ActionLink("Zahtjevi kupaca", "ActiveRequests", "Requests")</li>
+                <hr />
+                <li>@Html.ActionLink("Transakcije", "Index", "Transactions")</li>
+            </ul>
+        </li>               @* Role *@
+        <li role="presentation" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Skladišta <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Skladišta", "Index", "Warehouses")</li>
+                <li>@Html.ActionLink("Dodaj novo", "Create", "Warehouses")</li>
+                <hr />
+                <li>@Html.ActionLink("Vrste skladištenja", "Index", "Storings")</li>
+                <li>@Html.ActionLink("Dodaj novu vrstu", "Create", "Storings")</li>
+            </ul>
+        </li>               @* Skladišta*@
+
+        <li>
+            @*Ovo treba da proradi*@
+            @* Ovdje treba prikazivati broj proizvoda koej je korisnik dodao i treba
+                ih administrator prihvatit  *@
+            <a id="txtActiveProducts">
+                <i class="fa fa-shopping-cart"></i>
+                0
+            </a>
+        </li>
+    </ul>
+}
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

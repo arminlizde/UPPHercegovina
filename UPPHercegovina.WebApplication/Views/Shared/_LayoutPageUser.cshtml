@@ -24,16 +24,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            Proizvodi <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Proizvodi", "Index", "PersonProducts")</li>
-                            <li>@Html.ActionLink("Dodaj novi", "Create", "PersonProducts")</li>
-                        </ul>
-                    </li>               @* Proizvodi *@
-
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                Proizvodi <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Proizvodi", "Index", "PersonProducts")</li>
+                                <li>@Html.ActionLink("Dodaj novi", "Create", "PersonProducts")</li>
+                            </ul>
+                        </li>               @* Proizvodi *@
+                    }
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             Članske <span class="caret"></span>

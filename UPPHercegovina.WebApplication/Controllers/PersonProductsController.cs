@@ -138,8 +138,8 @@ namespace UPPHercegovina.WebApplication.Controllers
             PersonProduct personProduct = context.PersonProducts.Find(id);
 
             ViewBag.ProductId = new SelectList(context.Products
-                .OrderBy(p => p.Id == personProduct.ProductId)
-                .OrderBy(p => p.Name), "Id", "Name");
+                .OrderByDescending(p => p.Id == personProduct.ProductId)
+                .ThenBy(p => p.Name), "Id", "Name");
 
             ViewBag.FieldId = new SelectList(context.Fields.Where(f => f.OwnerId == context.Users
                 .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id), "Id", "Name");
@@ -153,7 +153,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Value,Urgently")] PersonProduct personProduct)
+        public ActionResult Edit([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Value,Urgently,Status,UserId")] PersonProduct personProduct)
         {
 
             //for some reason I need to populate my selectlists again

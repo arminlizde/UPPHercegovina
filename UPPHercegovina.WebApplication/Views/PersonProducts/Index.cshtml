@@ -79,9 +79,15 @@
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
-            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Obriši", "Delete", new { id=item.Id })
+            @if (item.Status == true && item.Accepted == false)
+            {
+                <div>
+                    @Html.ActionLink("Izmjeni", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
+                </div>
+            }
+
         </td>
     </tr>
 }

@@ -33,5 +33,7 @@ namespace UPPHercegovina.WebApplication.Models
 
         public virtual ApplicationUser User { get; set; }
 
+        public virtual BuyerRequest BuyerRequest { get; set; }
+
     }
 }
