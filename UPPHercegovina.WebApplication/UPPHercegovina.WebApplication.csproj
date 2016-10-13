@@ -246,6 +246,7 @@
     <Compile Include="Models\Quality.cs" />
     <Compile Include="Models\Storing.cs" />
     <Compile Include="Models\Township.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\UserMembership.cs" />
     <Compile Include="Models\MembershipViewModels.cs" />
     <Compile Include="Models\Warehouse.cs" />

@@ -8,6 +8,7 @@ namespace UPPHercegovina.WebApplication.Models
 {
     public class Transaction
     {
+        //proba
         public int Id { get; set; }
 
         [Display(Name = "Zahtjev")]
