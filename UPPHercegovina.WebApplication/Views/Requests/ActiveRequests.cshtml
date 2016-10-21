@@ -1,4 +1,6 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.BuyerRequest>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.BuyerRequest>
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "Aktivni zahtjevi";
@@ -10,19 +12,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BuyerId)
+            <label>Kupac</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            <label>Datum kreiranja</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <label>Datum preuzimanja</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accepted)
+            <label>Status</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductCount)
+            <label>Prihvaćeno</label>
+        </th>
+        <th>
+            <label>Broj proizvoda</label>
         </th>
         <th></th>
     </tr>
@@ -36,6 +41,9 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.DateOfPickUp)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
@@ -46,9 +54,12 @@
         </td>
         <td>
             @Html.ActionLink("Odobri", "Details", new { id=item.Id }) |
-            @Html.ActionLink("---", "Details", new { id=item.Id })
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id })
         </td>
     </tr>
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ActiveRequests", new { page, currentFilter = ViewBag.CurrentFilter }))

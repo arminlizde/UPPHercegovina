@@ -16,9 +16,9 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         public ActionResult Index()
         {
-            return View(context.Transactions
-                .Where(t => t.Status == true)
-                .Where(t => t.Accepted == false)
+            return View(context.Transactions.OrderByDescending(t => t.Date).ThenBy(t => t.Id)
+                .Where(t => t.Status == false)
+                .Where(t => t.Accepted == true)
                 .Include(t => t.User).ToList());
         }
 
@@ -29,7 +29,14 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = context.Transactions.Find(id);
+
+            //namireno ako trebalo dodavati vise informacija
+            Transaction transaction = context.Transactions
+                .Where(t => t.Id == id)
+                .Include(t => t.User)
+                .Include(t => t.BuyerRequest.ReservedProducts.Select(p => p.PersonProduct)).FirstOrDefault();
+                
+
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -56,37 +63,6 @@ namespace UPPHercegovina.WebApplication.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index");
-        }
-
-        // GET: Transactions/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transaction transaction = context.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transaction);
-        }
-
-        // POST: Transactions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,BuyerRequestId,UserId,Details,Price,Date,Status,Accepted")] Transaction transaction)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Entry(transaction).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(transaction);
         }
 
         protected override void Dispose(bool disposing)

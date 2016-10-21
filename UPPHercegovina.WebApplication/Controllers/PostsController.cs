@@ -9,20 +9,24 @@ using UPPHercegovina.WebApplication.Helpers;
 using UPPHercegovina.WebApplication.Models;
 using UPPHercegovina.WebApplication.Extensions;
 using UPPHercegovina.WebApplication.CustomFilters;
+using PagedList;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
     public class PostsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 5;
 
         [AuthLog(Roles = "Super-Administrator, Administrator")]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var postlist = context.Posts.OrderBy(p => p.PostDate).ThenBy(p => p.Author).ToList();
             var postViewModelList = Mapper.MapTo<List<PostListViewModel>, List<Post>>(postlist);
 
-            return postViewModelList != null ? View(postViewModelList) : View(new List<PostListViewModel>());
+            int pageNumber = (page ?? 1);
+
+            return postViewModelList != null ? View(postViewModelList.ToPagedList(pageNumber, _pageSize)) : View(new List<PostListViewModel>());
         }
 
         public ActionResult Details(int? id)

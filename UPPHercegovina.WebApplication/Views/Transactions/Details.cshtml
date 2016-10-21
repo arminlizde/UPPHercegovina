@@ -28,14 +28,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Details)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Details)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
 
@@ -70,7 +62,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Odobri", "FinishTransaction", new { id = Model.Id, status = true }) |
-    @Html.ActionLink("Odbi", "FinishTransaction", new { id = Model.Id, status = false }) |
     @Html.ActionLink("Nazad na listu", "Index")
 </p>

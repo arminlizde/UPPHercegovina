@@ -1,0 +1,64 @@
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Appointment>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Rezervacije";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rezervacije</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Proizvođač</label>
+        </th>
+        <th>
+            <label>Detalji</label>
+        </th>
+        <th>
+            <label>Datum dostave</label>
+        </th>
+        <th>
+            <label>Dostavljeno</label>
+        </th>
+        <th>
+            <label>Otkazano</label>
+        </th>
+        <th>
+            <label>Status</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delivered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Canceled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Prihvati", "AcceptAppointment", new { id = item.Id }) |
+            @Html.ActionLink("Detalji", "AppointmentDetails", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("AcceptedRequests", new { page, currentFilter = ViewBag.CurrentFilter }))

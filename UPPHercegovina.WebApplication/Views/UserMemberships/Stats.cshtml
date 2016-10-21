@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.UserMembershipStatsViewModel>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.UserMembershipStatsViewModel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Statistika /Članarine";
@@ -22,19 +23,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            <label>Član</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserMembership)
+            <label>Članska</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PaymentDate)
+            <label>Datum uplate</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpiringDate)
+            <label>Vrijedi do</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DaysLeft)
+            <label>Preostalo</label>
         </th>
         <th></th>
     </tr>
@@ -68,3 +69,7 @@
 </table>
 
 <p>Broj članova:  @ViewData["MembersCount"]</p>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Stats", new { page, currentFilter = ViewBag.CurrentFilter }))

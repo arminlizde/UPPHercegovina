@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.UserMembershipIndexModel>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.UserMembershipIndexModel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Članstvo";
@@ -14,6 +15,9 @@
 
 <table class="table">
     <tr>
+        <th>
+            <label>Broj članske</label>
+        </th>
         <th>
             @Html.ActionLink("Članska", "Index", new { sortOrder = ViewBag.MembershipSortParm })
         </th>
@@ -34,6 +38,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MembershipId)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.MembershipName)
         </td>
@@ -59,3 +66,7 @@
 }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

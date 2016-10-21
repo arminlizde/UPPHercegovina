@@ -1,0 +1,73 @@
+﻿@model UPPHercegovina.WebApplication.Models.BuyerRequest
+
+@{
+    ViewBag.Title = "Obriši";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Obriši zahtjev</h2>
+
+<h3>Da li ste sigurno da želite obrisati ovaj zahtjev ?</h3>
+<div>
+    <h4>Zahtjev</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPickUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPickUp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accepted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accepted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickedUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickedUp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad na listu", "Index")
+        </div>
+    }
+</div>

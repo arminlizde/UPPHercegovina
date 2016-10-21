@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace UPPHercegovina.WebApplication.Models
@@ -64,6 +65,8 @@ namespace UPPHercegovina.WebApplication.Models
 
         [DataMember(Name = "GeographicPosition")]
         public GeographicPosition GeographicPosition { get; set; }
+
+        public virtual List<PersonProduct> PersonProducts { get; set; }
     }
 
     [DataContractAttribute(Name = "Warehouse")]

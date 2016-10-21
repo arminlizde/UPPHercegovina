@@ -1,0 +1,82 @@
+﻿@model UPPHercegovina.WebApplication.Models.Delivery
+
+@{
+    ViewBag.Title = "DeliveryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeliveryDetails</h2>
+
+<div>
+    <h4>Delivery</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            <label>Id termina</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentId)
+        </dd>
+
+        <dt>
+            <label>Id dostave</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Appointment.DeliveryDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Appointment.DeliveryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Appointment.User.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Appointment.User.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonProduct.Product.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonProduct.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonProduct.Neto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonProduct.Neto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonProduct.Warehouse1.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PersonProduct.Warehouse1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Delivered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Delivered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Nazad na listu", "DeliveryHistory")
+</p>

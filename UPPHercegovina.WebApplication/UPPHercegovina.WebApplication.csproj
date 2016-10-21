@@ -198,12 +198,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
+    <Compile Include="Controllers\BuyerProductsController.cs" />
+    <Compile Include="Controllers\BuyerRequestsController.cs" />
     <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarksController.cs" />
     <Compile Include="Controllers\MembershipsController.cs" />
+    <Compile Include="Controllers\MyProductsController.cs" />
     <Compile Include="Controllers\PartnershipsController.cs" />
     <Compile Include="Controllers\PersonProductsController.cs" />
     <Compile Include="Controllers\PostCategoriesController.cs" />
@@ -217,6 +221,7 @@
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserManagmentController.cs" />
     <Compile Include="Controllers\UserMembershipsController.cs" />
+    <Compile Include="Controllers\WarehouseProductsController.cs" />
     <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="CustomFilters\AuthLogAttribute.cs" />
     <Compile Include="Extensions\Extensions.cs" />
@@ -237,13 +242,17 @@
     <Compile Include="Abstractions\Sorter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BuyerRequest.cs" />
+    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Models\GeographicPosition.cs" />
+    <Compile Include="Models\GlobalData.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\PartnershipViewModel.cs" />
     <Compile Include="Models\PersonProduct.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostCategory.cs" />
@@ -403,6 +412,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -418,7 +428,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -496,7 +506,6 @@
     <Content Include="Views\Warehouses\Details.cshtml" />
     <Content Include="Views\Warehouses\Edit.cshtml" />
     <Content Include="Views\Warehouses\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Views\Fields\Create.cshtml" />
     <Content Include="Views\Fields\Delete.cshtml" />
     <Content Include="Views\Fields\Details.cshtml" />
@@ -513,7 +522,6 @@
     <Content Include="Views\Requests\ActiveRequests.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Transactions\Details.cshtml" />
-    <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Marks\Create.cshtml" />
     <Content Include="Views\Marks\Delete.cshtml" />
@@ -522,6 +530,30 @@
     <Content Include="Views\Marks\Index.cshtml" />
     <Content Include="Views\UserMemberships\Memberships.cshtml" />
     <Content Include="Views\Partnerships\TransactionHistory.cshtml" />
+    <Content Include="Views\Partnerships\Details.cshtml" />
+    <Content Include="Views\Partnerships\BuyerDetails.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\Details.cshtml" />
+    <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Views\Processes\AppointmentProcess.cshtml" />
+    <Content Include="Views\Processes\AppointmentDetails.cshtml" />
+    <Content Include="Views\PersonProducts\Marks.cshtml" />
+    <Content Include="Views\BuyerProducts\Index.cshtml" />
+    <Content Include="Views\BuyerProducts\ReservedProducts.cshtml" />
+    <Content Include="Views\BuyerProducts\Details.cshtml" />
+    <Content Include="Views\BuyerRequests\Create.cshtml" />
+    <Content Include="Views\BuyerRequests\Delete.cshtml" />
+    <Content Include="Views\BuyerRequests\Details.cshtml" />
+    <Content Include="Views\BuyerRequests\Edit.cshtml" />
+    <Content Include="Views\BuyerRequests\Index.cshtml" />
+    <Content Include="Views\BuyerRequests\ProductDetails.cshtml" />
+    <Content Include="Views\Requests\AcceptedRequests.cshtml" />
+    <Content Include="Views\Requests\History.cshtml" />
+    <Content Include="Views\Processes\DeliveryHistory.cshtml" />
+    <Content Include="Views\Processes\DeliveryDetails.cshtml" />
+    <Content Include="Views\WarehouseProducts\Index.cshtml" />
+    <Content Include="Views\WarehouseProducts\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

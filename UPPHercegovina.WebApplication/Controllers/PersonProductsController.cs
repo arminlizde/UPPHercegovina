@@ -15,6 +15,14 @@ namespace UPPHercegovina.WebApplication.Controllers
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
+        public ActionResult AddToDelivery(int? id)
+        {
+            if (!GlobalData.Instance.forDelivery.Any(x => x.Id == id))
+                 GlobalData.Instance.forDelivery.Add(context.PersonProducts.Find(id));
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Index(FormCollection form)
         {
             int SearchIndex = 1;
@@ -51,13 +59,26 @@ namespace UPPHercegovina.WebApplication.Controllers
                 case 2:
                     StateList.Remove(item2);
                     StateList.Insert(0, item2);
-                    return View(context.PersonProducts
+
+                    var personProduct = context.PersonProducts
                        .Where(p => p.Status == true)
                        .Where(p => p.Accepted == true)
                        .Where(p => p.UserId == context.Users
                          .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
                        .Include(p => p.Field)
-                       .Include(p => p.Product).ToList());
+                       .Include(p => p.Product).ToList();
+
+                    var viewList = new List<PersonProduct>();
+
+                    foreach (var item in personProduct)
+                    {
+                        if (GlobalData.Instance.forDelivery.Any(x => x.Id == item.Id))
+                            continue;
+                        else
+                            viewList.Add(item);
+                    }
+
+                    return View(viewList);
                 case 3:
                     StateList.Remove(item3);
                     StateList.Insert(0, item3);
@@ -72,6 +93,22 @@ namespace UPPHercegovina.WebApplication.Controllers
             }
             #endregion
 
+        }
+
+        public ActionResult Marks()
+        {
+            var list = context.PersonProducts
+                        .Where(p => p.Accepted == true)
+                        .Where(p => p.UserId == context.Users
+                          .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                          .Where(p => p.Rating != 0)
+                        .Include(p => p.Field)
+                        .Include(p => p.User)
+                        .Include(p => p.Product).ToList();
+
+            ViewBag.AverageMark = list[0].User.GetAverageMark;
+
+            return View(list);
         }
 
         public ActionResult Details(int? id)

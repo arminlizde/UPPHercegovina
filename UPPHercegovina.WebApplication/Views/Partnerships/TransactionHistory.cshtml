@@ -1,5 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Transaction>
-
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.PartnershipViewModel>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "TransactionHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,31 +7,31 @@
 
 <h2>TransactionHistory</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BuyerRequest.BuyerId)
+            <label>Transakcija</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            <label>Datum</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Details)
+            <label>Kupac</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            <label>Proizvod</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            <label>Bruto</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <label>Neto</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accepted)
+            <label>Cijena</label>
+        </th>
+        <th>
+            <label>Kvalitet</label>
         </th>
         <th></th>
     </tr>
@@ -39,32 +39,38 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id)
+            @Html.DisplayFor(modelItem => item.TransactionId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
+            @Html.DisplayFor(modelItem => item.GetDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Details)
+            @Html.ActionLink(item.BuyerName, "BuyerDetails", new { Id = item.BuyerId }, null)
+            @*@Html.DisplayFor(modelItem => item.BuyerName)*@
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
+            @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @Html.DisplayFor(modelItem => item.Bruto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.Neto)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Accepted)
+            @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(modelItem => item.Quality)
+        </td>
+        <td>
+            @Html.ActionLink("Detalji", "Details", new { Id = item.PersonProductId, transactionId = item.TransactionId}, null)
         </td>
     </tr>
 }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("TransactionHistory", new { page, currentFilter = ViewBag.CurrentFilter }))

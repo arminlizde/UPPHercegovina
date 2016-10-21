@@ -1,0 +1,147 @@
+﻿@model UPPHercegovina.WebApplication.Models.BuyerRequest
+
+@{
+    ViewBag.Title = "Detalji zahtjeva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <h4>Detalji zahtjeva</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfPickUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPickUp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accepted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accepted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickedUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickedUp)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Proizvod</label>
+        </th>
+        <th>
+            <label>Proizvođač</label>
+        </th>
+
+        <th>
+            <label>Datum branja</label>
+        </th>
+        <th>
+            <label>Cijena</label>
+        </th>
+        <th>
+            <label>Neto</label>
+        </th>
+        <th>
+            <label>Bruto</label>
+        </th>
+        <th>
+            <label>Kvalitet</label>
+        </th>
+        <th>
+            <label>Oštećeno</label>
+        </th>
+        <th>
+            <label>Hitno</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ReservedProducts)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.HarvestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Neto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Bruto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Quality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Damaged)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonProduct.Urgently)
+            </td>
+            <td>
+                @Html.ActionLink("Detalji", "ProductDetails", new { id = item.PersonProductId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<p>
+    @if (!Model.Accepted)
+    {
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        </div>
+    }
+    @Html.ActionLink("Nazad na listu", "Index")
+</p>

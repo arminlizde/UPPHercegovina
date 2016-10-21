@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -14,10 +15,11 @@ namespace UPPHercegovina.WebApplication.Controllers
 {
     public class UserMembershipsController : Controller
     {
+        private int _pageSize = 5;
         private ApplicationDbContext context = new ApplicationDbContext();
 
         [AuthLog(Roles = "Super-Administrator, Administrator")]
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(int? page, string sortOrder)
         {
             ViewBag.StatusSortParm = sortOrder == "status" ? "status_desc" : "status";
             ViewBag.ApprovedSortParm = sortOrder == "approved" ? "approved_desc" : "approved";
@@ -28,21 +30,22 @@ namespace UPPHercegovina.WebApplication.Controllers
             var usermemberships = context.UserMemberships.Include(um => um.User).Include(um => um.Membership).ToList();
             var modellist = Mapper.MapTo<List<UserMembershipIndexModel>, List<UserMembership>>(usermemberships);
             modellist = SortFactory.Resolve(sortOrder, modellist.GetType()).Sort(modellist);
-            
-            return View(modellist);
+
+            int pageNumber = (page ?? 1);
+
+            return View(modellist.ToPagedList(pageNumber, _pageSize));
         }
 
         [AuthLog(Roles = "Korisnik")]
-        public ActionResult Memberships()
+        public ActionResult Memberships(int? page)
         {
-            var x = context.UserMemberships
+            int pageNumber = (page ?? 1);
+
+            return View(context.UserMemberships.OrderByDescending(u => u.DateOfPayment)
                 .Where(um => um.UserId == context.Users
                     .Where(u => u.Email == User.Identity.Name)
                 .FirstOrDefault().Id)
-                .Include(um => um.Membership)
-                .ToList();
-
-            return View(x);
+                .Include(um => um.Membership).ToPagedList(pageNumber, _pageSize));
         }
 
         [AuthLog(Roles = "Super-Administrator, Administrator")]
@@ -201,7 +204,7 @@ namespace UPPHercegovina.WebApplication.Controllers
         }
 
         [AuthLog(Roles = "Super-Administrator, Administrator")]
-        public ActionResult Stats(FormCollection form)
+        public ActionResult Stats(int? page, FormCollection form)
         {
             int searchIndex = 0;
 
@@ -231,7 +234,9 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             ViewBag.MembersCount = userMemberShipList.Count();
 
-            return View(UserMembershipStatsViewModel.CreateStatsViewModelList(userMemberShipList));
+            int pageNumber = (page ?? 1);
+
+            return View(UserMembershipStatsViewModel.CreateStatsViewModelList(userMemberShipList).ToPagedList(pageNumber, _pageSize));
         }
 
         protected override void Dispose(bool disposing)

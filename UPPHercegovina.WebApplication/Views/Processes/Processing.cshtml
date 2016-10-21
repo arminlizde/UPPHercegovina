@@ -1,5 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PersonProduct>
-
+﻿@model  PagedList.PagedList<UPPHercegovina.WebApplication.Models.PersonProduct>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Proizvodi u obradi";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,34 +10,34 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            <label>Korisnik</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductId)
+            <label>Proizvod</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Warehouse1Id)
+            <label>Skladište</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HarvestDate)
+            <label>Datum branja</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Neto)
+            <label>Neto</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bruto)
+            <label>Bruto</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CircaValue)
+            <label>Očekivana vrijednost</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Damaged)
+            <label>Oštećeno</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Urgently)
+            <label>Hitno</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Value)
+            <label>Cijena</label>
         </th>
         <th></th>
     </tr>
@@ -83,3 +83,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Processing", new { page, currentFilter = ViewBag.CurrentFilter }))

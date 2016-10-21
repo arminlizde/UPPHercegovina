@@ -64,6 +64,9 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "Status")]
         public bool Status { get; set; }
 
+        [Display(Name = "Broj članske")]
+        public int MembershipId { get { return Membership.Id; } }
+
         [Display(Name = "Članska")]
         public string MembershipName { get { return Membership.Name; } }
 

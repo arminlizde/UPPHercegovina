@@ -1,0 +1,78 @@
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Appointment>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Rezervacija dotjerivanja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Napravi rezervaciju", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <label>Proizvođač</label>
+        </th>
+        <th>
+            <label>Detalji</label>
+        </th>
+        <th>
+            <label>Datum dostave</label>
+        </th>
+        <th>
+            <label>Dostavljeno</label>
+        </th>
+        <th>
+            <label>Otkazano</label>
+        </th>
+        <th>
+            <label>Status</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delivered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Canceled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @if (item.Status == true)
+            {
+                <div>
+                    @Html.ActionLink("Izmjeni", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.Id })
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.ActionLink("Detalji", "Details", new { id = item.Id })
+                </div>
+            }
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))

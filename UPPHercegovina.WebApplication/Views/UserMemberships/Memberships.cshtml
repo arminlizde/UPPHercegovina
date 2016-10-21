@@ -1,5 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.UserMembership>
-
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.UserMembership>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Memberships";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,33 +10,45 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Membership.Name)
+            <label>Id članske</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfPayment)
+            <label>Naziv</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DaysLeft)
+            <label>Datum uplate</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Approved)
+            <label>Datum isteka</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <label>Preostalo dana</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Membership.Price)
+            <label>Prihvaćeno</label>
         </th>
-        <th></th>
+        <th>
+            <label>Status</label>
+        </th>
+        <th>
+            <label>Cijena</label>
+        </th>
+
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.MembershipId)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Membership.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateOfPayment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExparationDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DaysLeft)
@@ -50,7 +62,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Membership.Price)
         </td>
+
     </tr>
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))

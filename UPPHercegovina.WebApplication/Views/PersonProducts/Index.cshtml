@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Proizvodi u ponudi";
-    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Proizvodi u ponudi</h2>
@@ -87,9 +87,17 @@
                     @Html.ActionLink("Obriši", "Delete", new { id = item.Id })
                 </div>
             }
+            else if (item.Status == true && item.Accepted == true)
+            {
+                <div>
+                    @Html.ActionLink("Dodaj za dostavu", "AddToDelivery", new { id = item.Id })
+                </div>
+            }
 
         </td>
     </tr>
 }
 
 </table>
+
+

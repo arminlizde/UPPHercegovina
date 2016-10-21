@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System; //za datetime
+using System.Linq;
 
 namespace UPPHercegovina.WebApplication.Models
 {
@@ -30,6 +31,31 @@ namespace UPPHercegovina.WebApplication.Models
         public string GetFirstLastName()
         {
             return FirstName + " " + LastName;
+        }
+
+        public string GetAverageMark
+        {
+            get
+            {
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    var list = context.PersonProducts.Where(p => p.Accepted == true)
+                        .Where(p => p.UserId == Id)
+                        .Where(p => p.Rating != 0)
+                        .Include(p => p.Field)
+                        .Include(p => p.Product).ToList();
+
+                    float averageMark = 0;
+
+                    foreach (var item in list)
+                    {
+                        averageMark += item.Rating;
+                    }
+                    averageMark /= list.Count();
+
+                    return averageMark.ToString();
+                }
+            }
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -89,6 +115,10 @@ namespace UPPHercegovina.WebApplication.Models
         public DbSet<Mark> Marks { get; set; }
 
         public DbSet<PersonProductMark> PersonProductMarks { get; set; }
+
+        public DbSet<Appointment> Appointments { get; set; }
+
+        public DbSet<Delivery> Deliveries { get; set; }
 
     }
 }

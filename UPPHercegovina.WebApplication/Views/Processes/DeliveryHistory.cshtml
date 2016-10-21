@@ -1,0 +1,63 @@
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Delivery>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "DeliveryHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DeliveryHistory</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Id termina</label>
+        </th>
+        <th>
+            <label>Proizvod</label>
+        </th>
+        <th>
+            <label>Neto</label>
+        </th>
+        <th>
+            <label>Bruto</label>
+        </th>
+        <th>
+            <label>Datum dostavljanja</label>
+        </th>
+        <th>
+            <label>Dostavljeno</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appointment.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonProduct.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonProduct.Neto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonProduct.Bruto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appointment.DeliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delivered)
+        </td>
+        <td> 
+            @Html.ActionLink("Details", "DeliveryDetails", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("DeliveryHistory", new { page, currentFilter = ViewBag.CurrentFilter }))

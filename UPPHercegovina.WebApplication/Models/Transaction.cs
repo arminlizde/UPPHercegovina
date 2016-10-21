@@ -8,6 +8,7 @@ namespace UPPHercegovina.WebApplication.Models
 {
     public class Transaction
     {
+        [Display(Name = "Transakcija")]
         public int Id { get; set; }
 
         [Display(Name = "Zahtjev")]
@@ -25,6 +26,9 @@ namespace UPPHercegovina.WebApplication.Models
         [Display(Name = "Datum")]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Datum")]
+        public string GetOnlyDate { get { return Date.ToShortDateString(); } }
+
         [Display(Name = "Status")]
         public bool Status { get; set; }
 
@@ -35,5 +39,14 @@ namespace UPPHercegovina.WebApplication.Models
 
         public virtual BuyerRequest BuyerRequest { get; set; }
 
+    }
+
+    public class TransactionViewModel
+    {
+        public Transaction Transaction { get; set; }
+
+        public ReservedProduct ReservedProduct { get; set; }
+
+        public string BuyerFullName { get; set; }
     }
 }

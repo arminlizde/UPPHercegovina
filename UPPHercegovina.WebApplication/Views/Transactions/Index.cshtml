@@ -16,9 +16,6 @@
             @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
@@ -42,9 +39,6 @@
             @Html.DisplayFor(modelItem => item.User.FullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Details)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
@@ -57,8 +51,7 @@
             @Html.DisplayFor(modelItem => item.Accepted)
         </td>
         <td>
-            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Odobri", "Details", new { id=item.Id })
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id })
         </td>
     </tr>
 }

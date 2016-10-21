@@ -27,6 +27,7 @@ namespace UPPHercegovina.WebApplication.Models
 
             var orderedProducts = context.Products
                 .Where(p => p.Status == true).OrderBy(p => p.ProductTypeId).Include(p => p.ProductType).ToList();
+
             var products = Mapper.MapTo<List<ProductViewModel>, List<Product>>(orderedProducts);
             products = SortFactory.Resolve(sortOrder, products.GetType()).Sort(products);
             

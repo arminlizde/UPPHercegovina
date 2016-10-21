@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PostListViewModel>
+﻿@model  PagedList.PagedList<UPPHercegovina.WebApplication.Models.PostListViewModel>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Uređivanje obavijesti";
@@ -12,16 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            <label>Naslov</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TextFragment)
+            <label>Tekst</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            <label>Autor</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostDate)
+            <label>Datum postavljanja</label>
         </th>
 
         <th></th>
@@ -53,3 +54,7 @@
 }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

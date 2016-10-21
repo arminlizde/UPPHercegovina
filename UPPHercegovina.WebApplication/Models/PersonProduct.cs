@@ -53,6 +53,11 @@ namespace UPPHercegovina.WebApplication.Models
             }
         }
 
+        public decimal ValueDifference { get
+            {
+                return Value - CircaValue;
+            } }
+
         [Display(Name = "Kvalitet")]
         [DataMember(Name = "Quality")]
         public string Quality { get; set; }
@@ -81,6 +86,10 @@ namespace UPPHercegovina.WebApplication.Models
         [DataType(DataType.Currency)]
         public decimal Value { get; set; }
 
+        [Display(Name = "Ocijena proizvoda")]
+        [DataMember(Name = "Rating")]
+        public int Rating { get; set; }
+
         [Display(Name = "Hitno")]
         [DataMember(Name = "Urgently")]
         public bool Urgently { get; set; }
@@ -92,6 +101,10 @@ namespace UPPHercegovina.WebApplication.Models
         [Display(Name = "Status")]
         [DataMember(Name = "Status")]
         public bool Status { get; set; }
+
+        [Display(Name = "U skladištu")]
+        [DataMember(Name = "InWarehouse")]
+        public bool InWarehouse { get; set; }
 
         [DataMember(Name = "Product")]
         public virtual Product Product { get; set; }

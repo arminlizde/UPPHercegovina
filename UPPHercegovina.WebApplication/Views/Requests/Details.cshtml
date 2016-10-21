@@ -35,6 +35,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.DateOfPickUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfPickUp)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
 
@@ -48,6 +56,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Accepted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickedUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickedUp)
         </dd>
 
     </dl>
@@ -73,7 +89,6 @@
         <th>
             <label>Skladište</label>
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model.ReservedProducts)
@@ -102,8 +117,12 @@
 
 </table>
 <p>
-    @Html.ActionLink("Odobri", "ProcessRequest", new { id = Model.Id, status = true }) |
-    @Html.ActionLink("Odbi", "ProcessRequest", new { id = Model.Id, status = false }) |
-
+    @if(!Model.Accepted)
+    {
+        <div>
+            @Html.ActionLink("Odobri", "ProcessRequest", new { id = Model.Id, status = true }) |
+            @Html.ActionLink("Odbi", "ProcessRequest", new { id = Model.Id, status = false }) |
+        </div>
+    }
     @Html.ActionLink("Nazad na listu", "ActiveRequests")
 </p>

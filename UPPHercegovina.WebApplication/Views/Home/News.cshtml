@@ -1,4 +1,6 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Post>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Post>
+@using PagedList.Mvc
+
 
 @{
     ViewBag.Title = "Dobrodošli na web stranicu UPPHercegovina";
@@ -47,3 +49,7 @@
      <a href="~/Views/Posts/Index.cshtml">Pregled obavijesti</a> <br/>
      <a href="Contact">Kontaktiraj nas</a>
 </div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("News", new { page, currentFilter = ViewBag.CurrentFilter }))

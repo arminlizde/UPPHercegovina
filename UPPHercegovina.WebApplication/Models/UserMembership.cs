@@ -53,5 +53,9 @@ namespace UPPHercegovina.WebApplication.Models
                 return days > 0 ? days : 0;
             }
         }
+
+        [Display(Name = "Datum isteka")]
+        public DateTime ExparationDate { get { return DateOfPayment.AddYears(1); } }
+
     }
 }

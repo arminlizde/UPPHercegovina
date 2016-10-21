@@ -24,7 +24,10 @@
         @Html.HiddenFor(model => model.UserName)
         @Html.HiddenFor(model => model.PictureUrl)
 
+
+
         <div class="col-md-8">
+
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, "Ime", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -92,8 +95,6 @@
                 </div>
             </div>
 
-
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Spasi promjene" class="btn btn-default" />
@@ -105,6 +106,7 @@
 
             <div class="form-group">
                 <img id="user_img" src="@Url.Content(Model.PictureUrl)" height="200" width="200" style="border:hidden" />
+            <h3>Prosječna ocijena @Model.GetAverageMark</h3>
             </div>
 
         </div>

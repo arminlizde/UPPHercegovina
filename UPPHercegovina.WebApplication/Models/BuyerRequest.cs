@@ -16,14 +16,20 @@ namespace UPPHercegovina.WebApplication.Models
         [Display(Name = "Detalji")]
         public string Details { get; set; }
 
-        [Display(Name="Datum")]
+        [Display(Name="Datum kreiranja")]
         public DateTime Date { get; set; }
+
+        [Display(Name = "Datum preuzimanja")]
+        public DateTime DateOfPickUp { get; set; }
 
         [Display(Name = "Status")]
         public bool Status { get; set; }
 
         [Display(Name = "Prihvaćeno")]
         public bool Accepted { get; set; }
+
+        [Display(Name ="Pokupljeno")]
+        public bool PickedUp { get; set; }
 
         public virtual List<ReservedProduct> ReservedProducts { get; set; }
 
@@ -51,7 +57,7 @@ namespace UPPHercegovina.WebApplication.Models
 
                     foreach (var item in products)
                     {
-                        sum += item.Value;
+                        sum += item.Value * Convert.ToDecimal(item.Neto);
                     }
 
                     return sum;

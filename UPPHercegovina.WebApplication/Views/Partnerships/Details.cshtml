@@ -1,0 +1,125 @@
+﻿@model UPPHercegovina.WebApplication.Models.TransactionViewModel
+
+@{
+    ViewBag.Title = "Detalji";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <h4>Detalji proizvoda transakcije</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.Id)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.User.FullName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.GetOnlyDate)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.BuyerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyerFullName)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Product.Name)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.HarvestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.HarvestDate)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Bruto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Bruto)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Neto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Neto)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Quality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Quality)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.CircaValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.CircaValue)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.Value)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.ValueDifference)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.BuyerRequest.ReservedProducts[0].PersonProduct.ValueDifference)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
