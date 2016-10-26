@@ -1,0 +1,70 @@
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.TransactionHistoryViewModel>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Historija / Transakcije";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Historija transakcija</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Transakcija</label>
+        </th>
+        <th>
+            <label>Datum</label>
+        </th>
+        <th>
+            <label>Proizvod</label>
+        </th>
+        <th>
+            <label>Neto</label>
+        </th>
+        <th>
+            <label>Bruto</label>
+        </th>
+        <th>
+            <label>Kvalitet</label>
+        </th>
+        <th>
+            <label>Cijena</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Neto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Bruto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Quality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Detalji", "TransactionDetails", new { Id = item.TransactionId, PersonProductId = item.Product.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("TransactionHistory", new { page, currentFilter = ViewBag.CurrentFilter }))

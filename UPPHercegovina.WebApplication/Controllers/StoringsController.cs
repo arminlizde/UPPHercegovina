@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,22 +18,23 @@ namespace UPPHercegovina.WebApplication.Controllers
     [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class StoringsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
-        // GET: Storings
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Storings.ToList());
+            int pageNumber = (page ?? 1);
+
+            return View(context.Storings.ToList().ToPagedList(pageNumber, _pageSize));
         }
 
-        // GET: Storings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Storing storing = db.Storings.Find(id);
+            Storing storing = context.Storings.Find(id);
             if (storing == null)
             {
                 return HttpNotFound();
@@ -40,37 +42,32 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(storing);
         }
 
-        // GET: Storings/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Storings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Description")] Storing storing)
         {
             if (ModelState.IsValid)
             {
-                db.Storings.Add(storing);
-                db.SaveChanges();
+                context.Storings.Add(storing);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             return View(storing);
         }
 
-        // GET: Storings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Storing storing = db.Storings.Find(id);
+            Storing storing = context.Storings.Find(id);
             if (storing == null)
             {
                 return HttpNotFound();
@@ -78,30 +75,26 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(storing);
         }
 
-        // POST: Storings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description")] Storing storing)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(storing).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(storing).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(storing);
         }
 
-        // GET: Storings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Storing storing = db.Storings.Find(id);
+            Storing storing = context.Storings.Find(id);
             if (storing == null)
             {
                 return HttpNotFound();
@@ -109,14 +102,13 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(storing);
         }
 
-        // POST: Storings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Storing storing = db.Storings.Find(id);
-            db.Storings.Remove(storing);
-            db.SaveChanges();
+            Storing storing = context.Storings.Find(id);
+            context.Storings.Remove(storing);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -124,7 +116,7 @@ namespace UPPHercegovina.WebApplication.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }

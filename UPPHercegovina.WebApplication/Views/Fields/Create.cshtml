@@ -1,110 +1,149 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Field
 
 @{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+    ViewBag.Title = "Dodaj / Zemljište";
 }
 
-<h2>Create</h2>
+<h2>Dodaj novo zemljište</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Field</h4>
+        <h4>Zemljište</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.GeoLong, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GeoLong, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GeoLong, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GeoLat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GeoLat, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GeoLat, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    <div class="=well">
-        <h4>Naša skladišta</h4>
         <div class="row">
-            <div class="col-xs-4" style="height:300px;">
-                <div id="map" style="height:100%;"></div>
-                <script>
-                    var map;
-  
-                            function initMap() {
-                                map = new google.maps.Map(document.getElementById('map'), {
-                                    center: { lng: @ViewBag.Location.GeographicPosition.Longitude, lat: @ViewBag.Location.GeographicPosition.Latitude },
-                                    zoom: 8
-                                });
+            <div class="col-md-6">
 
-                                google.maps.event.addListener(map, 'click', function (event) {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "naziv općine" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GeoLong, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GeoLong, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska dužina", id = "lng" } })
+                        @Html.ValidationMessageFor(model => model.GeoLong, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GeoLat, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GeoLat, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska širina", id = "txt" } })
+                        @Html.ValidationMessageFor(model => model.GeoLat, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj" class="btn btn-success" />
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="form-group">
+                        <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                        <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.Location.GeographicPosition.Latitude, lng: @ViewBag.Location.GeographicPosition.Longitude};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Povuci i postavi lokaciju!',
+                                        draggable:true
+                                    });
+
+
+                                    google.maps.event.addListener(map, 'click', function (event) {
 
                                         displayCoordinates(event.latLng);
 
-                                   
-                                });
-                                
-                               function displayCoordinates(pnt) {
-
-                                    var lat = pnt.lat();
-                                    lat = lat.toFixed(4);
-                                    var lng = pnt.lng();
-                                    lng = lng.toFixed(4);
-                                    
-                                    console.log("Latitude: " + lat + "  Longitude: " + lng);                                    
-                                                
-                                    var t = new google.maps.Marker({
-                                        position: {lat: parseFloat(lat), lng: parseFloat(lng)},
-                                        animation: google.maps.Animation.DROP,
-                                        map: map,
-                                        title: 'Sigurno želite ovdje postaviti ?'
                                     });
-                                  
-                                    x = true;
-                                    
+                                    google.maps.event.addListener(marker, 'dragend', function () {
+                                        map.setCenter(this.getPosition()); // Set map center to marker position
+                                        updatePosition(this.getPosition().lat(), this.getPosition().lng()); // update position display
+
+                                        document.getElementById('txt').value = this.getPosition().lat();
+
+
+                                        $("#txt").val(this.getPosition().lat());
+
+
+                                    });
+
+                                    google.maps.event.addListener(map, 'dragend', function () {
+                                        myMarker.setPosition(this.getCenter()); // set marker position to map center
+                                        updatePosition(this.getCenter().lat(), this.getCenter().lng()); // update position display
+
+
+
+                                    });
+
+                                    function updatePosition(lat, lng) {
+                                        console.log("Latitude: " + lat + "  Longitude: " + lng);
+                                        document.getElementById('lng').value = lng;
+                                    }
+                                    document.getElementById('lat').value = lat;
+
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+
+
+
+                                    }
                                 }
 
-                            }
-                </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
-                        async defer></script>
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                                async defer></script>
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 
 
-}
+    </div>
+
+                    }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Nazad na listu", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

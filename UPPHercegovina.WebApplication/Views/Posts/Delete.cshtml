@@ -1,14 +1,14 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Post
 
 @{
-    ViewBag.Title = "Brisanje";
+    ViewBag.Title = "Obriši / Obavijesti";
 }
 
 <h2>Obriši obavijest</h2>
 
 <h3>Da li ste sigurni da želite obrisati obavijest?</h3>
 <div>
-    <h4>Obavijest</h4>
+    <h4>Obavijesti</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Title_short)
         </dd>
 
         <dt>
@@ -24,7 +24,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Text)
+            @Html.DisplayFor(model => model.Text500string)
         </dd>
 
         <dt>
@@ -41,14 +41,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.PostDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PictureUrl)
         </dd>
 
         <dt>

@@ -7,10 +7,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
+    [AuthLog(Roles = "Korisnik")]
     public class AppointmentsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -19,6 +21,7 @@ namespace UPPHercegovina.WebApplication.Controllers
         public ActionResult Index(int? page)
         {
             var appointments = context.Appointments
+                .Where(a => a.UserId == context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
                 .Include(a => a.User)
                 .OrderByDescending(ap => ap.Status).ThenBy(apo => apo.Id);
 
@@ -26,7 +29,6 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return View(appointments.ToPagedList(pageNumber, _pageSize));
         }
-
 
         public ActionResult Create()
         {

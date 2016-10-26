@@ -2,10 +2,10 @@
 @using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Uređivanje obavijesti";
+    ViewBag.Title = "Pregled / Obavijesti / Administrator";
 }
 
-<h2>Obavijesti</h2>
+<h2>Pregled obavijesti</h2>
 
 <p>
     @Html.ActionLink("Dodaj novu obavijest", "Create")
@@ -36,8 +36,6 @@
         <td>
             @Html.Raw(HttpUtility.HtmlDecode(item.TextFragment))
 
-
-           @* @Html.DisplayFor(modelItem => item.TextFragment)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.AuthorName)

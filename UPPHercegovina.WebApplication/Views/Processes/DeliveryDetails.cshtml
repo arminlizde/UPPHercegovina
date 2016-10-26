@@ -1,26 +1,26 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Delivery
 
 @{
-    ViewBag.Title = "DeliveryDetails";
+    ViewBag.Title = "Detalji / Dolazni proizvodi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DeliveryDetails</h2>
+<h2>Detalji dolaznog proizvoda</h2>
 
 <div>
-    <h4>Delivery</h4>
+    <h4>Dolazni proizvodi</h4>
     <hr />
     <dl class="dl-horizontal">
 
         <dt>
-            <label>Id termina</label>
+            <label>Šifra termina</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AppointmentId)
         </dd>
 
         <dt>
-            <label>Id dostave</label>
+            <label>Šifra dostave</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Id)
@@ -34,7 +34,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Appointment.User.FullName)
+            <label>Proizvođač</label>
+            
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Appointment.User.FullName)

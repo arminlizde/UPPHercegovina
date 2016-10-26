@@ -1,10 +1,11 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.WarehouseViewModel>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.WarehouseViewModel>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Skladišta";
+    ViewBag.Title = "Pregled / Skladišta";
 }
 
-<h2>Skladišta</h2>
+<h2>Pregled skladišta</h2>
 
 <p>
     @Html.ActionLink("Dodaj novo skladište", "Create")
@@ -12,16 +13,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            <label>Skladište</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            <label>Opis</label>
+            
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StoringId)
+            <label>Vrsta skladištenja</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TownshipId)
+            <label>Općina</label>
+
         </th>
         <th></th>
     </tr>
@@ -49,3 +53,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

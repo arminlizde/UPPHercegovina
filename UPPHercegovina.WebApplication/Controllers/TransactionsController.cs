@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,20 +7,25 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
+    [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class TransactionsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            int pageNumber = (page ?? 1);
+
             return View(context.Transactions.OrderByDescending(t => t.Date).ThenBy(t => t.Id)
                 .Where(t => t.Status == false)
                 .Where(t => t.Accepted == true)
-                .Include(t => t.User).ToList());
+                .Include(t => t.User).ToPagedList(pageNumber, _pageSize));
         }
 
         // GET: Transactions/Details/5

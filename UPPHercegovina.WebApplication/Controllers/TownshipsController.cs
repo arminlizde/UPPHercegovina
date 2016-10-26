@@ -21,7 +21,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return townships != null ? View(townships.ToList()) : View(new List<Township>());      
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details_old(int? id)
         {
             if (id == null)
             {
@@ -35,8 +35,25 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(township);
         }
 
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var township = context.PlaceOfResidences.Find(id);
+            if (township == null)
+            {
+                return HttpNotFound();
+            }
+            @ViewBag.lat = township.GeographicPosition.Latitude;
+            @ViewBag.lng = township.GeographicPosition.Longitude;
+            return View(township);
+        }
+
         public ActionResult Create()
         {
+            SetGoogleMap();
             return View();
         }
 
@@ -54,7 +71,29 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(township);
         }
 
-        public ActionResult Edit(int? id)
+        private void SetGoogleMap()
+        {
+            var user = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
+            //This works only if we allow only registered users to visit 
+            ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+            ViewBag.Markers = context.Warehouses1.ToList();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create_old([Bind(Include = "Id,Name,Entity,GeographicPosition")] Township township)
+        {
+            if (ModelState.IsValid)
+            {
+                context.PlaceOfResidences.Add(township);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(township);
+        }
+
+        public ActionResult Edit_old(int? id)
         {
             if (id == null)
             {
@@ -78,6 +117,22 @@ namespace UPPHercegovina.WebApplication.Controllers
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View(township);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var township = context.PlaceOfResidences.Find(id);
+            if (township == null)
+            {
+                return HttpNotFound();
+            }
+            @ViewBag.lat = township.GeographicPosition.Latitude;
+            @ViewBag.lng = township.GeographicPosition.Longitude;
             return View(township);
         }
 

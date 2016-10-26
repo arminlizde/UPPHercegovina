@@ -1,36 +1,34 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.UsersViewModel>
-
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.UsersViewModel>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Korisnici";
+    ViewBag.Title = "Pregled / Korisnika";
 }
 
-<h2>Korisnici</h2>
+<h2>Pregled korisnika</h2>
 
-<p>
-    @Html.ActionLink("Dodaj novog korisnika", "Create")
-</p>
-@*@using (Html.BeginForm("AllUsers", "UserManagment"))
+@using (Html.BeginForm("AllUsers", "UserManagment"))
 {
     <div class="container">
         <div class="col-md-12">
             @Html.CheckBox("status")
-            <input id="Submit1" type="submit" value="Prikaži neaktivne" />
+            <input id="Submit1" type="submit" value="Filtriraj po statusu" />
         </div>
     </div>
-}*@
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            <label>Ime</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            <label>Prezime</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            <label>Broj telefona</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Township)
+            <label>Općina</label>
         </th>
         <th></th>
     </tr>
@@ -60,12 +58,6 @@
 
 </table>
 
-@using (Html.BeginForm("AllUsers", "UserManagment"))
-{
-    <div class="container">
-        <div class="col-md-12">
-            @Html.CheckBox("status")
-            <input id="Submit1" type="submit" value="Filtriraj po statusu" />
-        </div>
-    </div>
-}
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

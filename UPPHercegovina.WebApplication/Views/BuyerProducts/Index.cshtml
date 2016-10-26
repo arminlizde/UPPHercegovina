@@ -1,44 +1,52 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PersonProduct>
-
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.PersonProduct>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ponuda / Proizvodi / Nakupac";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Proizvodi u ponudi</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Product.Name)
+            <label>Proizvod</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            <label>Proizvođač</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Warehouse1.Name)
+            <label>Skladište</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HarvestDate)
+            <label>Datum berbe</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Neto)
+            <label>Cijena</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bruto)
+            <label>Neto</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quality)
+            <label>Bruto</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Damaged)
+            <label>Kvalitet</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Value)
+            <label>Oštećeno</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Urgently)
+            <label>Hitno</label>
         </th>
+
         <th></th>
     </tr>
 
@@ -49,13 +57,13 @@
             @Html.DisplayFor(modelItem => item.Product.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
+            @Html.ActionLink(item.User.FullName, "ProducerDetails", new { Id = item.User.Id }, null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Warehouse1.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HarvestDate)
+            @Html.DisplayFor(modelItem => item.HarvestOnlyDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Neto)
@@ -83,3 +91,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

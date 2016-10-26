@@ -18,15 +18,72 @@ namespace UPPHercegovina.WebApplication.Controllers
         private ApplicationDbContext context = new ApplicationDbContext();
         private int _pageSize = 5;
 
-        public ActionResult Index()
+        public ActionResult TransactionHistory(int? page)
         {
-            var buyerRequests = context.BuyerRequests
-                .Where(b => b.BuyerId == context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
-                .Include(b => b.Buyer).Where(b => b.Status == true);
-            return View(buyerRequests.ToList());
+            var transactions = context.Transactions.OrderByDescending(t => t.Date)
+                .Where(t => t.BuyerRequest.BuyerId == context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                .Where(t => t.Status == false && t.Accepted == true)
+                .Include(t => t.BuyerRequest.ReservedProducts.Select(r => r.PersonProduct.Product))
+                .ToList();
+
+            int pageNumber = (page ?? 1);
+
+            return View(FillModel(transactions).ToPagedList(pageNumber, _pageSize));
         }
 
+        public ActionResult TransactionDetails(int Id, int PersonProductId)
+        {
+            var transaction = context.Transactions.Where(t => t.Id == Id)
+                .Include(t => t.BuyerRequest.ReservedProducts.Select(r => r.PersonProduct.Field))
+                .Include(t => t.BuyerRequest.ReservedProducts.Select(r => r.PersonProduct.User))
+                .Include(t => t.BuyerRequest.ReservedProducts.Select(r => r.PersonProduct.Product))
+                .FirstOrDefault();
 
+            TransactionViewModel ViewModel = new TransactionViewModel();
+            ViewModel.Transaction = transaction;
+            ViewModel.ReservedProduct = transaction.BuyerRequest.ReservedProducts.Where(r => r.PersonProductId == PersonProductId).FirstOrDefault();
+            ViewModel.PersonProduct = ViewModel.ReservedProduct.PersonProduct;
+
+            ViewBag.lat = ViewModel.PersonProduct.Field.GeoLat;
+            ViewBag.lng = ViewModel.PersonProduct.Field.GeoLong;
+
+            return View(ViewModel);
+        }
+
+        private List<TransactionHistoryViewModel> FillModel(List<Transaction> transactions)
+        {
+            var ViewModels = new List<TransactionHistoryViewModel>();
+
+            foreach (var transaction in transactions)
+            {
+                foreach (var item in transaction.BuyerRequest.ReservedProducts)
+                {
+                    var model = new TransactionHistoryViewModel();
+                    model.TransactionId = transaction.Id;
+                    model.BuyerRequestId = transaction.BuyerRequestId;
+                    model.Date = transaction.Date;
+                    model.Price = transaction.Price;
+                    model.ReservedProductId = item.Id;
+                    model.PersonProductId = item.PersonProductId;
+                    model.Product = item.PersonProduct;
+
+                    ViewModels.Add(model);
+                }
+            }
+
+            return ViewModels;
+        }
+
+        public ActionResult Index(int? page)
+        {
+            int pageNumber = (page ?? 1);
+
+            var buyerRequests = context.BuyerRequests
+                .Where(b => b.BuyerId == context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)
+                .Include(b => b.Buyer).Where(b => b.Status == true).ToList();
+
+            return View(buyerRequests.ToPagedList(pageNumber, _pageSize));
+        }
 
         public ActionResult RemoveReservedProducts(int? id)
         {
@@ -36,12 +93,16 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         public ActionResult ProductDetails(int? id)
         {
-            return View(context.PersonProducts
+            var personproduct = context.PersonProducts
                  .Where(p => p.Id == id)
                  .Include(p => p.Product)
                  .Include(p => p.User)
-                 .FirstOrDefault());
+                 .Include(p => p.Field)
+                 .FirstOrDefault();
 
+            ViewBag.lat = personproduct.Field.GeoLat;
+            ViewBag.lng = personproduct.Field.GeoLong;
+            return View(personproduct);
         }
 
         public ActionResult Details(int? id)
@@ -97,7 +158,10 @@ namespace UPPHercegovina.WebApplication.Controllers
 
                     context.ReservedProducts.Add(ReservedProduct);
                     context.SaveChanges();
+
                 }
+                    //ako zezalo ovdje zeza
+                    GlobalData.Instance.ReservedProducts.Clear();
 
                 return RedirectToAction("Index");
             }

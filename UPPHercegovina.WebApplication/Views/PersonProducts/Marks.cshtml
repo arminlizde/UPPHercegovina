@@ -1,42 +1,52 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.PersonProduct>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.PersonProduct>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Marks";
+    ViewBag.Title = "Ocjene / Proizvodi / Proizvođač";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Marks</h2>
+<h2>Ocjene proizvoda</h2>
 
-<h4>Vaša prosječna ocijena je: @ViewBag.AverageMark</h4>
+<h4>Vaša prosječna ocjena je: @ViewBag.AverageMark</h4>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Product.Name)
+            <label>Proizvod</label>
+            @*@Html.DisplayNameFor(model => model.Product.Name)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HarvestDate)
+            <label>Datum berbe</label>
+            @*@Html.DisplayNameFor(model => model.HarvestDate)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Neto)
+            <label>Rok trajanja</label>
+            @*@Html.DisplayNameFor(model => model.ExparationDate)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Bruto)
+            <label>Zemljište</label>
+            @*@Html.DisplayNameFor(model => model.Field.Name)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExparationDate)
+            <label>Neto</label>
+            @*@Html.DisplayNameFor(model => model.Neto)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Field.Name)
+            <label>Bruto</label>
+            @*@Html.DisplayNameFor(model => model.Bruto)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CircaValue)
+            <label>Očekivana vrijednost</label>
+            @*@Html.DisplayNameFor(model => model.CircaValue)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Value)
+            <label>Cijena</label>
+            @*@Html.DisplayNameFor(model => model.Value)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            <label>Ocjena</label>
+            @*@Html.DisplayNameFor(model => model.Rating)*@
         </th>
         <th></th>
     </tr>
@@ -80,3 +90,6 @@
     }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Marks", new { page, currentFilter = ViewBag.CurrentFilter }))

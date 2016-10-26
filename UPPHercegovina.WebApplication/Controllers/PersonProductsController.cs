@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,9 +12,11 @@ using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
+    [AuthLog(Roles = "Korisnik")]
     public class PersonProductsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
         public ActionResult AddToDelivery(int? id)
         {
@@ -95,7 +98,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         }
 
-        public ActionResult Marks()
+        public ActionResult Marks(int? page)
         {
             var list = context.PersonProducts
                         .Where(p => p.Accepted == true)
@@ -106,9 +109,11 @@ namespace UPPHercegovina.WebApplication.Controllers
                         .Include(p => p.User)
                         .Include(p => p.Product).ToList();
 
+            int pageNumber = (page ?? 1);
+
             ViewBag.AverageMark = list[0].User.GetAverageMark;
 
-            return View(list);
+            return View(list.ToPagedList(pageNumber, _pageSize));
         }
 
         public ActionResult Details(int? id)

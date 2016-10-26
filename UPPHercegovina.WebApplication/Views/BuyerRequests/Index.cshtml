@@ -1,34 +1,32 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.BuyerRequest>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.BuyerRequest>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "U obradi / Zahtjevi / Nakupac";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Zahtjevi na čekanju</h2>
+<h2>Zahtjevi u obradi</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Buyer.FirstName)
+            <label>Šifra zahtjeva</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Details)
+            <label>Datum</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            <label>Datum preuzimanja</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfPickUp)
+            <label>Status</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <label>Prihvaćeno</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accepted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PickedUp)
+            <label>Pokupljeno</label>
         </th>
         <th></th>
     </tr>
@@ -36,10 +34,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Buyer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Details)
+            @Html.DisplayFor(modelItem => item.Id)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
@@ -57,11 +52,14 @@
             @Html.DisplayFor(modelItem => item.PickedUp)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Obriši", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

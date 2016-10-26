@@ -4,7 +4,7 @@
     ViewBag.Title = "Dodaj / Općinu";
 }
 
-<h2>Unesi novu općinu</h2>
+<h2>Dodaj novu općinu</h2>
 
 
 @using (Html.BeginForm())
@@ -15,54 +15,147 @@
         <h4>Općine</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-         
-            <label class="control-label col-md-2">Naziv općine</label>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "naziv općine" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        @{
-                 var items = new SelectList(new[]
-                   {
+
+        <div class="row">
+            <div class="col-md-6">
+
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-2">Naziv općine</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "naziv općine" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @{
+                    var items = new SelectList(new[]
+                      {
                        new SelectListItem {Text = "Federacija Bosne i Hercegovine", Value = "Federacija Bosne i Hercegovine"},
                        new SelectListItem {Text = "Republika Srpska", Value = "Republika Srpska"},
-                   }, "Text", "Value");           
-        }
-        <div class="form-group">
-            <label class="control-label col-md-2">Entitet</label>
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Entity, @items, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Entity, "", new { @class = "text-danger" })
+                   }, "Text", "Value");
+                }
+                <div class="form-group">
+                    <label class="control-label col-md-2">Entitet</label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Entity, @items, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Entity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GeographicPosition.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GeographicPosition.Longitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska dužina", id = "lng" } })
+                        @Html.ValidationMessageFor(model => model.GeographicPosition.Longitude, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GeographicPosition.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GeographicPosition.Latitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska širina", id = "txt" } })
+                        @Html.ValidationMessageFor(model => model.GeographicPosition.Latitude, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj" class="btn btn-success" />
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="form-group">
+                        <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                        <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.Location.GeographicPosition.Latitude, lng: @ViewBag.Location.GeographicPosition.Longitude};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Povuci i postavi lokaciju!',
+                                        draggable:true
+                                    });
+
+
+                                    google.maps.event.addListener(map, 'click', function (event) {
+
+                                        displayCoordinates(event.latLng);
+
+                                    });
+                                    google.maps.event.addListener(marker, 'dragend', function () {
+                                        map.setCenter(this.getPosition()); // Set map center to marker position
+                                        updatePosition(this.getPosition().lat(), this.getPosition().lng()); // update position display
+
+                                        document.getElementById('txt').value = this.getPosition().lat();
+
+
+                                        $("#txt").val(this.getPosition().lat());
+
+
+                                    });
+
+                                    google.maps.event.addListener(map, 'dragend', function () {
+                                        myMarker.setPosition(this.getCenter()); // set marker position to map center
+                                        updatePosition(this.getCenter().lat(), this.getCenter().lng()); // update position display
+
+
+
+                                    });
+
+                                    function updatePosition(lat, lng) {
+                                        console.log("Latitude: " + lat + "  Longitude: " + lng);
+                                        document.getElementById('lng').value = lng;
+                                    }
+                                    document.getElementById('lat').value = lat;
+
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+
+
+
+                                    }
+                                }
+
+                        </script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                                async defer></script>
+
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.GeographicPosition.Longitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GeographicPosition.Longitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska dužina" } })
-                @Html.ValidationMessageFor(model => model.GeographicPosition.Longitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.GeographicPosition.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GeographicPosition.Latitude, new { htmlAttributes = new { @class = "form-control", placeholder = "Geografska širina" } })
-                @Html.ValidationMessageFor(model => model.GeographicPosition.Latitude, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Unesi općinu" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+
+                    }
 
 <div>
     @Html.ActionLink("Nazad na listu", "Index")

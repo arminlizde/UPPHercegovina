@@ -1,72 +1,78 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Product
 
 @{
-    ViewBag.Title = "Obriši / proizvod";
+    ViewBag.Title = "Obriši / Proizvodi";
 }
 
-<h2>Obriši</h2>
+<h2>Obriši proizvod</h2>
 
 <h3>Sigurno želite obrisati?</h3>
 <div>
     <h4>Proizvod</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div class="col-xs-6">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PlaceOfOrigin)
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PlaceOfOrigin)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PlaceOfOrigin)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PlaceOfOrigin)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PictureUrl)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductTypeId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductTypeId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductTypeId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ProductType.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Obriši" class="btn btn-default" /> |
-            @Html.ActionLink("Nazad na listu", "Index")
+            <div class="form-actions no-color">
+                <input type="submit" value="Obriši" class="btn btn-default" /> |
+                @Html.ActionLink("Nazad na listu", "Index")
+            </div>
+        }
+    </div>
+
+    <div class="col-xs-6">
+        <div class="container">
+            <div class="form-group">
+                <img id="user_img" src="@Url.Content(Model.PictureUrl)" title="Proizvod" height="200" width="165" style="border:hidden" />
+            </div>
         </div>
-    }
+    </div>
+
 </div>

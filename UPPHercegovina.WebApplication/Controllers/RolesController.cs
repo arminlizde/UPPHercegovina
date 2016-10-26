@@ -58,7 +58,6 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RoleAddToUser(string UserName, string RoleName)

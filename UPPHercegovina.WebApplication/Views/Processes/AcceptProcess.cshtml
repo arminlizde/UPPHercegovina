@@ -1,7 +1,7 @@
 ﻿@model UPPHercegovina.WebApplication.Models.PersonProduct
 
 @{
-    ViewBag.Title = "Prihvati proizvod";
+    ViewBag.Title = "Prihvati / Proizvodi proizvođača";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,7 +19,7 @@
 
 
     <div class="form-horizontal">
-        <h4>PersonProduct</h4>
+        <h4>Proizvodi proizvođača</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)

@@ -1,13 +1,13 @@
 ﻿@model UPPHercegovina.WebApplication.Models.UserMembership
 
 @{
-    ViewBag.Title = "Detalji/ Članovi-Članarine";
+    ViewBag.Title = "Detalji / Članstvo";
 }
 
-<h2>Detalji</h2>
+<h2>Detalji članstva</h2>
 
 <div>
-    <h4>Članovi-Članarine</h4>
+    <h4></h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,7 +15,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MembershipId)
+            @Html.DisplayFor(model => model.Membership.Name)
         </dd>
 
         <dt>
@@ -23,7 +23,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.FullName)
         </dd>
 
         <dt>
@@ -32,14 +32,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.DateOfPayment)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PictureUrl)
         </dd>
 
         <dt>

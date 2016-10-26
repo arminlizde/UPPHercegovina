@@ -1,7 +1,7 @@
 ﻿@model  PagedList.PagedList<UPPHercegovina.WebApplication.Models.PersonProduct>
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Proizvodi u obradi";
+    ViewBag.Title = "U obradi / Proizvodi proizvođača";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,9 +14,6 @@
         </th>
         <th>
             <label>Proizvod</label>
-        </th>
-        <th>
-            <label>Skladište</label>
         </th>
         <th>
             <label>Datum branja</label>
@@ -36,9 +33,6 @@
         <th>
             <label>Hitno</label>
         </th>
-        <th>
-            <label>Cijena</label>
-        </th>
         <th></th>
     </tr>
 
@@ -50,9 +44,6 @@
 
         <td>
             @Html.DisplayFor(modelItem => item.Product.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Warehouse1.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HarvestOnlyDate)
@@ -71,9 +62,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Urgently)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
             @Html.ActionLink("Prihvati", "AcceptProcess", new { id=item.Id }) |

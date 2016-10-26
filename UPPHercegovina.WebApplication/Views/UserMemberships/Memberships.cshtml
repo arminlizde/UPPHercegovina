@@ -1,11 +1,11 @@
 ﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.UserMembership>
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "Memberships";
+    ViewBag.Title = "Pregled / Članstva";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Memberships</h2>
+<h2>Članstva</h2>
 
 <table class="table">
     <tr>
@@ -69,5 +69,5 @@
 </table>
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
+@Html.PagedListPager(Model, page => Url.Action("Memberships",
     new { page, currentFilter = ViewBag.CurrentFilter }))

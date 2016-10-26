@@ -1,0 +1,88 @@
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.PersonProduct>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Ocijeni / Proizvodi / Nakupac";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ocijeni proizvode</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Proizvod</label>
+        </th>
+        <th>
+            <label>Proizvođač</label>
+        </th>
+        <th>
+            <label>Skladište</label>
+        </th>
+        <th>
+            <label>Datum branja</label>
+        </th>
+        <th>
+            <label>Neto</label>
+        </th>
+        <th>
+            <label>Bruto</label>
+        </th>
+        <th>
+            <label>Kvalitet</label>
+        </th>
+        <th>
+            <label>Cijena</label>
+        </th>
+        <th>
+            <label>Oštećeno</label>
+        </th>
+        <th>
+            <label>Hitno</label>
+           
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warehouse1.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HarvestDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Neto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bruto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Damaged)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Urgently)
+        </td>
+        <td>
+            @Html.ActionLink("Ocijeni", "GradeProduct", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("AcceptedRequests", new { page, currentFilter = ViewBag.CurrentFilter }))

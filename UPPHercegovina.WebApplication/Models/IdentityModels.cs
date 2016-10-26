@@ -33,6 +33,22 @@ namespace UPPHercegovina.WebApplication.Models
             return FirstName + " " + LastName;
         }
 
+        public int GetMarkCount { get
+            {
+                using (ApplicationDbContext context = new ApplicationDbContext())
+                {
+                    var list = context.PersonProducts.Where(p => p.Accepted == true)
+                        .Where(p => p.UserId == Id)
+                        .Where(p => p.Rating != 0)
+                        .Include(p => p.Field)
+                        .Include(p => p.Product).ToList();
+
+                    return list.Count();
+                }
+            } }
+
+        public virtual Township Township { get; set; }
+
         public string GetAverageMark
         {
             get
@@ -119,6 +135,5 @@ namespace UPPHercegovina.WebApplication.Models
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Delivery> Deliveries { get; set; }
-
     }
 }

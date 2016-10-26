@@ -2,13 +2,13 @@
 @using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Članstvo";
+    ViewBag.Title = "Pregled / Članstvo";
 }
 
-<h2>Članstvo</h2>
+<h2>Pregled članstva</h2>
 
 <p>
-    @Html.ActionLink("Dodaj novo", "Create")
+    @Html.ActionLink("Dodaj novo članstvo", "Create")
 </p>
 
 
@@ -59,7 +59,7 @@
         <td>
 
             @Html.ActionLink("Izmjeni", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalji", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id })
 
         </td>
     </tr>

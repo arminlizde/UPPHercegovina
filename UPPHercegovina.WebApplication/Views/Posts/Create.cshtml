@@ -1,17 +1,17 @@
 ﻿@model UPPHercegovina.WebApplication.Models.PostCreateViewModel
 
 @{
-    ViewBag.Title = "Objave / Kreiraj";
+    ViewBag.Title = "Postavi / Obavijesti";
 }
 
-<h2>Objave</h2>
+<h2>Postavi obavijest</h2>
 
 @using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Objave</h4>
+        <h4>Obavijesti</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="container col-md-8">

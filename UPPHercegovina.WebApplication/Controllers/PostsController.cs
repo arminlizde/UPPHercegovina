@@ -29,7 +29,7 @@ namespace UPPHercegovina.WebApplication.Controllers
             return postViewModelList != null ? View(postViewModelList.ToPagedList(pageNumber, _pageSize)) : View(new List<PostListViewModel>());
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details_old(int? id)
         {
             if (id == null)
             {
@@ -57,6 +57,38 @@ namespace UPPHercegovina.WebApplication.Controllers
             //This works only if we allow only registered users to visit 
             ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
             ViewBag.Markers = context.Warehouses1.ToList();
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var post = context.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.TextWithHtml = post.Text;
+
+            post.RelatedPost = post.GetRelatedPosts();
+            post.LastPost = post.GetLastPosts();
+            post.RecommendedPost = post.GetRecommendedPosts();
+
+            SetGoogleMap();
+
+            List<Warehouse1> warehouses = context.Warehouses1.ToList();
+            List<GeographicPosition> locations = new List<GeographicPosition>();
+
+            foreach (var warehouse in warehouses)
+            {
+                locations.Add(warehouse.GeographicPosition);
+            }
+
+            ViewBag.lokacije = locations;
+
+            return View(post);
         }
 
         [AuthLog(Roles = "Super-Administrator, Administrator")]

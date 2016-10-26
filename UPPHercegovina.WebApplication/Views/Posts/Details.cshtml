@@ -1,7 +1,7 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Post
 
 @{
-    ViewBag.Title = "Detalji";
+    ViewBag.Title = "Detalji / Obavijesti / Administrator";
 }
 
 <h2>Detalji obavijesti</h2>
@@ -108,68 +108,61 @@
                 <h4>Naša skladišta</h4>
                 <div class="row">
                     <div class="col-xs-12" style="height:300px;">
-                        <div id="map" style="height:100%;"></div>
+                        <div id="map" style="height:100%; border:dotted"></div>
+
+
                         <script>
-                            var map;
+
+                            console.log("pocelo je");
+                            var niz=[];
+
+                            var array = @Html.Raw(Json.Encode(@ViewBag.lokacije));
+                            for(var i = 0; i < array.length; i++) {
+                                niz[i] = array[i];
+                            }
+                            for (var i = 0; i < niz.length; i++) {
+                                console.log("Lat: "+niz[i].Latitude.toString()+", Lng: "+array[i].Longitude.toString());
+
+                            }
+
+                            var x = array;
+
+                            console.log("kraj loop - ");
+
                             function initMap() {
-                                map = new google.maps.Map(document.getElementById('map'), {
-                                    center: { lng: @ViewBag.Location.GeographicPosition.Longitude, lat: @ViewBag.Location.GeographicPosition.Latitude },
-                                    zoom: 8
+
+                                console.log("u initMap(): "+niz[0].Latitude+", lng: "+niz[0].Longitude);
+
+                                var myLatLng = {lat:43.1118, lng:17.7055};
+
+                                console.log("LAT LNG: "+myLatLng);
+
+
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                    zoom: 8,
+                                    center: myLatLng
+
                                 });
 
-                                var markeri = @Html.Raw(Json.Encode(@ViewBag.Markers));
 
-                                for(i=0; i< markeri.length; i++)
-                                {
-
-                                    console.log("markeri", markeri[i])
-                                    var m = new google.maps.Marker({
-                                        position: {lat: parseFloat(markeri[i].GeographicPosition.Latitude), lng: parseFloat(markeri[i].GeographicPosition.Longitude)},
-                                        animation: google.maps.Animation.DROP,
-                                        draggable: true,
-                                        map: map,
-                                        title: markeri[i].Name
-                                    });
-
-                                    Toggle(m);
-
-                                    m.addListener('click', Toggle);
-                                    m.setMap(map);
+                                for (var i = 0; i < niz.length; i++) {
+                                    var lat_lng = new google.maps.LatLng(parseFloat( niz[i].Latitude.toString()),parseFloat( niz[i].Longitude.toString()));
+                                    addMarker(lat_lng);
                                 }
 
-                                function Toggle(m){
-                                    if (m.getAnimation() !== null) {
-                                        m.setAnimation(null);
-                                    } else {
-                                        m.setAnimation(google.maps.Animation.BOUNCE);
-                                    }
+                                function addMarker(location) {
+                                    var marker = new google.maps.Marker({
+                                        position: location,
+                                        map: map
+                                    })};
+
+                                }
 
 
-                                    google.maps.event.addListener(map, 'click', function (event) {
-                                        displayCoordinates(event.latLng);
-                                    });
-
-                                    function displayCoordinates(pnt) {
-
-                                        var lat = pnt.lat();
-                                        lat = lat.toFixed(4);
-                                        var lng = pnt.lng();
-                                        lng = lng.toFixed(4);
-                                        txtTest.textContent = lng;
-                                        console.log("Latitude: " + lat + "  Longitude: " + lng);
-
-                                        var t = new google.maps.Marker({
-                                            position: {lat: parseFloat(lat), lng: parseFloat(lng)},
-                                            animation: google.maps.Animation.DROP,
-                                            map: map,
-                                            title: 'Sigurno želite ovdje postaviti ?'
-                                        });
-                                    }
-                                };
-                            }
                         </script>
                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
                                 async defer></script>
+
                     </div>
                 </div>
             </div>

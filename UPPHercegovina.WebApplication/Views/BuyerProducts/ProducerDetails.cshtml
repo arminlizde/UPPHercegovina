@@ -1,0 +1,85 @@
+﻿@model UPPHercegovina.WebApplication.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Detalji / Proizvođač";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalji proizvođača</h2>
+
+<div>
+    <h4>Pregled proizvođača</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dt>
+            <label>Ime</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            <label>Prezime</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            <label>Općina</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Township.Name)
+        </dd>
+
+        <dt>
+            <label>Adresa</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            <label>Datum registracije</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            <label>Broj telefona</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            <label>Prosječna ocjena</label>
+        </dt>
+        <dd>
+            <label>@Model.GetAverageMark</label>
+        </dd>
+
+        <dt>
+            <label>Broj ocjenjenih proizvoda</label>
+        </dt>
+        <dd>
+           <label>@Model.GetMarkCount</label>
+        </dd>
+
+    </dl>
+</div>
+    <p>
+        @Html.ActionLink("Nazad na listu", "Index")
+    </p>
+
+

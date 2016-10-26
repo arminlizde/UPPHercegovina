@@ -42,7 +42,7 @@ namespace UPPHercegovina.WebApplication.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var product = context.Products.Find(id);
+            var product = context.Products.Where(p => p.Id == id).Include(p => p.ProductType).FirstOrDefault();
             if (product == null)
             {
                 return HttpNotFound();
@@ -156,7 +156,8 @@ namespace UPPHercegovina.WebApplication.Models
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var product = context.Products.Find(id);
+            var product = context.Products.Where(p => p.Id == id).Include(p => p.ProductType).FirstOrDefault();
+
             if (product == null)
             {
                 return HttpNotFound();

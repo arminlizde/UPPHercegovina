@@ -21,12 +21,12 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "Details")]
         public string Details { get; set; }
 
-        [Display(Name = "Geografska širina (pozicija na mapi)")]
+        [Display(Name = "Geografska širina")]
         [DataMember(Name = "GeoLong")]
         public string GeoLong { get; set; }
 
         [DataMember(Name = "GeoLat")]
-        [Display(Name = "Geografska dužina (pozicija na mapi)")]
+        [Display(Name = "Geografska dužina")]
         public string GeoLat { get; set; }
 
         [DataMember(Name = "OwnerId")]

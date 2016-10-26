@@ -4,7 +4,7 @@
     ViewBag.Title = "Detalji / Općina";
 }
 
-<h2>Detalji</h2>
+<h2>Detalji općine</h2>
 
 <div>
     <h4>Općina</h4>
@@ -26,6 +26,59 @@
             @Html.DisplayFor(model => model.Entity)
         </dd>
 
+        <dt>
+            <label>Lokacija</label>
+        </dt>
+        <dd>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                    <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Nije moguce mijenjati!',
+                                        //draggable:true
+                                    });
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+                                    }
+                                }
+
+
+
+
+
+
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                            async defer></script>
+                    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                            async defer></script>*@
+
+                </div>
+            </div>
+        </dd>
     </dl>
 </div>
 <p>

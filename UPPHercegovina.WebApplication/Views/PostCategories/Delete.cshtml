@@ -1,14 +1,14 @@
 ﻿@model UPPHercegovina.WebApplication.Models.PostCategory
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Obriši / Kategorije / Obavijesti";
 }
 
-<h2>Delete</h2>
+<h2>Obriši kategoriju</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Da li ste sigurni da želite obrisati ovu kategoriju?</h3>
 <div>
-    <h4>PostCategory</h4>
+    <h4>Kaategorije obavijesti</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,8 +33,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Obriši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad na listu", "Index")
         </div>
     }
 </div>

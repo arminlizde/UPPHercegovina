@@ -1,0 +1,158 @@
+﻿@model UPPHercegovina.WebApplication.Models.TransactionViewModel
+
+@{
+    ViewBag.Title = "Detalji / Transakcije";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalji transakcije</h2>
+
+<div>
+    <h4>Transakcije</h4>
+    <hr />
+
+    <div class="col-xs-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Transaction.Id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Transaction.Id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Transaction.GetOnlyDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Transaction.GetOnlyDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Transaction.Price)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Transaction.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Product.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Product.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.HarvestOnlyDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.HarvestOnlyDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Neto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Neto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Bruto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Bruto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Value)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Value)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.User.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.User.FullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Quality)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Quality)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Rating)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Rating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Urgently)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Urgently)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PersonProduct.Damaged)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PersonProduct.Damaged)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-xs-6">
+        <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+        <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Porijeklo proizvoda!',
+                                        //draggable:true
+                                    });
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+                                    }
+                                }
+
+
+
+
+
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                async defer></script>
+        @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+        async defer></script>*@
+
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Nazad na listu", "TransactionHistory")
+</p>

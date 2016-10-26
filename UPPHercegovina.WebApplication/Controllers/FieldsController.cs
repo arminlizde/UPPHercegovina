@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
+    [AuthLog(Roles = "Korisnik")]
     public class FieldsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -34,6 +36,8 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
+            @ViewBag.lat = field.GeoLat;
+            @ViewBag.lng = field.GeoLong;
             return View(field);
         }
 
@@ -81,12 +85,11 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
+            @ViewBag.lat = field.GeoLat;
+            @ViewBag.lng = field.GeoLong;
             return View(field);
         }
 
-        // POST: Fields/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Details,GeoLong,GeoLat,OwnerId")] Field field)

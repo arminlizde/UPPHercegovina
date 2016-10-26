@@ -9,6 +9,7 @@ using UPPHercegovina.WebApplication.Models;
 
 using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Helpers;
+using PagedList;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
@@ -16,11 +17,14 @@ namespace UPPHercegovina.WebApplication.Controllers
     public class UserManagmentController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
-        public ActionResult AllUsers(bool status = false)
+        public ActionResult AllUsers(int? page,bool status = false)
         {
+            int pageNumber = (page ?? 1);
+
             List<UsersViewModel> userViewList = UsersViewModel.UsersToViewModel(status);
-            return userViewList != null ? View(userViewList) : View(new List<UsersViewModel>());
+            return userViewList != null ? View(userViewList.ToPagedList(pageNumber, _pageSize)) : View(new List<UsersViewModel>().ToPagedList(pageNumber, _pageSize));
         }
 
         public ActionResult Edit(string id)

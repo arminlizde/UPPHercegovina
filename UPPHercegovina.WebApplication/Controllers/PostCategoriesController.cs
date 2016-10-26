@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -12,11 +13,13 @@ namespace UPPHercegovina.WebApplication.Controllers
     public class PostCategoriesController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
-
-        public ActionResult Index()
+        private int _pageSize = 10;
+        public ActionResult Index(int? page)
         {
+            int pageNumber = (page ?? 1);
+
             var categories = context.PostCategories.ToList();
-            return categories != null ? View(categories) : View(new List<PostCategory>());
+            return categories != null ? View(categories.ToPagedList(pageNumber, _pageSize)) : View(new List<PostCategory>().ToPagedList(pageNumber, _pageSize));
         }
 
         public ActionResult Details(int? id)

@@ -1,0 +1,240 @@
+﻿@model UPPHercegovina.WebApplication.Models.PersonProduct
+
+@{
+    ViewBag.Title = "Ocijeni / Proizvod / Nakupac";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ocjeni proizvod</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ocjenjivanje</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProductId)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.FieldId)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.Warehouse1Id)
+        @Html.HiddenFor(model => model.Quality)
+        @Html.HiddenFor(model => model.Status)
+        @Html.HiddenFor(model => model.Accepted)
+
+        @Html.HiddenFor(model => model.Neto)
+        @Html.HiddenFor(model => model.Bruto)
+        @Html.HiddenFor(model => model.HarvestDate)
+        @Html.HiddenFor(model => model.ExparationDate)
+
+        @Html.HiddenFor(model => model.CircaValue)
+        @Html.HiddenFor(model => model.Value)
+        @Html.HiddenFor(model => model.Damaged)
+        @Html.HiddenFor(model => model.Urgently)
+
+        <div class="col-xs-6">
+            <div>
+                <h4>Proizvod</h4>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.User.FullName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProductId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Product.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HarvestDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.HarvestDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ExparationDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ExparationDate)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Neto)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Neto)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Bruto)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Bruto)
+                    </dd>
+
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Quality)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Quality)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Warehouse1Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Warehouse1.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FieldId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Field.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Damaged)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Damaged)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CircaValue)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CircaValue)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Value)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Value)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Urgently)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Urgently)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+
+                </dl>
+
+                <div style="margin-top:30px;">
+                    @{
+                        var items = new SelectList(new[]
+                                       {
+                       new SelectListItem {Text = "5", Value = "5"},
+                       new SelectListItem {Text = "4", Value = "4"},
+                       new SelectListItem {Text = "3", Value = "3"},
+                       new SelectListItem {Text = "2", Value = "2"},
+                       new SelectListItem {Text = "1", Value = "1"},
+
+                   }, "Text", "Value");
+                    }
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Ocjena</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.Rating, @items, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Ocijeni" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                @Html.ActionLink("Nazad na listu", "GradeProducts")
+            </div>
+
+        </div>
+
+        <div class="col-xs-6" style="margin-bottom:200px;">
+
+            <div>
+                <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                <script>
+
+
+                    function initMap() {
+
+
+                        var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 8,
+                            center: myLatLng
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: 'Porijeklo proizvoda!',
+                            //draggable:true
+                        });
+
+                        function displayCoordinates(pnt) {
+
+                            var lat = pnt.lat();
+                            lat = lat.toFixed(4);
+                            var lng = pnt.lng();
+                            lng = lng.toFixed(4);
+
+                        }
+                    }
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                        async defer></script>
+                @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                async defer></script>*@
+
+            </div>
+
+
+            
+
+        </div>
+    </div>
+}
+
+

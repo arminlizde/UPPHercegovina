@@ -86,7 +86,7 @@ namespace UPPHercegovina.WebApplication.Models
         [DataType(DataType.Currency)]
         public decimal Value { get; set; }
 
-        [Display(Name = "Ocijena proizvoda")]
+        [Display(Name = "Ocjena proizvoda")]
         [DataMember(Name = "Rating")]
         public int Rating { get; set; }
 

@@ -1,4 +1,14 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity;
+
+@using UPPHercegovina.WebApplication.Models
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    GlobalData.Instance.CurrentUserId = this.User.Identity.GetUserId();
+    GlobalData.Instance.IsBuyer = User.IsInRole("Nakupac");
+    GlobalData.Instance.IsAdmin = User.IsInRole("Super-Administrator") || User.IsInRole("Administrator");
+    GlobalData.Instance.IsProducer = User.IsInRole("Korisnik");
+
 }
 

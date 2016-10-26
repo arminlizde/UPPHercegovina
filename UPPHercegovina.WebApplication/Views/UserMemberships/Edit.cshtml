@@ -1,24 +1,25 @@
 ﻿@model UPPHercegovina.WebApplication.Models.UserMembershipEditViewModel
 
 @{
-    ViewBag.Title = "Izmjena/Članovi-Članarine";
+    ViewBag.Title = "Izmjena / Članstvo";
 }
 
-<h2>Izmjena</h2>
+<h2>Izmjena članstva</h2>
 
 @using (Html.BeginForm("Edit", "UserMemberships", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Članovi-Članarine</h4>
+        <h4>Članstvo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="container col-md-8">
             <div class="form-group">
-                @Html.LabelFor(model => model.Membership, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class = "control-label col-md-2">Članska</label>
+                @*@Html.LabelFor(model => model.Membership, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.MembershipName, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Membership, "", new { @class = "text-danger" })
@@ -26,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="control-label col-md-2">Korisnik</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.UserFirstLastName, new { htmlAttributes = new {@readonly="readonly" ,@class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
@@ -73,7 +74,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Izmjeni" class="btn btn-default" />
+                    <input type="submit" value="Spasi promjene" class="btn btn-default" />
                 </div>
             </div>
         </div>

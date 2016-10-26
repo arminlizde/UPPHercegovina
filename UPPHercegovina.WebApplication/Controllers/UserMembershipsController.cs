@@ -56,7 +56,8 @@ namespace UPPHercegovina.WebApplication.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var userMembership = context.UserMemberships.Find(id);
+            var userMembership = context.UserMemberships.Where(m => m.Id == id)
+                .Include(m => m.User).Include(m => m.Membership).FirstOrDefault();
 
             if (userMembership == null)
             {
@@ -184,7 +185,8 @@ namespace UPPHercegovina.WebApplication.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var userMembership = context.UserMemberships.Find(id);
+            var userMembership = context.UserMemberships.Where(m => m.Id == id)
+                .Include(m => m.User).Include(m => m.Membership).FirstOrDefault();
             if (userMembership == null)
             {
                 return HttpNotFound();

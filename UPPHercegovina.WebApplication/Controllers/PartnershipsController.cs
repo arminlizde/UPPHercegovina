@@ -4,20 +4,26 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
+    [AuthLog(Roles = "Korisnik")]
+
     public class PartnershipsController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
         private int _pageSize = 5;
 
+
         public ActionResult TransactionHistory(int? page)
         {
             int pageNumber = (page ?? 1);
 
-            return View(FillPartnershipViewModel().ToPagedList(pageNumber, _pageSize));
+            var list = FillPartnershipViewModel();
+
+            return View(list.ToPagedList(pageNumber, _pageSize));
         }
 
         public ActionResult Details(int? id, int? transactionId)
@@ -92,7 +98,6 @@ namespace UPPHercegovina.WebApplication.Controllers
             return View(Partnership);
         }
 
-
         private List<PartnershipViewModel> FillPartnershipViewModel()
         {
             string UserId = context.Users
@@ -135,5 +140,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return list;
         }
+
+
     }
 }

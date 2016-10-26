@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PagedList;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -13,13 +14,16 @@ namespace UPPHercegovina.WebApplication.Controllers
     public class ProductTypesController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var types = context.ProductTypes.Where(product => product.Status == true).
                 OrderBy(product => product.Name).ToList();
 
-            return types != null ? View(types) : View(new List<ProductType>());
+            int pageNumber = (page ?? 1);
+
+            return types != null ? View(types.ToPagedList(pageNumber, _pageSize)) : View(new List<ProductType>().ToPagedList(pageNumber, _pageSize));
         }
 
         public ActionResult Details(int? id)

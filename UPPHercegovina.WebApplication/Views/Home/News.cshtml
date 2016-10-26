@@ -3,9 +3,9 @@
 
 
 @{
-    ViewBag.Title = "Dobrodošli na web stranicu UPPHercegovina";
+    ViewBag.Title = "Novosti / Obavijesti";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>Obavijesti</h2>
 
 <div>
     <br />
@@ -42,12 +42,6 @@
             <hr />
         </div>
     }
-</div>
-
-<div>
-     <a href="~/Views/Posts/Create.cshtml">Kreiraj novu obavijest</a> <br/>
-     <a href="~/Views/Posts/Index.cshtml">Pregled obavijesti</a> <br/>
-     <a href="Contact">Kontaktiraj nas</a>
 </div>
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

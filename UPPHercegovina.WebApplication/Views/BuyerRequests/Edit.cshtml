@@ -1,11 +1,11 @@
 ﻿@model UPPHercegovina.WebApplication.Models.BuyerRequest
 
 @{
-    ViewBag.Title = "Izmjena zahtjeva";
+    ViewBag.Title = "Izmjeni / Zahtjevi / Nakupac";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Izmjena</h2>
+<h2>Izmjena zahtjeva</h2>
 
 @using (Html.BeginForm())
 {
@@ -14,7 +14,7 @@
 
 
     <div class="form-horizontal">
-        <h4>Zahtjevi za preuzimanje proizvoda</h4>
+        <h4>Zahtjevi nakupca</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -49,7 +49,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Spasi" class="btn btn-default" />
+                <input type="submit" value="Spasi promjene" class="btn btn-default" />
             </div>
         </div>
     </div>

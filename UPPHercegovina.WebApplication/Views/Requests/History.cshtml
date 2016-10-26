@@ -2,12 +2,12 @@
 @using PagedList.Mvc
 
 @{
-    ViewBag.Title = "History";
+    ViewBag.Title = "Historija / Zahtjevi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>History</h2>
-
+<h2>Historija zahtjeva</h2>
+</br>
 <table class="table">
     <tr>
         <th>
@@ -52,7 +52,7 @@
             @Html.DisplayFor(modelItem => item.ProductCount)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            @Html.ActionLink("Detalji", "Details", new { id=item.Id })
         </td>
     </tr>
 }

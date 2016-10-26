@@ -47,6 +47,30 @@ namespace UPPHercegovina.WebApplication.Models
 
         public ReservedProduct ReservedProduct { get; set; }
 
+        public PersonProduct PersonProduct { get; set; }
+
         public string BuyerFullName { get; set; }
+    }
+
+    public class TransactionHistoryViewModel
+    {
+        [Display(Name ="Transakcija")]
+        public int TransactionId { get; set; }
+
+        [Display(Name ="Datum")]
+        public DateTime Date { get; set; }
+
+       // public DateTime GetDate { get { return Date.ToShortDateString(); } }
+
+        [Display(Name = "Cijena")]
+        public decimal Price { get; set; }
+
+        public int BuyerRequestId { get; set; }
+
+        public int ReservedProductId { get; set; }
+
+        public int PersonProductId { get; set; }
+
+        public PersonProduct Product { get; set; }
     }
 }

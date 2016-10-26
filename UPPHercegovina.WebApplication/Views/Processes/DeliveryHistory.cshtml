@@ -1,16 +1,16 @@
 ﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Delivery>
 @using PagedList.Mvc
 @{
-    ViewBag.Title = "DeliveryHistory";
+    ViewBag.Title = "Historija / Dolazni proizvodi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DeliveryHistory</h2>
+<h2>Historija dolaznih proizvoda</h2>
 
 <table class="table">
     <tr>
         <th>
-            <label>Id termina</label>
+            <label>Šifra termina</label>
         </th>
         <th>
             <label>Proizvod</label>
@@ -51,7 +51,7 @@
             @Html.DisplayFor(modelItem => item.Delivered)
         </td>
         <td> 
-            @Html.ActionLink("Details", "DeliveryDetails", new { id=item.Id })
+            @Html.ActionLink("Detalji", "DeliveryDetails", new { id=item.Id })
         </td>
     </tr>
 }

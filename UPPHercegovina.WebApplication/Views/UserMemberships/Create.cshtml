@@ -1,17 +1,17 @@
 ﻿@model UPPHercegovina.WebApplication.Models.UserMembershipViewModel
 
 @{
-    ViewBag.Title = "Kreiraj/ Članovi-Članarine";
+    ViewBag.Title = "Dodaj / Članstvo";
 }
 
-<h2>Kreiraj</h2>
+<h2>Dodaj novo članstvo</h2>
 
 @using (Html.BeginForm("Create","UserMemberships", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Članovi-Članarine</h4>
+        <h4>Članstvo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -76,7 +76,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Kreiraj" class="btn btn-default" />
+                    <input type="submit" value="Dodaj" class="btn btn-default" />
                 </div>
             </div>
         </div>

@@ -1,0 +1,178 @@
+﻿@model UPPHercegovina.WebApplication.Models.PersonProduct
+
+@{
+    ViewBag.Title = "Detalji / Skladište / Proizvod";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalji o proizvodu u skladištu</h2>
+
+<div>
+    <h4>Proizvod u skladištu</h4>
+    <hr />
+    <div class="col-xs-6">
+         <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HarvestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HarvestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Neto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Neto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bruto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bruto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExparationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExparationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Warehouse1Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Warehouse1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FieldId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Field.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Damaged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Damaged)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CircaValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CircaValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Urgently)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Urgently)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+    </div>
+    <div class="col-xs-6" style="height:350px;">
+            <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+            <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Porijeklo proizvoda!',
+                                        //draggable:true
+                                    });
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+                                    }
+                                }
+
+
+
+
+
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                    async defer></script>
+            @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+            async defer></script>*@
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Nazad na listu", "Index") |
+    @Html.ActionLink("Ukloni", "RemoveFromWarehouse")
+</p>

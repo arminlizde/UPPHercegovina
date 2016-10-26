@@ -1,10 +1,10 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Warehouse1
 
 @{
-    ViewBag.Title = "Detalji";
+    ViewBag.Title = "Detalji / Skladišta";
 }
 
-<h2>Detalji</h2>
+<h2>Detalji skladišta</h2>
 
 <div>
     <h4>Skladišta</h4>
@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StoringId)
+            @Html.DisplayFor(model => model.Storing.Name)
         </dd>
 
         <dt>
@@ -39,15 +39,102 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TownshipId)
+            @Html.DisplayFor(model => model.Township.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Location)
+            @Html.Label("Lokacija")
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Location)
+        
+        <div class="row">
+
+            <div class="col-md-4">
+                <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Nije moguce mijenjati!',
+                                        //draggable:true
+                                    });
+
+
+                                    //google.maps.event.addListener(map, 'click', function (event) {
+
+                                    //    displayCoordinates(event.latLng);
+
+                                    //});
+                                    //google.maps.event.addListener(marker, 'dragend', function () {
+                                    //    map.setCenter(this.getPosition()); // Set map center to marker position
+                                    //    updatePosition(this.getPosition().lat(), this.getPosition().lng()); // update position display
+
+                                    //    document.getElementById('lat').value = this.getPosition().lat();
+
+
+                                    //    $("#lat").val(this.getPosition().lng());
+                                    //    $("#lng").val(this.getPosition().lat());
+
+
+                                    //});
+
+                                    //google.maps.event.addListener(map, 'dragend', function () {
+                                    //    myMarker.setPosition(this.getCenter()); // set marker position to map center
+                                    //    updatePosition(this.getCenter().lat(), this.getCenter().lng()); // update position display
+
+
+
+                                    //});
+
+                                    //function updatePosition(lat, lng) {5
+                                    //    console.log("Latitude: " + lat + "  Longitude: " + lng);
+                                    //    document.getElementById('lng').value = lng;
+                                    //}
+                                    //document.getElementById('lat').value = lat;
+                                    //document.getElementById('lng').value = lng;
+
+
+
+
+
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+
+
+
+                                    }
+                                }
+
+
+
+
+
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                        async defer></script>
+
+            </div>
+        </div>
         </dd>
 
     </dl>

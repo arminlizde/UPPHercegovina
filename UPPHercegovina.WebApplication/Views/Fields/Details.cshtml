@@ -1,59 +1,79 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Field
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+    ViewBag.Title = "Detalji / Zemljište";
 }
 
-<h2>Details</h2>
+<h2>Detalji zemljišta</h2>
 
 <div>
-    <h4>Field</h4>
+    <h4>Zemljište</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Details)
+            <label>Lokacija</label>
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Details)
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div id="map" class="mapa" style="border:double; height:298px;"></div>
+
+                    <script>
+
+
+                                function initMap() {
+
+
+                                    var myLatLng = {lat: @ViewBag.lat, lng: @ViewBag.lng};
+
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 8,
+                                        center: myLatLng
+                                    });
+
+                                    var marker = new google.maps.Marker({
+                                        position: myLatLng,
+                                        map: map,
+                                        title: 'Nije moguce mijenjati!',
+                                        //draggable:true
+                                    });
+
+                                    function displayCoordinates(pnt) {
+
+                                        var lat = pnt.lat();
+                                        lat = lat.toFixed(4);
+                                        var lng = pnt.lng();
+                                        lng = lng.toFixed(4);
+
+                                    }
+                                }
+
+
+
+
+
+
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                            async defer></script>
+                    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                        async defer></script>*@
+
+                </div>
+            </div>
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GeoLong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GeoLong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GeoLat)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GeoLat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OwnerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OwnerId)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Izmjeni", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Nazad na listu", "Index")
 </p>

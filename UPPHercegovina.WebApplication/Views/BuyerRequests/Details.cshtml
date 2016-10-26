@@ -1,14 +1,14 @@
 ﻿@model UPPHercegovina.WebApplication.Models.BuyerRequest
 
 @{
-    ViewBag.Title = "Detalji zahtjeva";
+    ViewBag.Title = "Detalji / Zahtjevi / Nakupac";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalji</h2>
+<h2>Detalji zahtjeva</h2>
 
 <div>
-    <h4>Detalji zahtjeva</h4>
+    <h4>Zahtjevi nakupca</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -141,7 +141,14 @@
     {
         <div>
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Nazad na listu", "Index")
         </div>
     }
-    @Html.ActionLink("Nazad na listu", "Index")
+    else
+    {
+        <div>
+             @Html.ActionLink("Nazad na listu", "Index") 
+
+        </div>
+    }
 </p>

@@ -1,10 +1,11 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Membership>
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Membership>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Članske";
+    ViewBag.Title = "Pregled / Članske";
 }
 
-<h2>Članske</h2>
+<h2>Pregled članskih</h2>
 
 <p>
     @Html.ActionLink("Dodaj novu člansku", "Create")
@@ -18,13 +19,13 @@
             @Html.ActionLink("Naziv", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            <label>Opis</label>
         </th>
         <th>
             @Html.ActionLink("Datum kreiranja", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            <label>Cijena</label>
         </th>
         <th>
            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSortParm })
@@ -64,3 +65,7 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

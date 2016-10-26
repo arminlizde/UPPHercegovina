@@ -8,6 +8,7 @@ using UPPHercegovina.WebApplication.CustomFilters;
 using UPPHercegovina.WebApplication.Helpers;
 using UPPHercegovina.WebApplication.Models;
 using UPPHercegovina.WebApplication.Abstractions;
+using PagedList;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
@@ -15,17 +16,21 @@ namespace UPPHercegovina.WebApplication.Controllers
     public class MembershipsController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
+        private int _pageSize = 10;
 
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, int? page)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             ViewBag.StatusSortParm = sortOrder == "Status" ? "status_desc" : "Status";
 
             var memberships = context.Memberships.ToList();
+
+            int pageNumber = (page ?? 1);
+
             memberships = SortFactory.Resolve(sortOrder, memberships.GetType()).Sort(memberships);
 
-            return memberships != null ? View(memberships.ToList()) : View(new List<Membership>());      
+            return memberships != null ? View(memberships.ToList().ToPagedList(pageNumber, _pageSize)) : View(new List<Membership>().ToPagedList(pageNumber, _pageSize));      
         }
 
         public ActionResult Details(int? id)

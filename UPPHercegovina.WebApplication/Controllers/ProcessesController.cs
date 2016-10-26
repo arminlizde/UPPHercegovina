@@ -11,7 +11,7 @@ using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-        [AuthLog(Roles = "Super-Administrator, Administrator")]
+    [AuthLog(Roles = "Super-Administrator, Administrator")]
     public class ProcessesController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
@@ -191,7 +191,5 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return View(deliveries);
         }
-
-
     }
 }

@@ -1,31 +1,35 @@
-﻿@model IEnumerable<UPPHercegovina.WebApplication.Models.Transaction>
-
+﻿@model PagedList.PagedList<UPPHercegovina.WebApplication.Models.Transaction>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Transakcije";
+    ViewBag.Title = "Pregled / Transakcije";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Transakcije</h2>
-
+<h2>Pregled transakcija</h2>
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BuyerRequestId)
+            <label>Šifra zahtjeva</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            <label>Administrator</label>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            <label>Cijena</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            <label>Datum</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            <label>Status</label>
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Accepted)
+            <label>Prihvaćeno</label>
+
         </th>
         <th></th>
     </tr>
@@ -57,3 +61,6 @@
 }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))

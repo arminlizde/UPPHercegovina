@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using UPPHercegovina.WebApplication.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,6 +25,8 @@
                 @Html.ActionLink("UPPHercegovina", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                <div style="background-color:white">
+                </div>
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
@@ -55,7 +59,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
 
-                                    <li title="Aktivni zahtjevi nakupaca">@Html.ActionLink("Zahtjevi nakupaca", "ActiveRequests", "Requests")</li>
+                                    <li title="Aktivni zahtjevi nakupaca na čekanju za obradu">@Html.ActionLink("Zahtjevi nakupaca u obradi", "ActiveRequests", "Requests")</li>
                                     <li title="Zahtjevi koji čekaju na preuzimanje od nakupca">@Html.ActionLink("Rezervisani proizvodi", "AcceptedRequests", "Requests")</li>
                                     <li title="Historija zahtjeva nakupaca">@Html.ActionLink("Historija zahtjeva", "History", "Requests")</li>
                                     <hr style="padding:3; margin:0; border-color:#333333" />
@@ -80,6 +84,7 @@
                                     <li title="Skladišta udruženja, lokacije, tip skladištenja i više informacija">@Html.ActionLink("Skladišta", "Index", "Warehouses")</li>
                                     <li title="Dodaj novo skladište">@Html.ActionLink("Novo skladište", "Create", "Warehouses")</li>
                                     <li title="Tipovi skladištenja">@Html.ActionLink("Vrste skladištenja", "Index", "Storings")</li>
+                                    <li title="Tipovi skladištenja">@Html.ActionLink("Stanje u skladištima", "Index", "WarehouseStats")</li>
                                     <hr style="padding:3; margin:0; border-color:#333333" />
                                     <li title="Članske karte udruženja">@Html.ActionLink("Članske", "Index", "Memberships")</li>
                                     <li title="Dodavanje nove članske karte">@Html.ActionLink("Nove članske", "Create", "Memberships")</li>
@@ -93,23 +98,25 @@
                             </li>           @*Menadžment*@
 
                             <li>
-                                <a id="txtActiveProducts" title="Nove ponude proizvođača">
-                                    <i class="fa fa-info-circle"></i>
-                                    0
+
+                                <a id="txtActiveProducts" href="/Processes/Processing" title="Nove ponude proizvođača">
+                                    <i class="fa fa-info"></i>
+                                    @GlobalData.Instance.CountOfNewProducts
                                 </a>
+
                             </li>
 
                             <li>
-                                <a id="txtIncomingProducts" title="Dolazni proizvodi">
+                                <a id="txtIncomingProducts" href="/Processes/AppointmentProcess" title="Dolazni proizvodi">
                                     <i class="fa fa-arrow-down"></i>
-                                    0
+                                    @GlobalData.Instance.CountOfNewAppointments
                                 </a>
                             </li>
 
                             <li>
-                                <a id="txtBuyerRequests" title="Zahtjevi nakupaca">
+                                <a id="txtBuyerRequests" href="/Requests/ActiveRequests" title="Zahtjevi nakupaca">
                                     <i class="fa fa-arrow-up"></i>
-                                    0
+                                    @GlobalData.Instance.CountOfNewBuyerRequests
                                 </a>
                             </li>
 
@@ -133,7 +140,7 @@
                                     <li>@Html.ActionLink("Rezervacije za skladištenje proizvoda", "Index", "Appointments")</li>
                                     <hr style="padding:3; margin:0; border-color:#333333" />
                                     <li>@Html.ActionLink("Proizvodi u skladištima", "Index", "WarehouseProducts")</li>
-                                    <li title="Ocijene vlastitih proizvoda">@Html.ActionLink("Ocijene proizvoda", "Create", "PersonProducts")</li>
+                                    <li title="Ocijene vlastitih proizvoda">@Html.ActionLink("Ocjene proizvoda", "Marks", "PersonProducts")</li>
 
                                 </ul>
                             </li>               @*Proizvodi*@
@@ -146,15 +153,41 @@
                                     <li>@Html.ActionLink("Članstvo", "Memberships", "UserMemberships")</li>
                                     <li>@Html.ActionLink("Historija transakcija", "TransactionHistory", "Partnerships")</li>
                                     <li>@Html.ActionLink("Profil", "Profile", "Account")</li>
-                                    <li>@Html.ActionLink("Pregled članova", "Profile", "Account")</li>
+                                    <li>@Html.ActionLink("Pregled članova", "Index", "OverviewMembers")</li>
+                                    <li>@Html.ActionLink("Zemljišta", "Index", "Fields")</li>
+                                    <li>@Html.ActionLink("Dodaj novo zemljište", "Create", "Fields")</li>
                                 </ul>
-                            </li>               @* Članske *@
+                            </li>               @* Menadžment *@
 
                             <li>
-                                <a id="txtActiveProducts">
-                                    <i class="fa fa-automobile"></i>
-                                    0
+                                <a id="txtAcceptedProducts" href="/PersonProducts/Index" title="Broj prihvaćenih proizvoda">
+                                    <i class="fa fa-check-circle"></i>
+                                    @GlobalData.Instance.CountOfAcceptedProducts
                                 </a>
+                            </li>
+
+                            <li>
+                                <a id="txtAcceptedReservations" href="/Appointments/Index" title="Broj prihvaćenih rezervacija za dotjerivanje robe">
+                                    <i class="fa fa-truck"></i>
+                                    @GlobalData.Instance.CountOfAcceptedDeliveries
+                                </a>
+                            </li>
+
+                            <li>
+                                @if (GlobalData.Instance.DateOfNextDelivery <= DateTime.Now || GlobalData.Instance.DateOfNextDelivery <= DateTime.Now.AddDays(-1))
+                                {
+                                    <a id="txtDateOfDelivery" style="color:red" title="Sljedeći datum dotjerivanja robe u skladište">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        @GlobalData.Instance.DateOfNextDeliveryStr
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a id="txtDateOfDelivery" title="Sljedeći datum dotjerivanja robe u skladište">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        @GlobalData.Instance.DateOfNextDeliveryStr
+                                    </a>
+                                }
                             </li>
                         }
 
@@ -172,10 +205,8 @@
 
                                     <li title="Proizvodi u ponudi">@Html.ActionLink("Proizvodi", "Index", "BuyerProducts")</li>
                                     <li title="Proizvodi u pripremi za rezervisanje">@Html.ActionLink("Proizvodi u korpi", "ReservedProducts", "BuyerProducts")</li>
-
-                                    @*<li title="Dodaj novi proizvod u ponudu">@Html.ActionLink("Dodaj novi", "Create", "PersonProducts")</li>
-                                        <hr style="padding:3; margin:0; border-color:#333333" />
-                                        <li title="Ocijene vlastitih proizvoda">@Html.ActionLink("Ocijene proizvoda", "Create", "PersonProducts")</li>*@
+                                    <hr style="padding:3; margin:0; border-color:#333333" />
+                                    <li title="Ocijenjivanje kupljenih proizvoda">@Html.ActionLink("Ocijeni proizvode", "GradeProducts", "BuyerProducts")</li>
 
                                 </ul>
                             </li>
@@ -187,8 +218,47 @@
                                 <ul class="dropdown-menu">
                                     <li title="Kreiraj zahtjev za preuzimanje proizvoda">@Html.ActionLink("Novi zahtjev", "Create", "BuyerRequests")</li>
                                     <li title="Zahtjevi za preuzimanje proizvoda">@Html.ActionLink("Zahtjevi za proizvode", "Index", "BuyerRequests")</li>
+                                    <hr style="padding:3; margin:0; border-color:#333333" />
+                                    <li title="Historija transakcija">@Html.ActionLink("Historija transakcija", "TransactionHistory", "BuyerRequests")</li>
 
                                 </ul>
+                            </li>
+
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Menadžment <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Cjenovnik", "PriceList", "Prices")</li>
+                                    <li>@Html.ActionLink("Pregled članova", "Index", "OverviewMembers")</li>
+                                    <li>@Html.ActionLink("Kontaktirajte nas", "Contact", "Home")</li>
+                                </ul>
+                            </li>               @* Menadžment *@
+
+                            <li>
+
+                                <a id="txtAcceptedReservations" href="/BuyerRequests/Index" title="Broj prihvaćenih rezeravija koje treba preuzeti">
+                                    <i class="fa fa-truck"></i>
+                                    @GlobalData.Instance.CountOfAcceptedReservations
+                                </a>
+
+                            </li>
+
+                            <li>
+                                @if (GlobalData.Instance.DateOfNextPickUp <= DateTime.Now || GlobalData.Instance.DateOfNextPickUp <= DateTime.Now.AddDays(-1))
+                                {
+                                    <a id="txtIncomingProducts" style="color:red" title="Sljedeći datum preuzimanja">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        @GlobalData.Instance.DateOfNextPickUpStr
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a id="txtDateOfPickUp" title="Sljedeći datum preuzimanja">
+                                        <i class="fa fa-calendar-check-o"></i>
+                                        @GlobalData.Instance.DateOfNextPickUpStr
+                                    </a>
+                                }
                             </li>
 
                         }

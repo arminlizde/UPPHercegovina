@@ -1,14 +1,17 @@
 ﻿@model UPPHercegovina.WebApplication.Models.Product
 
 @{
-    ViewBag.Title = "Detalji / Proizvod";
+    ViewBag.Title = "Detalji / Proizvodi";
 }
 
-<h2>Detalji</h2>
+<h2>Detalji proizvoda</h2>
 
 <div>
     <h4>Proizvod</h4>
     <hr />
+
+    <div class="col-xs-6">
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,19 +38,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PictureUrl)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.ProductTypeId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductTypeId)
+            @Html.DisplayFor(model => model.ProductType.Name)
         </dd>
 
         <dt>
@@ -59,7 +54,18 @@
         </dd>
 
     </dl>
-</div>
+    </div>
+
+    <div class="col-xs-6">
+
+    <div class="container">
+        <div class="form-group">
+            <img id="user_img" src="@Url.Content(Model.PictureUrl)" title="Proizvod" height="200" width="165" style="border:hidden" />
+        </div>
+    </div>
+    </div>
+
+    </div>
 <p>
     @Html.ActionLink("Izmjeni", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Nazad na listu", "Index")
