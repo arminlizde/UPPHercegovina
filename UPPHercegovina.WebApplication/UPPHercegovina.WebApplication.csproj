@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminDashboardController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BuyerProductsController.cs" />
     <Compile Include="Controllers\BuyerRequestsController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Abstractions\Sorter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminDashboardViewModel.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BuyerRequest.cs" />
     <Compile Include="Models\Delivery.cs" />
@@ -575,6 +577,7 @@
     <Content Include="Views\WarehouseStats\Index.cshtml" />
     <Content Include="Views\WarehouseStats\Details.cshtml" />
     <Content Include="Views\Fields\Index.cshtml" />
+    <Content Include="Views\AdminDashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

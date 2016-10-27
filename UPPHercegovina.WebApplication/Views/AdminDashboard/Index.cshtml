@@ -1,0 +1,643 @@
+﻿@model UPPHercegovina.WebApplication.Models.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    window.onresize = function(){
+        startDrawingChart();
+    };
+
+    window.onload = function(){
+        startDrawingChart();
+    };
+
+    var data_array = [
+                      ['Year', 'Sales', 'Expenses'],
+                      ['2004',  1000,      400],
+                      ['2005',  1170,      460],
+                      ['2006',  660,       1120],
+                      ['2007',  1030,      540]
+                    ];
+
+    startDrawingChart = function(){
+        google.load("visualization", "1", {packages:["corechart"],callback: drawChart});
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(data_array);
+
+            var options = {
+              title: 'Company Performance',
+              hAxis: {title: 'Year',  titleTextStyle: {color: 'red'}}
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    };
+</script>
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    console.log("PERFORMANCE")
+    window.onresize = function () {
+        drawChart();
+    };
+    google.charts.load('current', { 'packages': ['gauge', 'corechart', 'bar', 'map'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Broj proizvoda', @Model.NumberOfProductsCount],
+
+        ]);
+
+        var options = {
+            //width: 400, height: 120,
+            redFrom: 9000, redTo: 10000,
+            yellowFrom: 7500, yellowTo: 9000,
+            minorTicks: 50
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('perf_div'));
+
+        chart.draw(data, options);
+
+
+    }
+</script>
+
+<script type="text/javascript">
+
+    console.log("PERFORMANCE")
+    window.onresize = function () {
+        drawChart();
+    };
+    //google.charts.load('current', { 'packages': ['gauge', 'corechart', 'bar', 'map'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+        ['Ukupno kg', @Model.SumKG]
+        ]);
+
+        var options = {
+            //width: 400, height: 120,
+            redFrom: 9000, redTo: 10000,
+            yellowFrom: 7500, yellowTo: 9000,
+            minorTicks: 50
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('perf_2'));
+
+        chart.draw(data, options);
+
+
+    }
+</script>
+<script type="text/javascript">
+
+    console.log("PERFORMANCE")
+    window.onresize = function () {
+        drawChart();
+    };
+    //google.charts.load('current', { 'packages': ['gauge', 'corechart', 'bar', 'map'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+        ['Ukupno prodanih kg', @Model.SoldCountKG]
+        ]);
+
+        var options = {
+            //width: 400, height: 120,
+            redFrom: 9000, redTo: 10000,
+            yellowFrom:7500, yellowTo: 9000,
+            minorTicks: 50
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('perf_3'));
+
+        chart.draw(data, options);
+
+
+    }
+</script>
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+    window.onresize = function () {
+        drawChart();
+    };
+    google.charts.load('current', { 'packages': ['gauge', 'corechart', 'bar', 'map'] });
+
+      //google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Proizvodi', 'kg'],
+          ['Bruto prodani',     @Model.BrutoSold],
+          ['Bruto ukupno',      @Model.BrutoSum],
+          ['Neto prodani',  @Model.NetoSold],
+          ['Neto ukupno', @Model.NetoSum]
+
+        ]);
+
+        var options = {
+          title: 'Odnos unešenih i prodanih bruto/neto vrijednosti',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+</script>
+
+
+<script type="text/javascript">
+      //google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses', 'Profit'],
+          ['2014', 1000, 400, 200],
+          ['2015', 1170, 460, 250],
+          ['2016', 660, 1120, 300],
+          ['2017', 1030, 540, 350]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+      }
+</script>
+
+<script type="text/javascript">
+
+
+        var temp11 = '@ViewBag.SMDataa';
+       var poData = JSON.parse('@ViewBag.SMDataa');
+
+                google.charts.load('current', { 'packages': ['bar'] });
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+
+                    var data = google.visualization.arrayToDataTable(poData);
+
+                    var options = {
+                        chart: {
+                            title: 'Proizvodjaci - Ocjene',
+                            subtitle: 'svi podaci',
+                        }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('div_po'));
+
+                    chart.draw(data, options);
+                }
+                @*</script>*@
+                //alert('');
+            //});
+</script>
+
+
+<script>
+    //google.charts.load('upcoming', { 'packages': ['map'] });
+    google.charts.setOnLoadCallback(drawMap);
+    var dataa = JSON.parse('@ViewBag.SMDataa');
+
+    function drawMap() {
+       // var data = google.visualization.arrayToDataTable([
+       //['Lat', 'Long', 'Name'],
+       //[37.4232, -122.0853, 'Work'],
+       //[37.4289, -122.1697, 'University'],
+       //[37.6153, -122.3900, 'Airport'],
+       //[37.4422, -122.1731, 'Shopping']
+       // ]);
+
+        var data = google.visualization.arrayToDataTable(dataa);
+
+    var options = {
+      showTooltip: true,
+      showInfoWindow: true
+    };
+
+    var map = new google.visualization.Map(document.getElementById('map_div'));
+
+    map.draw(data, options);
+  };
+</script>
+
+<script>
+    //google.charts.load('upcoming', { 'packages': ['map'] });
+    google.charts.setOnLoadCallback(drawMap);
+
+    function drawMap() {
+        var data = google.visualization.arrayToDataTable([
+       ['Lat', 'Long', 'Name'],
+       [37.4232, -122.0853, 'Work'],
+       [37.4289, -122.1697, 'University'],
+       [37.6153, -122.3900, 'Airport'],
+       [37.4422, -122.1731, 'Shopping']
+        ]);
+
+    var options = {
+      showTooltip: true,
+      showInfoWindow: true
+    };
+
+    var map = new google.visualization.Map(document.getElementById('map_opstina'));
+
+    map.draw(data, options);
+  };
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+        async defer></script>
+
+
+<h2 style="text-align:center; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Admin Dashboard</h2>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel panel-heading" style="text-align:center">Broj registrovanih korisnika</div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+
+                <h1 style="text-align:center;  color:red">55</h1>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel panel-heading" style="text-align:center">Broj administraotra</div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+
+                <h1 style="text-align:center;  color:blanchedalmond">55</h1>
+
+            </div>
+
+        </div>
+    </div><div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel panel-heading" style="text-align:center">Broj nakupaca</div>
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+
+                <h1 style="text-align:center;  color:azure">55</h1>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel-body">
+
+            <div id="perf_3">
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="panel-body">
+            <div id="perf_2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel-body">
+            <div id="perf_div">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<div class="container">
+    <div class="col-md-12">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div style="position:center" id="chart_div"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="perf_div" style="position:center"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="perf_2" style="position:center"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="perf_3" style="position:center"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="piechart"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="columnchart_material"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="panel panel-danger">
+            <div class="panel-body">
+                <div id="div_po"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel panel-heading" style="text-align:center"> Lokacije Skladišta</div>
+        <div class="panel panel-body" style="margin:0px">
+            <div class="col-xs-12" style="height:350px;">
+                <div id="map" style="height:100%; border:dotted"></div>
+
+
+                <script>
+
+                            console.log("pocelo je");
+                            var nizSkladista=[];
+
+                            var arraySkladista = @Html.Raw(Json.Encode(@ViewBag.lokacijeSkladista));
+                    for(var i = 0; i < arraySkladista.length; i++) {
+                        nizSkladista[i] = arraySkladista[i];
+                            }
+                            for (var i = 0; i < niz.length; i++) {
+                                console.log("Lat: "+niz[i].Latitude.toString()+", Lng: "+array[i].Longitude.toString());
+
+                            }
+
+                            var x = array;
+
+                            console.log("kraj loop - ");
+
+                            function initMap() {
+
+                                console.log("u initMap(): "+niz[0].Latitude+", lng: "+niz[0].Longitude);
+
+                                var myLatLng = {lat:43.1118, lng:17.7055};
+
+                                console.log("LAT LNG: "+myLatLng);
+
+
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                    zoom: 8,
+                                    center: myLatLng
+
+                                });
+
+
+                                for (var i = 0; i < niz.length; i++) {
+                                    var lat_lng = new google.maps.LatLng(parseFloat( nizSkladista[i].Latitude.toString()),parseFloat( nizSkladista[i].Longitude.toString()));
+                                    addMarker(lat_lng);
+                                }
+
+                                function addMarker(location) {
+                                    var marker = new google.maps.Marker({
+                                        position: location,
+                                        map: map
+                                    })};
+
+                                }
+
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                        async defer></script>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <br />
+    <div class="panel panel-default">
+        <div class="panel panel-heading" style="text-align:center"> Lokacije Opstina</div>
+        <div class="panel panel-body" style="margin:0px">
+            <div class="col-xs-12" style="height:350px;">
+                <div id="map2" style="height:100%; border:dotted"></div>
+
+
+                <script>
+
+                            console.log("pocelo je xXXXXXxxx");
+                            var niz=[];
+
+                            var array = @Html.Raw(Json.Encode(@ViewBag.lokacijeOpstina));
+                            for(var i = 0; i < array.length; i++) {
+                                niz[i] = array[i];
+                            }
+                            for (var i = 0; i < niz.length; i++) {
+                                console.log("Lat: "+niz[i].Latitude.toString()+", Lng: "+array[i].Longitude.toString());
+
+                            }
+
+                            var x = array;
+
+                            console.log("kraj loop - ");
+
+                            function initMap() {
+
+                                console.log("u initMap(): "+niz[0].Latitude+", lng: "+niz[0].Longitude);
+
+                                var myLatLng = {lat:43.1118, lng:17.7055};
+
+                                console.log("LAT LNG: "+myLatLng);
+
+
+                                var map = new google.maps.Map(document.getElementById('map2'), {
+                                    zoom: 8,
+                                    center: myLatLng
+
+                                });
+
+
+                                for (var i = 0; i < niz.length; i++) {
+                                    var lat_lng = new google.maps.LatLng(parseFloat( niz[i].Latitude.toString()),parseFloat( niz[i].Longitude.toString()));
+                                    addMarker(lat_lng);
+                                }
+
+
+                                @*var n = @Model;
+
+                                for (var x = 0; x < @Model.opstine.Count();x++) {
+                                    var lat_lng = new google.maps.LatLng(parseFloat( n.opstine[x].lat.toString()),parseFloat( n.opstine[x].lng.ToString()));
+                                    addMarker(lat_lng);
+                                }*@
+
+                                function addMarker(location) {
+                                    var marker = new google.maps.Marker({
+                                        position: location,
+                                        map: map
+                                    })};
+
+                                }
+
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+                        async defer></script>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <br />
+
+
+    @*<div class="panel panel-success" style="height:298px; ">
+        <div class="panel panel-heading" style="text-align:center">Mape skladišta</div>
+        <div class="panel-body">
+            <div id="test"style="height:100%; " @*style="width: 400px; height: 300px"*@>
+    @*<script>
+
+                    console.log("pocelo je");
+                    var niz=[];
+
+                    var array = @Html.Raw(Json.Encode(@ViewBag.lokacije));
+                    for(var i = 0; i < array.length; i++) {
+                        niz[i] = array[i];
+                    }
+                    for (var i = 0; i < niz.length; i++) {
+                        console.log("Lat: "+niz[i].Latitude.toString()+", Lng: "+array[i].Longitude.toString());
+
+                    }
+
+                    var x = array;
+
+                    console.log("kraj loop - ");
+
+                    function initMap() {
+
+                        console.log("u initMap(): "+niz[0].Latitude+", lng: "+niz[0].Longitude);
+
+                        var myLatLng = {lat:43.1118, lng:17.7055};
+
+                        console.log("LAT LNG: "+myLatLng);
+
+
+                        var map = new google.maps.Map(document.getElementById('test'), {
+                            zoom: 8,
+                            center: myLatLng
+
+                        });
+
+
+                        for (var i = 0; i < niz.length; i++) {
+                            var lat_lng = new google.maps.LatLng(parseFloat( niz[i].Latitude.toString()),parseFloat( niz[i].Longitude.toString()));
+                            addMarker(lat_lng);
+                        }
+
+                        function addMarker(location) {
+                            var marker = new google.maps.Marker({
+                                position: location,
+                                map: map
+                            })};
+
+                        }
+
+
+        </script>*@
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ0Bah24dB4oqaIN9peo9nnFAnboZjzmY&callback=initMap"
+        async defer></script>*@
+</div>
+
+@*</div>
+        </div>
+
+
+            <div class="panel panel-danger">
+                <div class="panel panel-heading" style="text-align:center">Mape skladišta</div>
+                <div class="panel-body">
+                    <div id="map_div" @*style="width: 400px; height: 300px"></div>
+
+                </div>
+            </div>
+
+
+        <div class="panel panel-danger">
+            <div class="panel panel-heading" style="text-align:center">Mape Opština</div>
+            <div class="panel-body">
+                <div id="map_opstina" @*style="width: 400px; height: 300px"></div>
+
+            </div>
+        </div>
+        <div class="col-md-6" id="chart_div1">
+
+        </div>
+    </div>*@

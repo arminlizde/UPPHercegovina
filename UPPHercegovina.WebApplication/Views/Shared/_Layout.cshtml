@@ -174,7 +174,7 @@
                             </li>
 
                             <li>
-                                @if (GlobalData.Instance.DateOfNextDelivery <= DateTime.Now || GlobalData.Instance.DateOfNextDelivery <= DateTime.Now.AddDays(-1))
+                                @if (GlobalData.Instance.DateOfNextDelivery == DateTime.Now || GlobalData.Instance.DateOfNextDelivery <= DateTime.Now.AddDays(-1))
                                 {
                                     <a id="txtDateOfDelivery" style="color:red" title="Sljedeći datum dotjerivanja robe u skladište">
                                         <i class="fa fa-calendar-check-o"></i>
@@ -237,7 +237,7 @@
 
                             <li>
 
-                                <a id="txtAcceptedReservations" href="/BuyerRequests/Index" title="Broj prihvaćenih rezeravija koje treba preuzeti">
+                                <a id="txtAcceptedReservations" href="/BuyerRequests/Index" title="Broj prihvaćenih rezervacija koje treba preuzeti">
                                     <i class="fa fa-truck"></i>
                                     @GlobalData.Instance.CountOfAcceptedReservations
                                 </a>
