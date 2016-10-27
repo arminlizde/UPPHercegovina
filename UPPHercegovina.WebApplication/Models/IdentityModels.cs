@@ -33,6 +33,8 @@ namespace UPPHercegovina.WebApplication.Models
             return FirstName + " " + LastName;
         }
 
+
+
         public string GetAverageMark
         {
             get
@@ -119,6 +121,9 @@ namespace UPPHercegovina.WebApplication.Models
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Delivery> Deliveries { get; set; }
+
+       // public DbSet<Township> Townships { get; set; }
+
 
     }
 }

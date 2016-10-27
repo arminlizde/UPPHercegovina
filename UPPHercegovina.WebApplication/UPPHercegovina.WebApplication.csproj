@@ -242,6 +242,8 @@
     <Compile Include="Abstractions\Sorter.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Controllers\AdminDashboardController.cs" />
+    <Compile Include="Models\ADVM.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BuyerRequest.cs" />
     <Compile Include="Models\Delivery.cs" />
@@ -261,8 +263,10 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\ProizvodOcjenaVM.cs" />
     <Compile Include="Models\Quality.cs" />
     <Compile Include="Models\ReservedProduct.cs" />
+    <Compile Include="Models\SkladistaOpstineVM.cs" />
     <Compile Include="Models\Storing.cs" />
     <Compile Include="Models\Township.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -554,6 +558,7 @@
     <Content Include="Views\Processes\DeliveryDetails.cshtml" />
     <Content Include="Views\WarehouseProducts\Index.cshtml" />
     <Content Include="Views\WarehouseProducts\Details.cshtml" />
+    <Content Include="Views\AdminDashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
