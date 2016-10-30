@@ -65,6 +65,8 @@ namespace UPPHercegovina.WebApplication.Controllers
                     context.SaveChanges();
                 }
 
+                GlobalData.Instance.forDelivery.Clear();
+
                 return RedirectToAction("Index");
             }
 

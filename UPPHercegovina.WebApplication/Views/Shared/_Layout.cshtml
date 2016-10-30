@@ -13,8 +13,12 @@
     <script src="~/Scripts/ckeditor/ckeditor.js" type="text/javascript"></script>
 
 </head>
+
+@*div class="navbar navbar-dark navbar-fixed-top" style="background-color:#f7f7f*@
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">*@
+    @*<div class="navbar navbar-dark navbar-fixed-top" style="background-color:#f7f7f7; border-bottom:ridge;">*@
+    <div class="navbar navbar-inverse navbar-fixed-top">  
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -92,6 +96,8 @@
                                     <li title="Statistika članstva">@Html.ActionLink("Statistika članstva", "Stats", "UserMemberships")</li>
                                     <hr style="padding:3; margin:0; border-color:#333333" />
                                     <li title="Upravljanje članovima">@Html.ActionLink("Upravljanje korisnicima", "AllUsers", "UserManagment")</li>
+                                    <li title="Upravljanje članovima">@Html.ActionLink("Dodaj novog korisnika", "AddUser", "UserManagment")</li>
+
                                     <li title="Dodavanje novih">@Html.ActionLink("Uloge", "Index", "Roles")</li>
                                     <li title="Dodjeljivanje uloga korisnicima">@Html.ActionLink("Upravljanje ulogama", "ManageUserRoles", "Roles")</li>
                                 </ul>

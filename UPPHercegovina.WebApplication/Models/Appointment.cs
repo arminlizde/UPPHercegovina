@@ -16,6 +16,7 @@ namespace UPPHercegovina.WebApplication.Models
 
         [Required]
         [Display(Name = "Datum dostavljanja")]
+        [DataType(DataType.Date)]
         public DateTime DeliveryDate { get; set; }
 
         [Display(Name = "Korisnik")]

@@ -84,7 +84,7 @@ namespace UPPHercegovina.WebApplication.Controllers
         {
             string buyerId = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id;
 
-            var requests = context.BuyerRequests.Where(r => r.BuyerId == buyerId)
+            var requests = context.BuyerRequests.Where(r => r.BuyerId == buyerId && r.PickedUp == true)
                 .Include(r => r.ReservedProducts.Select(p => p.PersonProduct.Product))
                 .Include(r => r.ReservedProducts.Select(p => p.PersonProduct.User))
                 .Include(r => r.ReservedProducts.Select(p => p.PersonProduct.Warehouse1)).ToList();
@@ -125,7 +125,7 @@ namespace UPPHercegovina.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GradeProduct([Bind(Include = "Id,ProductId,HarvestDate,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Value,Urgently,Status,UserId,Rating")] PersonProduct personProduct)
+        public ActionResult GradeProduct([Bind(Include = "Id,ProductId,HarvestDate,Quality,Warehouse1Id,Accepted,InWarehouse,Neto,Bruto,ExparationDate,FieldId,Damaged,CircaValue,Value,Urgently,Status,UserId,Rating")] PersonProduct personProduct)
         {
             if (ModelState.IsValid)
             {

@@ -39,9 +39,7 @@ namespace UPPHercegovina.WebApplication.Models
                 {
                     var list = context.PersonProducts.Where(p => p.Accepted == true)
                         .Where(p => p.UserId == Id)
-                        .Where(p => p.Rating != 0)
-                        .Include(p => p.Field)
-                        .Include(p => p.Product).ToList();
+                        .Where(p => p.Rating != 0).ToList();
 
                     return list.Count();
                 }
@@ -57,9 +55,7 @@ namespace UPPHercegovina.WebApplication.Models
                 {
                     var list = context.PersonProducts.Where(p => p.Accepted == true)
                         .Where(p => p.UserId == Id)
-                        .Where(p => p.Rating != 0)
-                        .Include(p => p.Field)
-                        .Include(p => p.Product).ToList();
+                        .Where(p => p.Rating != 0).ToList();
 
                     float averageMark = 0;
 

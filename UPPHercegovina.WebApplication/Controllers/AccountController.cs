@@ -256,7 +256,22 @@ namespace UPPHercegovina.WebApplication.Controllers
         public ActionResult Register()
         {
             ViewBag.TownshipId = new SelectList(context.PlaceOfResidences, "Id", "Name");
+            List<IdentityRole> roles = context.Roles.ToList();
+            List<IdentityRole> rolesForView = new List<IdentityRole>();
 
+            foreach (var item in roles)
+            {
+                if (item.Name == "Nakupac")
+                {
+                    rolesForView.Add(item);
+                }
+                if (item.Name == "Korisnik")
+                {
+                    rolesForView.Add(item);
+                }
+            }
+
+            ViewBag.RoleID = new SelectList(rolesForView, "Id", "Name");
             return View();
         }
 
@@ -290,14 +305,23 @@ namespace UPPHercegovina.WebApplication.Controllers
 
                 if (result.Succeeded)
                 {
+
+                    string roleid = model.RoleID;
+                    IdentityUserRole ur = new IdentityUserRole();
+
+                    ur.RoleId = roleid;
+                    ur.UserId = user.Id;
+                    user.Roles.Add(ur);
+                    context.SaveChanges();
+
                     string body = string.Format("Poštovani, {0} <BR/>Hvala Vam na registraciji, molimo da pratite link kako bi verifikovali Email: <a href=\"{1}\"title=\"User Email Confirm\">{1}</a>",
                     user.UserName, Url.Action("ConfirmEmail", "Account",
                         new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
 
                     var emailClient = new EmailClient("Potvrda Email adrese", user.Email, body);
                     emailClient.Send();
-
-                    await this.UserManager.AddToRoleAsync(user.Id, "Korisnik");
+                    
+                   //await this.UserManager.AddToRoleAsync(user.Id, "Korisnik");
 
                     return RedirectToAction("Confirm", "Account", new { Email = user.Email });
                 }

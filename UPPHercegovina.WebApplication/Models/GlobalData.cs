@@ -80,8 +80,8 @@ namespace UPPHercegovina.WebApplication.Models
 
                         CountOfAcceptedReservations = requests.Count();
 
-                        DateOfNextPickUp = requests.Select(r => r.DateOfPickUp).Min();
-                        DateOfNextPickUpStr = DateOfNextPickUp.ToShortDateString();
+                        DateOfNextPickUp = CountOfAcceptedReservations != 0 ? requests.Select(r => r.DateOfPickUp).Min() : DateTime.Now;
+                        DateOfNextPickUpStr = CountOfAcceptedReservations != 0 ? DateOfNextPickUp.ToShortDateString() : "-";
 
                     }
                 }
@@ -94,8 +94,8 @@ namespace UPPHercegovina.WebApplication.Models
 
                         CountOfAcceptedDeliveries = appointments.Count();
 
-                        DateOfNextDelivery = appointments.Select(a => a.DeliveryDate).Min();
-                        DateOfNextDeliveryStr = DateOfNextDelivery.ToShortDateString();
+                        DateOfNextDelivery = CountOfAcceptedDeliveries != 0 ? appointments.Select(a => a.DeliveryDate).Min() : DateTime.Now;
+                        DateOfNextDeliveryStr = CountOfAcceptedDeliveries != 0 ? DateOfNextDelivery.ToShortDateString() : "-";
 
                         CountOfAcceptedProducts = context.PersonProducts
                            .Where(p => p.Status == true && p.Accepted == true)

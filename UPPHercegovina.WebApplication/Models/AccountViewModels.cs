@@ -75,16 +75,20 @@ namespace UPPHercegovina.WebApplication.Models
         [Required(ErrorMessage = "Lozinka je obavezno polje !")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lozinka")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Potvrdi lozinku")]
         [Compare("Password", ErrorMessage = "Lozinka i potvrda lozinke nisu iste!")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Općine")]
         public int TownshipId { get; set; }
+
+        [Display(Name = "Tip računa")]
+        public string RoleID { get; set; }
+
 
         [Required(ErrorMessage = "Ime je obavezno polje !")]
         [Display(Name = "Ime")]
@@ -110,6 +114,9 @@ namespace UPPHercegovina.WebApplication.Models
         [StringLength(13, MinimumLength = 13, ErrorMessage = "Matični broj se sastoji od 13 brojeva!")]
         [Display(Name = "Matični broj")]
         public string IdentificationNumber { get; set; }
+
+        [Display(Name = "Email potvrđen")]
+        public bool EmailConfirmed { get; set; }
 
     }
 
@@ -174,6 +181,9 @@ namespace UPPHercegovina.WebApplication.Models
         [Display(Name = "Općina")]
         public string Township { get; set; }
 
+        [Display(Name = "Status")]
+        public bool Status { get; set; }
+
         public static List<UsersViewModel> UsersToViewModel(bool status)
         {
             List<UsersViewModel> userViewList = new List<UsersViewModel>();
@@ -182,7 +192,7 @@ namespace UPPHercegovina.WebApplication.Models
 
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                user = context.Users.Where(u => u.Status != status)
+                user = context.Users.Where(u => u.Status == status)
                     .OrderBy(u => u.TownshipId).ThenBy(u => u.FirstName).ToList();
 
                 user.ForEach(item => {
@@ -192,7 +202,8 @@ namespace UPPHercegovina.WebApplication.Models
                         LastName = item.LastName,
                         PhoneNumber = item.PhoneNumber,
                         Township = context.PlaceOfResidences.Find(item.TownshipId).Name,
-                        Id = item.Id
+                        Id = item.Id,
+                        Status = item.Status
                     };
                     userViewList.Add(userViewModel);         
                 });

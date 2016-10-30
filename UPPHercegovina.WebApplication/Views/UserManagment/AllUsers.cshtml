@@ -6,16 +6,42 @@
 
 <h2>Pregled korisnika</h2>
 
+<input type="hidden" value="@ViewBag.Status" id="hiddenStatus" />
+
 @using (Html.BeginForm("AllUsers", "UserManagment"))
 {
     <div class="container">
-        <div class="col-md-12">
+        <div class="col-xs-3">
             @Html.CheckBox("status")
-            <input id="Submit1" type="submit" value="Filtriraj po statusu" />
+
+            @if (ViewBag.Status)
+            {
+                <input id="btnSearch" type="submit" class="btn btn-default" value="Aktivni" />
+            }
+            else
+            {
+                <input id="btnSearch" type="submit" class="btn btn-default" value="Neaktivni" />
+            }
         </div>
     </div>
-}
+    @*<script type="text/javascript" >
 
+
+            var myJsVariable = '@ViewBag.Status'
+
+                    console.log("1: ", myJsVariable)
+                    if (myJsVariable)
+                        document.getElementById("btnSearch").value = "Prikaži neaktivne"
+                    else if (!myJsVariable) {
+                        console.log("Ulazi: ", myJsVariable)
+                        document.getElementById("btnSearch").value = "Prikaži aktivne"
+
+                    }
+
+
+        </script>*@
+}
+<br />
 <table class="table">
     <tr>
         <th>
@@ -30,13 +56,16 @@
         <th>
             <label>Općina</label>
         </th>
+        <th>
+            <label>Status</label>
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                
+
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
@@ -47,6 +76,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Township)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.ActionLink("Izmjeni", "Edit", new { id = item.Id }) |

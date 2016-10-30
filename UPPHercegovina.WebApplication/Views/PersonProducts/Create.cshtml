@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+
 <h2>Prijavi za skladište</h2>
 
 @using (Html.BeginForm()) 
@@ -103,3 +109,11 @@
 <div>
     @Html.ActionLink("Nazad na listu", "Index")
 </div>
+<script>
+    $("#ExparationDate").datepicker({
+        dateFormat: 'mm-dd-yy'
+    });
+    $("#HarvestDate").datepicker({
+        dateFormat: 'mm-dd-yy'
+    });
+</script>

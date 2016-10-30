@@ -24,7 +24,7 @@
             @Html.TextBoxFor(m => m.FirstName, new { placeholder = "prm. vaše ime", @class = "form-control" })
         </div>
     </div>
-
+    //
     <div class="form-group">
         @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -45,7 +45,12 @@
             @Html.DropDownList("TownshipId", null, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
-
+    <div class="form-group">
+        @Html.Label("Tip profila", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control", @name = "rolelist", @id = "ddlrole" })
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Address, new {  @class = "col-md-2 control-label" })
         <div class="col-md-10">

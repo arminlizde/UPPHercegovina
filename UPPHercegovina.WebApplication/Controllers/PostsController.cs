@@ -55,7 +55,11 @@ namespace UPPHercegovina.WebApplication.Controllers
         {
             var user = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault();
             //This works only if we allow only registered users to visit 
-            ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+
+            if(user != null)
+                ViewBag.Location = context.PlaceOfResidences.Find(user.TownshipId);
+
+
             ViewBag.Markers = context.Warehouses1.ToList();
         }
 

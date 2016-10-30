@@ -9,7 +9,7 @@
             <li>
                 @Html.ActionLink("Zdravo, " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: null, htmlAttributes: new { title = "Profile" })
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Odjava</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-in"></span> Odjava</a></li>
    
         </ul>
     }

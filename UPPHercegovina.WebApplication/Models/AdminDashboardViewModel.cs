@@ -24,6 +24,7 @@ namespace UPPHercegovina.WebApplication.Models
 
         public List<WarehouseTownshipViewModel> Warehouses { get; set; }
         public List<WarehouseTownshipViewModel> Townships { get; set; }
+        public List<ProductExpieryByYearViewModel> productExpeieryByyear { get; set; }
     }
 
     public class WarehouseTownshipViewModel
@@ -38,5 +39,11 @@ namespace UPPHercegovina.WebApplication.Models
         public string ProducerFullName { get; set; }
         public string AverageMark { get; set; }
         public string UserId { get; set; }
+    }
+
+    public class ProductExpieryByYearViewModel
+    {
+        public string Year { get; set; }
+        public string Sales { get; set; }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,15 +17,72 @@ namespace UPPHercegovina.WebApplication.Models
 
         public ActionResult Index()
         {
-            //GetNumbersOfUsersByRole();
+            GetNumbersOfUsersByRole();
             PerfChart();
             ProductsInWarehouse();
             ProductMaarks();
             Townships();
             Warehouses();
             BrutoNeto();
+            YearlyProductExpiery();
             SetGoogleMap();
             return View(advm);
+        }
+
+        private void GetNumbersOfUsersByRole()
+        {
+            var roleList = context.Roles.ToList();
+            List<ApplicationUser> users = context.Users.Where(x => x.EmailConfirmed == true && x.Roles.Count() != 0).ToList();
+            IdentityRole myRole = context.Roles.Include(r => r.Users).First(r => r.Name == "Korisnik");
+            IdentityRole myRole2 = context.Roles.Include(r => r.Users).First(r => r.Name == "Administrator");
+            IdentityRole myRole3 = context.Roles.Include(r => r.Users).First(r => r.Name == "Nakupac");
+            ViewBag.UserNo = myRole.Users.Count();
+            ViewBag.AdminNo = myRole2.Users.Count();
+            ViewBag.NNo = myRole3.Users.Count();
+        }
+
+        private void YearlyProductExpiery()
+        {
+            List<ProductExpieryByYearViewModel> productsExpireByYear = new List<ProductExpieryByYearViewModel>();
+            List<string> years = new List<string>();
+            List<string> years2 = new List<string>();
+
+            List<PersonProduct> products = context.PersonProducts.Where(x => x.Accepted == true && x.Status == true).ToList();
+            foreach (var item in products)
+            {
+                years.Add(item.ExparationDate.Year.ToString());
+            }
+            years2 = years.Distinct().ToList();
+            for (int i = 0; i < years2.Count(); i++)
+            {
+                ProductExpieryByYearViewModel s = new ProductExpieryByYearViewModel();
+                s.Year = years2[i];
+                productsExpireByYear.Add(s);
+            }
+            foreach (var item in productsExpireByYear)
+            {
+                decimal value = 0;
+                List<PersonProduct> pp = products.Where(x => x.ExparationDate.Year == Convert.ToInt32(item.Year)).ToList();
+                foreach (var x in pp)
+                {
+                    value += x.Value;
+                }
+                item.Sales = value.ToString();
+            }
+
+            advm.productExpeieryByyear = productsExpireByYear.OrderByDescending(x => x.Year).ToList();
+            ArrayList header = new ArrayList { "Godina ", "Suma vrijednosti:" };
+            ArrayList data = new ArrayList();
+            data.Add(header);
+            for (int i = 0; i < advm.productExpeieryByyear.Count(); i++)
+            {
+                ArrayList data1 = new ArrayList { advm.productExpeieryByyear[i].Year, advm.productExpeieryByyear[i].Sales };
+                data.Add(data1);
+            }
+            // convert it in json
+            string dataStr = JsonConvert.SerializeObject(data, Formatting.None);
+            // store it in viewdata/ viewbag
+            ViewBag.GVData = new HtmlString(dataStr);
         }
 
         private void SetGoogleMap()
@@ -110,26 +169,43 @@ namespace UPPHercegovina.WebApplication.Models
             ViewBag.lokacijeOpstina = locations;
         }
 
-
-        //ovo treba pogledati 
         private void ProductMaarks()
         {
-            List<PersonProduct> soldProducts = context.PersonProducts.Where(x => x.Accepted == true && x.Status == false).ToList();
+            List<PersonProduct> soldProducts = context.PersonProducts.Where(x => x.Accepted == true && x.Status == false && x.Rating != 0).ToList();
             List<Product> products = context.Products.ToList();
             List<PersonProductMark> ppm = context.PersonProductMarks.ToList();
             advm.ProductsMark = new List<ProductMarkViewModel>();
 
-            ProductMarkViewModel productMark = new ProductMarkViewModel();
 
+            soldProducts.Select(x => x.UserId);
+
+            List<string> uid = new List<string>();
             for (int i = 0; i < soldProducts.Count(); i++)
             {
-                productMark.UserId = soldProducts[i].UserId;
-                ApplicationUser user = context.Users.Find(productMark.UserId);
-                productMark.ProducerFullName = user.GetFirstLastName();
-                productMark.AverageMark = user.GetAverageMark;
-                advm.ProductsMark.Add(productMark);
-
+                uid.Add(soldProducts[i].UserId);
             }
+            List<string> novi = uid.Distinct().ToList();
+
+            for (int i = 0; i < novi.Count; i++)
+            {
+                ProductMarkViewModel productMark = new ProductMarkViewModel();
+                ApplicationUser au = new ApplicationUser();
+                au = context.Users.Find(novi[i]);
+                productMark.AverageMark = au.GetAverageMark;
+                productMark.ProducerFullName = au.GetDisplayName();
+                advm.ProductsMark.Add(productMark);
+            }
+
+
+            //for (int i = 0; i < soldProducts.Count(); i++)
+            //{
+            //    productMark.UserId = soldProducts[i].UserId;
+            //    ApplicationUser user = context.Users.Find(productMark.UserId);
+            //    productMark.ProducerFullName = user.GetFirstLastName();
+            //    productMark.AverageMark = user.GetAverageMark;
+            //    advm.ProductsMark.Add(productMark);
+
+            //} cekk vidi ovo ok
 
             ArrayList header = new ArrayList { "Proizvodjac ", "Ocjena:" };
             ArrayList data = new ArrayList();
@@ -149,6 +225,83 @@ namespace UPPHercegovina.WebApplication.Models
             //dvm.htmlstringSUPM = ViewBag.Dataa;
 
         }
+
+
+        //ovo treba pogledati 
+        //    private void ProductMaarks()
+        //    {
+        //        List<PersonProduct> soldProducts = context.PersonProducts.Where(x => x.Accepted == true && x.Status == false).ToList();
+        //        List<Product> products = context.Products.ToList();
+        //        List<PersonProductMark> ppm = context.PersonProductMarks.ToList();
+        //        advm.ProductsMark = new List<ProductMarkViewModel>();
+
+        //        ProductMarkViewModel productMark = new ProductMarkViewModel();
+
+        //        for (int i = 0; i < soldProducts.Count(); i++)
+        //        {
+        //            productMark.UserId = soldProducts[i].UserId;
+        //            ApplicationUser user = context.Users.Find(productMark.UserId);
+        //            productMark.ProducerFullName = user.GetFirstLastName();
+        //            productMark.AverageMark = user.GetAverageMark;
+        //            advm.ProductsMark.Add(productMark);
+
+        //        }
+
+        //        ArrayList header = new ArrayList { "Proizvodjac ", "Ocjena:" };
+        //        ArrayList data = new ArrayList();
+        //        data.Add(header);
+        //        for (int i = 0; i < advm.ProductsMark.Count(); i++)
+        //        {
+        //            ArrayList data1 = new ArrayList { advm.ProductsMark[i].ProducerFullName, advm.ProductsMark[i].AverageMark };
+        //            data.Add(data1);
+        //        }
+
+
+        //        // convert it in json
+        //        string dataStr = JsonConvert.SerializeObject(data, Formatting.None);
+        //        // store it in viewdata/ viewbag
+        //        ViewBag.SMDataa = new HtmlString(dataStr);
+        //        //TempData["data"] = new HtmlString(dataStr);
+        //        //dvm.htmlstringSUPM = ViewBag.Dataa;
+
+        //        //haza
+
+        //    //    List<PersonProduct> soldProducts = context.PersonProducts.Where(x => x.Accepted == true && x.Status == false).ToList();
+        //    //    List<Product> products = context.Products.ToList();
+        //    //    List<PersonProductMark> ppm = context.PersonProductMarks.ToList();
+        //    //    advm.ProductsMark = new List<ProductMarkViewModel>();
+
+        //    //    ProductMarkViewModel productMark = new ProductMarkViewModel();
+
+        //    //    for (int i = 0; i < soldProducts.Count(); i++)
+        //    //    {
+        //    //        productMark.UserId = soldProducts[i].UserId;
+        //    //        ApplicationUser user = context.Users.Find(productMark.UserId);
+        //    //        productMark.ProducerFullName = user.GetFirstLastName();
+        //    //        productMark.AverageMark = user.GetAverageMark;
+        //    //        advm.ProductsMark.Add(productMark);
+
+        //    //    }
+
+        //    //    ArrayList header = new ArrayList { "Proizvodjac ", "Ocjena:" };
+        //    //    ArrayList data = new ArrayList();
+        //    //    data.Add(header);
+        //    //    for (int i = 0; i < advm.ProductsMark.Count(); i++)
+        //    //    {
+        //    //        ArrayList data1 = new ArrayList { advm.ProductsMark[i].ProducerFullName, advm.ProductsMark[i].AverageMark };
+        //    //        data.Add(data1);
+        //    //    }
+
+
+        //    //    // convert it in json
+        //    //    string dataStr = JsonConvert.SerializeObject(data, Formatting.None);
+        //    //    // store it in viewdata/ viewbag
+        //    //    ViewBag.SMDataa = new HtmlString(dataStr);
+        //    //    //TempData["data"] = new HtmlString(dataStr);
+        //    //    //dvm.htmlstringSUPM = ViewBag.Dataa;
+
+        //    //}
+        //}
         //ovo treba pogledati
 
 
@@ -179,20 +332,7 @@ namespace UPPHercegovina.WebApplication.Models
             }
         }
 
-        private void GetNumbersOfUsersByRole()
-        {
-            var roleList = context.Roles.ToList();
-
-            List<ApplicationUser> users = context.Users.Where(x => x.EmailConfirmed == true).ToList();
-            var roleKorisnik = roleList.Where(x => x.Name == "Korisnik").FirstOrDefault();
-
-            foreach (var user in users)
-            {
-
-
-            }
-
-        }
+        
 
     }
 

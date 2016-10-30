@@ -10,7 +10,6 @@ using UPPHercegovina.WebApplication.Models;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
-    [AuthLog(Roles = "Nakupac")]
     public class OverviewMembersController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
