@@ -14,10 +14,7 @@
 
 </head>
 
-@*div class="navbar navbar-dark navbar-fixed-top" style="background-color:#f7f7f*@
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">*@
-    @*<div class="navbar navbar-dark navbar-fixed-top" style="background-color:#f7f7f7; border-bottom:ridge;">*@
     <div class="navbar navbar-inverse navbar-fixed-top">  
         <div class="container">
             <div class="navbar-header">
@@ -79,6 +76,9 @@
                                     Menadžment <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Grafički prikazi", "Index", "AdminDashboard")</li>
+
+                                    <hr style="padding:3; margin:0; border-color:#333333" />
                                     <li>@Html.ActionLink("Obavijesti", "Index", "Posts")</li>
                                     <li>@Html.ActionLink("Kategorije", "Index", "PostCategories")</li>
                                     <hr style="padding:3; margin:0; border-color:#333333" />
@@ -180,7 +180,7 @@
                             </li>
 
                             <li>
-                                @if (GlobalData.Instance.DateOfNextDelivery == DateTime.Now || GlobalData.Instance.DateOfNextDelivery <= DateTime.Now.AddDays(-1))
+                                @if (GlobalData.Instance.DateOfNextDelivery >= DateTime.Now.Date.AddDays(1))
                                 {
                                     <a id="txtDateOfDelivery" style="color:red" title="Sljedeći datum dotjerivanja robe u skladište">
                                         <i class="fa fa-calendar-check-o"></i>
@@ -251,7 +251,7 @@
                             </li>
 
                             <li>
-                                @if (GlobalData.Instance.DateOfNextPickUp <= DateTime.Now || GlobalData.Instance.DateOfNextPickUp <= DateTime.Now.AddDays(-1))
+                                @if (GlobalData.Instance.DateOfNextPickUp.Date >= DateTime.Now.AddDays(1).Date)
                                 {
                                     <a id="txtIncomingProducts" style="color:red" title="Sljedeći datum preuzimanja">
                                         <i class="fa fa-calendar-check-o"></i>

@@ -5,19 +5,120 @@
 @{
     ViewBag.Title = "Novosti / Obavijesti";
 }
-<h2>Obavijesti</h2>
+@*<h2>Obavijesti</h2>*@
 
 <div>
-    <br />
-    <br />
-    <h4>Posljednje obavijesti</h4>
-    <hr />
+
+    <div class="container" style="margin-top:50px; margin-bottom:50px;">
+
+        <div class="row">
+
+            <div class="col-md-0"></div>
+
+            <div class="col-md-9">
+
+
+                <div class="row carousel-holder">
+
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+
+                                <div class="item active">
+                                    <img class="slide-image" title="Dobrodošli u udruženje poljoprivrednih proizvođača Hercegovina" src="~/Images/upphercegovina_logo.png" />
+                                </div>
+                                @foreach (var item in Model)
+                                {
+                                    <div class="item">
+                                        <div style="z-index:20; text-align:left; margin-left:25px; margin-right:25px; margin-top:25px; vertical-align:text-top; position:relative;">
+                                            <p style="color:white;">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                                Postavljeno: @item.PostDate
+                                                <br />
+                                                <span class="glyphicon glyphicon-user"></span>
+                                                Napisao: @item.AuthorName
+                                            </p>
+                                            <h3 style="color:white;">@item.Title_short</h3>
+                                            <p style="color:white;">@Html.Raw(HttpUtility.HtmlDecode(item.Text500string))</p>
+                                        </div>
+                                        <div style="z-index:10; height:200px; margin-top:-180px; position:relative;">
+                                            <div style="background-color:#35074F; opacity:0.7; height:100%;"></div>
+                                        </div>
+                                            <img class="slide-image" style="max-height:468px; margin-top:-190px; height:468px; width:100%;" src="@Html.DisplayFor(modelItem => item.PictureUrl)" alt="">
+                                        </div>
+                                }
+
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            @*slider end*@
+
+            <div class="col-md-3">
+
+                <div class="well">
+                    <h4>Kontakt</h4>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <address>
+                               <span><i class="fa fa-phone" title="Broj telefona"></i> +387 61 909 440</span>
+                            </address>
+                            <address>
+                                <span><i class="fa fa-envelope" title="Email"></i> upphercegovina@outlook.com</span>
+                            </address>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-xs-3">
+            <div class="well">
+                <h4>Preporučene obavijesti</h4>
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <ul class="list-unstyled">
+                            @foreach (var item in ViewBag.Recommended)
+                            {
+                                <li>
+                                    @Html.ActionLink((string)item.Title_link, "Details", "Posts" ,new { id = item.Id }, null)
+                                    @*@item.Title_short*@
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+        @*row end*@
+    </div>
+    @* Container end *@
+
+    @*  *@
 
     @foreach (var item in Model)
     {
         <div class="col-md-12 blogShort">
             <h3>@Html.DisplayFor(modelItem => item.Title_short)</h3>
-            
+
             <div class="container">
                 <div>
                     <img src="@Html.DisplayFor(modelItem => item.PictureUrl)" title="Proizvod" style="max-height:150px;" height="150" width="150" class="pull-left img-responsive thumb margin10 img-thumbnail" />
@@ -30,14 +131,14 @@
                     </div>
                     <div>
                         <p>
-                           @* @Html.DisplayFor(modelItem => item.Text500string)*@
+                            @* @Html.DisplayFor(modelItem => item.Text500string)*@
                             @Html.Raw(HttpUtility.HtmlDecode(item.Text500string))
                     </div>
                 </div>
 
             </div>
-            @Html.ActionLink("Više informacija ...", "Details", "Posts" ,new { id = item.Id }, new { @class = "btn btn-blog pull-right marginBottom10" })
-           
+            @Html.ActionLink("Više informacija ...", "Details", "Posts", new { id = item.Id }, new { @class = "btn btn-blog pull-right marginBottom10" })
+
             <br />
             <hr />
         </div>

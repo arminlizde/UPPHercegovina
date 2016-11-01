@@ -64,7 +64,7 @@ namespace UPPHercegovina.WebApplication.Controllers
                     StateList.Insert(0, item2);
 
                     var personProduct = context.PersonProducts
-                       .Where(p => p.Status == true)
+                       .Where(p => p.Status == true && p.InWarehouse == false)
                        .Where(p => p.Accepted == true)
                        .Where(p => p.UserId == context.Users
                          .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id)

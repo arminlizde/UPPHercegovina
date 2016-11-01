@@ -105,5 +105,48 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Edit(int? id)
+        {
+            ViewBag.Warehouse1Id = new SelectList(context.Warehouses1, "Id", "Name");
+            ViewBag.QualityId = new SelectList(context.Qualities, "Name", "Name");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            PersonProduct personProduct = context.PersonProducts.Where(p => p.Id == id)
+                .Include(p => p.User)
+                .Include(p => p.Field)
+                .Include(p => p.Product).FirstOrDefault();
+
+            if (personProduct == null)
+            {
+                return HttpNotFound();
+            }
+            return View(personProduct);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,ProductId,HarvestDate,InWarehouse,Neto,Bruto,UserId,Warehouse1Id,ExparationDate,FieldId,Status,Accepted,Quality,Damaged,CircaValue,Urgently,Value")] PersonProduct personProduct)
+        {
+
+            ViewBag.QualityId = new SelectList(context.Qualities, "Name", "Name");
+
+
+            ViewBag.FieldId = new SelectList(context.Fields.Where(f => f.OwnerId == context.Users
+                .Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id), "Id", "Name");
+
+            if (ModelState.IsValid)
+            {
+                context.Entry(personProduct).State = EntityState.Modified;
+                context.SaveChanges();
+
+            }
+            //return View(personProduct);
+            return RedirectToAction("Index");
+        }
     }
 }

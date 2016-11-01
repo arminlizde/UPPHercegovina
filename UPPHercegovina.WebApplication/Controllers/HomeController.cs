@@ -26,6 +26,9 @@ namespace UPPHercegovina.WebApplication.Controllers
 
             int pageNumber = (page ?? 1);
 
+            ViewBag.Recommended = context.Posts.OrderByDescending(p => p.PostDate)
+                .ThenBy(p => p.CategoryId).Where(p => p.Status == true && p.Recommended == true).ToList();
+
             return View(context.Posts.OrderByDescending(p => p.PostDate)
                 .ThenBy(p => p.Recommended)
                 .ThenBy(p => p.CategoryId).Where(p => p.Status == true).ToPagedList(pageNumber, _pageSize));

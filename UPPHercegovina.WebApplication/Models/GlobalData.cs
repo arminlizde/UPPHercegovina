@@ -98,7 +98,7 @@ namespace UPPHercegovina.WebApplication.Models
                         DateOfNextDeliveryStr = CountOfAcceptedDeliveries != 0 ? DateOfNextDelivery.ToShortDateString() : "-";
 
                         CountOfAcceptedProducts = context.PersonProducts
-                           .Where(p => p.Status == true && p.Accepted == true)
+                           .Where(p => p.Status == true && p.Accepted == true && p.InWarehouse == false)
                            .Where(p => p.UserId == CurrentUserId).Count();
                     }
 

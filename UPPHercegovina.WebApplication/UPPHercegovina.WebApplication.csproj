@@ -294,6 +294,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\upphercegovina_logo.png" />
     <Content Include="LinkoviZaProcitat.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -595,6 +596,7 @@
     <Content Include="Views\Fields\Index.cshtml" />
     <Content Include="Views\AdminDashboard\Index.cshtml" />
     <Content Include="Views\UserManagment\AddUser.cshtml" />
+    <Content Include="Views\WarehouseStats\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
