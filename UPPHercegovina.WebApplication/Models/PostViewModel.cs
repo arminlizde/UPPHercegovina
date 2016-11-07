@@ -33,6 +33,9 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "CategoryId")]
         public int CategoryId { get; set; }
 
+        [DataMember(Name = "Picture")]
+        public byte[] Picture { get; set; }
+
         public static Post CreatePost(PostCreateViewModel model, string authorId)
         {
            return new Post(){
@@ -43,7 +46,8 @@ namespace UPPHercegovina.WebApplication.Models
                 Status = true,
                 PostDate = DateTime.Now,
                 Author = authorId,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                Picture = model.Picture
             };
         }
     }

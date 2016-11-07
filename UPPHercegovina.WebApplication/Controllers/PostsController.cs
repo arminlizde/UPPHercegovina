@@ -10,6 +10,8 @@ using UPPHercegovina.WebApplication.Models;
 using UPPHercegovina.WebApplication.Extensions;
 using UPPHercegovina.WebApplication.CustomFilters;
 using PagedList;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UPPHercegovina.WebApplication.Controllers
 {
@@ -116,6 +118,15 @@ namespace UPPHercegovina.WebApplication.Controllers
                 if (SavePictureToServer(file, post))
                 {
                     var author = context.Users.Where(u => u.Email == User.Identity.Name).FirstOrDefault().Id;
+
+                    if(file != null)
+                    {
+                        post.Picture = new byte[file.ContentLength];
+
+                        file.InputStream.Read(post.Picture, 0, file.ContentLength);
+                    }
+
+
                     context.Posts.Add(PostCreateViewModel.CreatePost(post, author));
                     context.SaveChanges();
                     return RedirectToAction("Index");
@@ -180,13 +191,16 @@ namespace UPPHercegovina.WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Recommended,Status")] Post post,
+        public ActionResult Edit([Bind(Include = "Id,Title,Text,Author,PostDate,PictureUrl,Picture,Recommended,Status")] Post post,
             FormCollection form, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 if (file != null)
                 {
+                    post.Picture = new byte[file.ContentLength];
+                    file.InputStream.Read(post.Picture, 0, file.ContentLength);
+
                     if (!SavePictureToServer(file, post))
                     {
                         ViewBag.message = "Please choose only Image file";

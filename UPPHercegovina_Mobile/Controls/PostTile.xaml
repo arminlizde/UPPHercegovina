@@ -1,0 +1,129 @@
+﻿<UserControl
+    x:Class="UPPHercegovina_Mobile.Controls.PostTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UPPHercegovina_Mobile.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    
+    <Grid x:Name="gridPostTile"
+          Loaded="gridPostTile_Loaded"
+          Background="{StaticResource TileBackgroundColor}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Part Author / Date start--> 
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"
+                       Height="20"
+                       Width="20"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="5,0,0,0"
+                       Source="ms-appx:///Images\Author.png"    
+                       />
+
+                <TextBlock x:Name="txtBlockAuthor"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Text="{Binding AuthorName}"/>
+
+            </Grid>
+
+            <StackPanel Orientation="Vertical"
+                        Height="30"
+                        Width="2"
+                        HorizontalAlignment="Right"
+                        Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image 
+                    Grid.Column="0"
+                       Height="20"
+                       Width="20"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="5,0,0,0"
+                       Source="ms-appx:///Images\date.png"    
+                       />
+
+                <TextBlock x:Name="txtDate"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Text="{Binding PostDateOnlyDate}"/>
+
+            </Grid>
+
+        </Grid>
+        <!--Part Author / Date end-->
+
+        <StackPanel Height="1"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource SeperatorsColor}"></StackPanel>
+
+        <!--Part Title start-->
+        <Grid Grid.Row="1">
+
+            <TextBlock 
+                x:Name="textBlockTitle"
+                Text="{Binding Title100Char}"
+                VerticalAlignment="Center"
+                Margin="5,0,5,0"/>
+
+        </Grid>
+        <!--Part Title end-->
+
+        <StackPanel Grid.Row="1"
+                    Height="1"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource SeperatorsColor}"></StackPanel>
+
+        <!--Part Image and text start-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="imgNews"
+                   Grid.Column="0"
+                   Source="{Binding PictureUrl}"/>
+
+            <TextBlock x:Name="textBlockText"
+                       Grid.Column="1"
+                       Margin="2,0,2,0"
+                       TextWrapping="WrapWholeWords"
+                       Text="{Binding Text500Char}"/>
+
+
+        </Grid>
+        <!--Part Image and text end-->
+
+    </Grid>
+</UserControl>

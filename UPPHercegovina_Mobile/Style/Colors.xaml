@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UPPHercegovina_Mobile.Style">
+    
+    <SolidColorBrush x:Key="BackgroundColor">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="TileBackgroundColor">#191C59</SolidColorBrush>
+    <SolidColorBrush x:Key="MenuBarColor">#D49A6A</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonColor">#764B8E</SolidColorBrush>
+    <SolidColorBrush x:Key="SeperatorsColor">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="NavigationBarDrop">#801515</SolidColorBrush>
+
+</ResourceDictionary>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="550ffc93cbea4c689099098f8dd9146d" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Appointment" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRole" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.BuyerRequest" Width="1.5" PointX="5.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Delivery" Width="1.5" PointX="13.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Field" Width="1.5" PointX="5.25" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Mark" Width="1.5" PointX="10.25" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Membership" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PersonProductMark" Width="1.5" PointX="12.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PersonProduct" Width="1.5" PointX="10.25" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PostCategory" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Post" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="8" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductType" Width="1.5" PointX="5.75" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Quality" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ReservedProduct" Width="1.5" PointX="7.5" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Storing" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Township" Width="1.5" PointX="0.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Transaction" Width="1.5" PointX="10.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UserMembership" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Warehouse1" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_Appointments_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Appointments_dbo_PersonProducts_PersonProduct_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Deliveries_dbo_Appointments_AppointmentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUsers_dbo_Townships_TownshipId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_BuyerRequests_dbo_AspNetUsers_BuyerId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Fields_dbo_AspNetUsers_OwnerId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProducts_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Transactions_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_UserMemberships_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ReservedProducts_dbo_BuyerRequests_BuyerRequestId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Transactions_dbo_BuyerRequests_BuyerRequestId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Deliveries_dbo_PersonProducts_PersonProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProducts_dbo_Fields_FieldId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProductMarks_dbo_Marks_MarkId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_UserMemberships_dbo_Memberships_MembershipId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProductMarks_dbo_PersonProducts_PersonProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProducts_dbo_Products_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_PersonProducts_dbo_Warehouse1_Warehouse1Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ReservedProducts_dbo_PersonProducts_PersonProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Posts_dbo_Posts_Post_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Posts_dbo_Posts_Post_Id1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Posts_dbo_Posts_Post_Id2" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Products_dbo_ProductTypes_ProductTypeId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Warehouse1_dbo_Storings_Storing_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Warehouse1_dbo_Townships_TownshipId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

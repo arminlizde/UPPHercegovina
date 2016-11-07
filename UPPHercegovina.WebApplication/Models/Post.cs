@@ -65,6 +65,10 @@ namespace UPPHercegovina.WebApplication.Models
         [DataMember(Name = "CategoryId")]
         public int CategoryId { get; set; }
 
+        //used only for Windows phone part
+        [DataMember(Name = "Picture")]
+        public byte[] Picture { get; set; }
+
         public string Text500string
         {
             get
@@ -129,8 +133,6 @@ namespace UPPHercegovina.WebApplication.Models
         public List<Post> RecommendedPost { get; set; }
 
         public List<Post> LastPost { get; set; }
-
-
 
     }
 }
