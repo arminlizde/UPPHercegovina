@@ -8,8 +8,480 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Storyboard x:Name="OpeningMenuPanel">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stckPnlMenu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="364"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="ClosingMenuPanel">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stckPnlMenu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+
     <Grid x:Name="gridProductDetailsMain"
           Background="{StaticResource BackgroundColor}">
+
+        <!--Menu bar start-->
+        <Grid
+            x:Name="gridMenuBar"
+            Grid.Row="0"
+            Height="40"
+            VerticalAlignment="Top"
+            Background="{StaticResource MenuBarColor}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                            Orientation="Horizontal">
+
+                <TextBlock x:Name="textBlockUPP"
+                           Text="UPPHercegovina"
+                           FontSize="15"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"/>
+
+            </StackPanel>
+
+            <Image
+                 x:Name="btnMenu"
+                 Margin="0,0,10,0"                
+                 Grid.Column="2"
+                 Tapped="btnMenu_Tapped"
+                 Height="30"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Source="ms-appx:///Images\menu2.png"
+                 />
+        </Grid>
+        <!--Menu bar end-->
+
+
+        <Grid x:Name="gridProductDetails"
+              Margin="10,50,10,10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Id proizvoda: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Id}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="0" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Proizvod: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Product}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="1" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Proizvođač: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Producer}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="2" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Bruto: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Bruto}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="3" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="4">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Neto: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Neto}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="4" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="5">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Datum berbe: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding HarvestDate}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="5" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="6">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Rok trajanja: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding ExpirationDate}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="6" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="7">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Skladište: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Warehouse}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="7" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="8">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Kvalitet: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding Quality}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="8" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="9">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Cijena po kilogramu: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding ValuePerKg}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="9" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="10">
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Cijena: "/>
+                <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding ValueSum}"/>
+            </StackPanel>
+            <StackPanel Height="2" Grid.Row="10" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid Grid.Row="11">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Text="Oštećeno: "/>
+                    <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding DamagedString}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Background="{StaticResource SeperatorsColor}"
+                            HorizontalAlignment="Right" Width="2" Height="30"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Margin="10,0,10,0"
+                           Text="Hitno: "/>
+                    <TextBlock FontSize="20"
+                           VerticalAlignment="Center"
+                           Text="{Binding UrgentlyString}"/>
+                </StackPanel>
+
+            </Grid>
+            <StackPanel Height="2" Grid.Row="11" VerticalAlignment="Bottom"
+                        Width="350" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid Grid.Row="12" x:Name="gridCart" Tapped="gridCart_Tapped">
+                <Image Height="30" Width="30"
+                       x:Name="imgCart"
+                       
+                       Source="{Binding SetCart}"
+                       />
+
+            </Grid>
+            
+        </Grid>
+
+
+        <!--Navigation drop start-->
+        <StackPanel
+             x:Name="stckPnlMenu"
+             Margin="10,50,10,0"
+             Height="0"
+             Background="{StaticResource NavigationBarDrop}"
+             VerticalAlignment="Top"
+             Opacity="0.9">
+
+            <Grid
+                x:Name="newsBtn"
+                Height="50"
+                Tapped="newsBtn_Tapped">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\news.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="OBAVIJESTI"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="historyBtn"
+                Tapped="historyBtn_Tapped"
+                Height="50"
+                >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\history.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="SARADNJA"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="profileBtn"
+                Tapped="profileBtn_Tapped"
+                Height="50"
+                >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\user.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="PROFIL"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="productsBtn"
+                Tapped="productsBtn_Tapped"
+                Height="50">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\products.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="PREGLED PROIZVODA"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="buyersBtn"
+                Tapped="buyersBtn_Tapped"
+                Height="50">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\prices.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="CJENOVNIK"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="cartBtn"
+                Tapped="cartBtn_Tapped"
+                Height="50">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\cart.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="U KORPI"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="logoutBtn"
+                Tapped="logoutBtn_Tapped"
+                Height="50">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\logout.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="ODJAVA"/>
+
+            </Grid>
+        </StackPanel>
+        <!--Navigation drop end-->
 
     </Grid>
 </Page>

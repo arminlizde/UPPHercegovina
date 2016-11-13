@@ -16,7 +16,7 @@
     
     <Grid 
         x:Name="gridLogin"
-        Background="{StaticResource BackgroundColor}">
+        Background="{StaticResource BackgroundLoginColor}">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -50,7 +50,7 @@
                 MaxHeight="170"
                 Width="300"
                 Height="200"
-                Source="ms-appx:///Images\upphercegovina_logo.png"/>
+                Source="ms-appx:///Images\upphercegovina_logo2.png"/>
 
         </StackPanel>
 

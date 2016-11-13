@@ -1,0 +1,358 @@
+﻿<Page
+    x:Class="UPPHercegovina_Mobile.Views.Producer.TopProductsInWarehouseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UPPHercegovina_Mobile.Views.Producer"
+           xmlns:Controls="using:UPPHercegovina_Mobile.Controls" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Storyboard x:Name="OpeningMenuPanel">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stckPnlMenu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="414"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="ClosingMenuPanel">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stckPnlMenu">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    
+    <Grid Background="{StaticResource BackgroundColor}">
+        <!--Menu bar start-->
+        <Grid
+            x:Name="gridMenuBar"
+            Grid.Row="0"
+            Height="40"
+            VerticalAlignment="Top"
+            Background="{StaticResource MenuBarColor}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                            Orientation="Horizontal">
+
+                <TextBlock x:Name="textBlockUPP"
+                           Text="UPPHercegovina"
+                           FontSize="15"
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"/>
+
+            </StackPanel>
+
+            <Image
+                 x:Name="btnMenu"
+                 Margin="0,0,10,0"                
+                 Grid.Column="2"
+                 Tapped="btnMenu_Tapped"
+                 Height="30"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Right"
+                 Source="ms-appx:///Images\menu2.png"
+                 />
+        </Grid>
+        <!--Menu bar end-->
+
+        <!--Product tiles start-->
+        <ScrollViewer
+                    Margin="0,50,0,0"
+                    Grid.Row="1"
+                    x:Name="scrollViewerNews"            
+                    Background="Transparent">
+
+            <ItemsControl 
+                          x:Name="scrollProducts"
+                          VerticalAlignment="Top"
+                          >
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Controls:TopProductTile
+                            x:Name="ProductTile"
+                            Tapped="ProductTile_Tapped"
+                            Margin="5,0,5,10"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </ScrollViewer>
+        <!--Product tile end-->
+
+
+        <!--Navigation drop start-->
+        <StackPanel
+             x:Name="stckPnlMenu"
+             Margin="10,50,10,0"
+             Height="0"
+             Background="{StaticResource NavigationBarDrop}"
+             VerticalAlignment="Top"
+             Opacity="0.9">
+
+            <!--obavijesti-->
+            <Grid
+                x:Name="gridNews"
+                Height="50"
+                Tapped="gridNews_Tapped">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\news.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="OBAVIJESTI"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--profile-->
+            <Grid
+                x:Name="profile"
+                Height="50"
+                Tapped="profile_Tapped">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\user.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="PROFIL"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--Add new person product-->
+            <Grid
+                x:Name="addNewPersonProdcuctBtn"
+                Height="50"
+                Tapped="addNewPersonProdcuctBtn_Tapped">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\addproduct.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="DODAJ NOVI PROIZVOD"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--Create appointment-->
+            <Grid
+                x:Name="appointmentCreateBtn"
+                Height="50"
+                Tapped="appointmentCreateBtn_Tapped">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\appointments.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="DODAJ TERMIN DOSTAVE"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--Products-->
+            <Grid
+                x:Name="productsBtn"
+                Tapped="productsBtn_Tapped"
+                Height="50"
+                >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\products.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="PROIZVODI"/>
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--TOP SOLD-->
+            <Grid
+                x:Name="topSoldProductsBtn"
+                Height="50"
+                >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\sold.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="Red"
+                    Grid.Column="1"
+                    Text="NAJPRODAVANIJI PROIZVODI"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--warehouse-->
+            <Grid
+                x:Name="gridWarehouse"
+                Tapped="gridWarehouse_Tapped"
+                Height="50"
+               >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\warehouse.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="STANJE SKLADIŠTA"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <!--logout-->
+            <Grid
+                x:Name="logout"
+                Tapped="logout_Tapped"
+                Height="50"
+               >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\logout.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="ODJAVA"/>
+
+            </Grid>
+
+        </StackPanel>
+        <!--Navigation drop end-->
+    </Grid>
+</Page>

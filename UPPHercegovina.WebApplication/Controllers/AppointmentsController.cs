@@ -70,8 +70,6 @@ namespace UPPHercegovina.WebApplication.Controllers
                 return RedirectToAction("Index");
             }
 
-
-           // ViewBag.UserId = new SelectList(db.ApplicationUsers, "Id", "FirstName", appointment.UserId);
             return View(appointment);
         }
 

@@ -1,0 +1,100 @@
+﻿<UserControl
+    x:Class="UPPHercegovina_Mobile.Controls.TopProductTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UPPHercegovina_Mobile.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid
+          Height="82"
+          VerticalAlignment="Top">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="{StaticResource TileBackgroundColor}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Proizvod"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="Neto"
+                          
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="Bruto"
+                         
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+
+            </Grid>
+
+            <StackPanel Width="250" Grid.Row="1" VerticalAlignment="Bottom" Background="Transparent"/>
+
+            <Grid Grid.Row="2" Background="{StaticResource TileBackgroundColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock Grid.Column="0"
+                           x:Name="txtProduct"
+                           Text="{Binding Product}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding Neto}"
+                           x:Name="txtNeto"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Bruto}"
+                           x:Name="txtValuePerKg"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="10,0,0,0"
+                           FontSize="15"/>
+
+            </Grid>
+
+            <StackPanel Width="250" Grid.Row="1" VerticalAlignment="Bottom" Background="Transparent"/>
+
+
+        </Grid>
+
+    </Grid>
+</UserControl>

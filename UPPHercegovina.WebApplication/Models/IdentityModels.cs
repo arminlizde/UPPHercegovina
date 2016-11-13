@@ -45,8 +45,6 @@ namespace UPPHercegovina.WebApplication.Models
                 }
             } }
 
-        public virtual Township Township { get; set; }
-
         public string GetAverageMark
         {
             get
@@ -69,6 +67,9 @@ namespace UPPHercegovina.WebApplication.Models
                 }
             }
         }
+
+        public virtual Township Township { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

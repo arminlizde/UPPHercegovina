@@ -12,7 +12,7 @@
     <Page.Resources>
         <Storyboard x:Name="OpeningMenuPanel">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stckPnlMenu">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="314"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="364"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="ClosingMenuPanel">
@@ -155,7 +155,7 @@
                     FontSize="20"
                     FontWeight="Bold"
                     Grid.Column="1"
-                    Text="HISTORIJA SARADNJE"/>
+                    Text="SARADNJA"/>
 
             </Grid>
 
@@ -277,6 +277,36 @@
                     FontWeight="Bold"
                     Grid.Column="1"
                     Text="U KORPI"/>
+
+            </Grid>
+
+            <StackPanel Height="2" Width="360" Background="{StaticResource SeperatorsColor}"/>
+
+            <Grid
+                x:Name="logoutBtn"
+                Tapped="logoutBtn_Tapped"
+                Height="50">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Source="ms-appx:///Images\logout.png"
+                    Margin="10,0,0,0"
+                    Height="40"
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    />
+
+                <TextBlock 
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Grid.Column="1"
+                    Text="ODJAVA"/>
 
             </Grid>
 

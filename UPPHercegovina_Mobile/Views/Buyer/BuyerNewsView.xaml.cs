@@ -19,6 +19,8 @@ using UPPHercegovina_PCL.Models;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using UPPHercegovina_Mobile.Controls;
+using Windows.UI.Popups;
+using Windows.UI.Core;
 
 namespace UPPHercegovina_Mobile.Views.Buyer
 {
@@ -28,13 +30,19 @@ namespace UPPHercegovina_Mobile.Views.Buyer
         private List<PostViewModel> _news;
         private bool _openedMenuAnimation = false;
 
+        //in every view
+        private MessageDialog _messageBox;
+
+
         public BuyerNewsView()
         {
             this.InitializeComponent();
             _news = new List<PostViewModel>();
 
+            GlobalData.Instance.BuyersNotifications += BuyerCheckForNotifications;
             GetData();
             BindData();
+            GlobalData.Instance.ApplicationStarted = false;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,6 +50,27 @@ namespace UPPHercegovina_Mobile.Views.Buyer
 
         }
 
+        public async void BuyerCheckForNotifications()
+        {
+            if (GlobalData.Instance.NumberOfNotificationChanged)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication
+                    .MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    _messageBox = new MessageDialog("Imate novu prihvaćenu rezervaciju !!! ");
+
+                    ShowMessage();
+                    GlobalData.Instance.NumberOfNotificationChanged = false;
+                }
+                );
+            }
+        }
+
+        private async void ShowMessage()
+        {
+            await _messageBox.ShowAsync();
+        }
 
         private void CloseMenuPanel()
         {
@@ -106,6 +135,12 @@ namespace UPPHercegovina_Mobile.Views.Buyer
         private void cartBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(CartView));
+        }
+
+        private void logoutBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            GlobalData.Instance.Clear();
+            Frame.Navigate(typeof(Login));
         }
     }
 }

@@ -136,15 +136,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
+    <Compile Include="Controllers\BuyerRequestsController.cs" />
+    <Compile Include="Controllers\DeliveriesController.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\PersonProductsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\WarehousesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppointmentPostReturnModel.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -161,6 +168,8 @@
     <Compile Include="Models\BuyerRequest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BuyerRequestViewModel.cs" />
+    <Compile Include="Models\BuyerViewModel.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -170,6 +179,7 @@
     <Compile Include="Models\Field.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FieldsViewModel.cs" />
     <Compile Include="Models\JsonTest.cs" />
     <Compile Include="Models\Mark.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -199,6 +209,7 @@
     <Compile Include="Models\PersonProductMark.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PersonProductViewModel.cs" />
     <Compile Include="Models\Post.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -206,9 +217,11 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostViewModel.cs" />
+    <Compile Include="Models\PriceViewModel.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductsViewModel.cs" />
     <Compile Include="Models\ProductType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -233,6 +246,7 @@
     <Compile Include="Models\Warehouse1.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WarehouseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\LoginHelper.cs" />
   </ItemGroup>

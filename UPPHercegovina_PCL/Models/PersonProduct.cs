@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UPPHercegovina_WebAPI.Models
+namespace UPPHercegovina_PCL.Models
 {
     using Newtonsoft.Json;
     using System;

@@ -30,8 +30,13 @@ namespace UPPHercegovina_Mobile
 
         private async void loginbtn_Click(object sender, RoutedEventArgs e)
         {
-            inputPassword.Password = "Jovan1@Jovan.com";
-            inputEmail.Text = "Jovan1@Jovan.com";
+            //inputPassword.Password = "Jovan1@Jovan.com";
+            //inputEmail.Text = "Jovan1@Jovan.com";
+
+            inputPassword.Password = "Armin1@lizde.com";
+            inputEmail.Text = "Armin1@lizde.com";
+
+            loginbtn.Visibility = Visibility.Collapsed;
 
             if (!String.IsNullOrEmpty(inputPassword.Password.ToString()))
             {

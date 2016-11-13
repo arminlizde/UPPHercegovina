@@ -92,8 +92,35 @@
     <Compile Include="Controls\MenuBarTile.xaml.cs">
       <DependentUpon>MenuBarTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MsgBoxFadingTile.xaml.cs">
+      <DependentUpon>MsgBoxFadingTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotificationTile.xaml.cs">
+      <DependentUpon>NotificationTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PostTile.xaml.cs">
       <DependentUpon>PostTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceTile.xaml.cs">
+      <DependentUpon>PriceTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductDeliveryTile.xaml.cs">
+      <DependentUpon>ProductDeliveryTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductTile.xaml.cs">
+      <DependentUpon>ProductTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductTileBuyer.xaml.cs">
+      <DependentUpon>ProductTileBuyer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Product_MoreInfoTile.xaml.cs">
+      <DependentUpon>Product_MoreInfoTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReservationTile.xaml.cs">
+      <DependentUpon>ReservationTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopProductTile.xaml.cs">
+      <DependentUpon>TopProductTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -126,8 +153,38 @@
     <Compile Include="Views\Buyer\ProfileView.xaml.cs">
       <DependentUpon>ProfileView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Buyer\ReservationView.xaml.cs">
+      <DependentUpon>ReservationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\AddNewPersonProductView.xaml.cs">
+      <DependentUpon>AddNewPersonProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\AppointmentCreateView.xaml.cs">
+      <DependentUpon>AppointmentCreateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProcessingProductsView.xaml.cs">
+      <DependentUpon>ProcessingProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProducerNewsDetailsView.xaml.cs">
+      <DependentUpon>ProducerNewsDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Producer\ProducerNewsView.xaml.cs">
       <DependentUpon>ProducerNewsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProducerProductDetailsView.xaml.cs">
+      <DependentUpon>ProducerProductDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProducerProfileView.xaml.cs">
+      <DependentUpon>ProducerProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProducersProductView.xaml.cs">
+      <DependentUpon>ProducersProductView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\ProductsInWarehouse.xaml.cs">
+      <DependentUpon>ProductsInWarehouse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producer\TopProductsInWarehouseView.xaml.cs">
+      <DependentUpon>TopProductsInWarehouseView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -143,21 +200,32 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="Images\add-cart.png" />
+    <Content Include="Images\addproduct.png" />
     <Content Include="Images\appointments.png" />
     <Content Include="Images\author.png" />
+    <Content Include="Images\cancel.png" />
     <Content Include="Images\cart.png" />
+    <Content Include="Images\checked.png" />
     <Content Include="Images\date.png" />
     <Content Include="Images\default.jpg" />
+    <Content Include="Images\delivery.png" />
+    <Content Include="Images\delivery_in.png" />
+    <Content Include="Images\delivery_out.png" />
     <Content Include="Images\history.png" />
+    <Content Include="Images\logout.png" />
     <Content Include="Images\menu.png" />
     <Content Include="Images\menu2.png" />
     <Content Include="Images\news.png" />
     <Content Include="Images\prices.png" />
     <Content Include="Images\products.png" />
     <Content Include="Images\remove-cart.png" />
+    <Content Include="Images\remove-cart_white.png" />
+    <Content Include="Images\sold.png" />
     <Content Include="Images\stats.png" />
     <Content Include="Images\upphercegovina_logo.png" />
+    <Content Include="Images\upphercegovina_logo2.png" />
     <Content Include="Images\user.png" />
+    <Content Include="Images\warehouse.png" />
     <Content Include="Readme\Html2Xaml.Readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +237,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\MsgBoxFadingTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NotificationTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PostTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PriceTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProductDeliveryTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProductTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProductTileBuyer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Product_MoreInfoTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ReservationTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TopProductTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -218,7 +322,47 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Buyer\ReservationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\AddNewPersonProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\AppointmentCreateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProcessingProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProducerNewsDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Producer\ProducerNewsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProducerProductDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProducerProfileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProducersProductView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\ProductsInWarehouse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Producer\TopProductsInWarehouseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

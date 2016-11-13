@@ -16,6 +16,26 @@ namespace UPPHercegovina_WebAPI.Controllers
     {
         private Entities db = new Entities();
 
+        [HttpGet]
+        [Route("api/AspNetUsers/GetAverageMark/{UserId}")]
+        public IHttpActionResult GetAverageMark(string UserId)
+        {
+            var list = db.PersonProducts.Where(p => p.Accepted == true)
+                .Where(p => p.UserId == UserId)
+                .Where(p => p.Rating != 0).ToList();
+
+            var countRated = list.Count();
+
+            float averageMark = 0;
+
+            foreach (var item in list)
+            {
+                averageMark += item.Rating;
+            }
+
+            return Ok(averageMark / countRated);
+        }
+
         // GET: api/AspNetUsers
         public IQueryable<AspNetUser> GetAspNetUsers()
         {
@@ -53,20 +73,55 @@ namespace UPPHercegovina_WebAPI.Controllers
                 }
                 : new AspNetUserViewModel() { Error = true };
 
+            //moze se ovo rijesiti ako saljemo negoLoginModel u njega strpamo password koji sadrzi taj znak i onda ce proci :)
             //puca ako ima na kraju passworda neki retardirani znak poput .
         }
 
         // GET: api/AspNetUsers/5
-        [ResponseType(typeof(AspNetUser))]
+        [ResponseType(typeof(BuyerViewModel))]
         public IHttpActionResult GetAspNetUser(string id)
         {
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            if (aspNetUser == null)
+            AspNetUser aspNetUser = db.AspNetUsers
+                .Where(u => u.Id == id)
+                .Include(u => u.Township)
+                .Include(u => u.AspNetRoles).FirstOrDefault();
+
+            if (aspNetUser == null || aspNetUser.Id == "")
+                return Ok(new BuyerViewModel() { Error = true });
+
+            return Ok(new BuyerViewModel() {
+
+                Id = aspNetUser.Id,
+                FullName = String.Format("{0} {1}", aspNetUser.FirstName, aspNetUser.LastName),
+                Address = aspNetUser.Address,
+                Email = aspNetUser.Email,
+                Error = false,
+                PhoneNumber = aspNetUser.PhoneNumber,
+                RegistrationDate = aspNetUser.RegistrationDate.ToShortDateString(),
+                Township = aspNetUser.Township.Name,
+                Role = aspNetUser.AspNetRoles.FirstOrDefault().Name,
+                NumberOfSuccededRequests = db.BuyerRequests.Where(r => r.BuyerId == id && r.Accepted == true && r.Status == false).Count(),
+                NumberOfFailedRequests = db.BuyerRequests.Where(r => r.BuyerId == id && r.Accepted == false && r.Status == false).Count(),
+                NumberOfBoughtProducts = GetNumberOfBoughtProducts(id)
+
+            });
+        }
+
+        private int GetNumberOfBoughtProducts(string BuyerId)
+        {
+            var number = 0;
+            var requests = db.BuyerRequests
+                .Where(r => r.BuyerId == BuyerId && r.Status == false && r.Accepted == true)
+                .Include(r => r.ReservedProducts)
+                .ToList();
+
+            foreach (var item in requests)
             {
-                return NotFound();
+                number += item.ReservedProducts.Count();
             }
 
-            return Ok(aspNetUser);
+
+            return number;
         }
 
         // PUT: api/AspNetUsers/5

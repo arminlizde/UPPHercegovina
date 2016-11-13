@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using UPPHercegovina_PCL.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -119,5 +121,9 @@ namespace UPPHercegovina_Mobile.Views.Buyer
             Frame.Navigate(typeof(BuyerNewsView));
         }
 
+        private void logoutBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -54,5 +54,15 @@ namespace UPPHercegovina_PCL.Models
         public string Role { get; set; }
 
         public string FullName { get { return String.Format("{0} {1}", FirstName, LastName); } }
+
+
+
+        public string AverageMark { get; set; }
+        public int BrutoAddedKg { get; set; }
+        public int BrutoSoldKg { get; set; }
+        public int NetoAddedKg { get; set; }
+        public int NetoSoldKg { get; set; }
+        public int BrutoDiffKg { get; set; }
+        public int NetoDiffKg { get; set; }
     }
 }

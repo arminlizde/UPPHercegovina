@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="UPPHercegovina_Mobile.Controls.MsgBoxFadingTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UPPHercegovina_Mobile.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <UserControl.Resources>
+        <Storyboard x:Name="ClosingMsgBox">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Opacity)" Storyboard.TargetName="msgBox">
+                <EasingDoubleKeyFrame KeyTime="0:0:3.0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+
+
+    <Grid
+        x:Name="msgBox"
+        Height="250"
+        Width="300"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="{StaticResource TileBackgroundColor}"
+        Opacity="1">
+
+        <TextBlock x:Name="txtMessage"                
+                   Text="Message"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="18"
+                   Margin="15,15,15,15"/>
+    </Grid>
+</Page>
